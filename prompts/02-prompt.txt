@@ -1,0 +1,25 @@
+REFERENCE-MATCH PRODUCT PHOTOGRAPHY | PRESET 02
+Упаковка сверху
+
+INPUT IMAGES AND PRIORITY
+Image A = the supplied numbered composition reference (02). Use it ONLY for camera viewpoint, orientation, framing, object placement, background, floor, lighting, cast shadows and reflection geometry.
+Image B = the replacement packaging reference. Use it as the ONLY source of product identity: actual silhouette, proportions, materials, colors, camera count and layout, buttons, branding and decoration.
+REPLACEMENT PRODUCT: [Attach the packaging to be used, or explicitly keep the Caviar packaging shown in A.]
+Do not copy the original phone design from A onto B. In particular, do not add its Om symbol, lotus engraving, red enamel, gold panels, gemstones, anniversary marks or serial numbers unless those details actually exist on B. Do not recolor B to match the gold/silver reference. Preserve B faithfully.
+
+FIXED COMPOSITION 02
+Output aspect ratio 1143:2048; vertical 9:16-like portrait canvas, ideally 1143 × 2048.
+A strictly overhead flat lay of TWO separate rectangular packaging components, with their faces parallel to the image plane. No smartphone appears in this image. The upper component is a closed dark-navy leather presentation case with a softly raised inset panel, gentle diagonal folds in the inset and a small gold crown centered on its lower lip. Approximate bounds x=11–89%, y=19–47%. The lower component is a wider dark-navy textured outer box, with a vertical center seam, approximate bounds x=10–91%, y=50–80%. Keep the narrow empty gap between them and their exact horizontal alignment. The original lower box has gold CAVIAR ROYAL GIFT on the left, a small centered 15 YEARS OF BRILLIANCE anniversary emblem, and SUPREME EDITION on the right. Retain these marks only when matching the same packaging; if image B supplies another package, use ONLY its actual logos and wording while retaining this arrangement. Do not invent new lettering.
+SCENE: nearly white, subtly cool-gray matte studio floor with a gentle luminance falloff toward the bottom/right. No horizon, no perspective camera tilt, no specular floor reflection. Large soft light from upper left casts broad soft shadows mainly down and right. Preserve the large empty margin above the top case and below the outer box.
+
+MATCHING RULES
+Image A is the visual authority. The percentages above are approximate guides to observed framing, not measured camera calibration. Follow A's actual corner positions, silhouette orientation, negative space, camera azimuth/elevation, perspective compression and floor light pattern. Never mirror or reverse the composition. Preserve B's native proportions; match relative height and placement without stretching, cutting off new camera modules or distorting the hardware. Re-light B consistently with the fixed scene. Background must remain the same neutral color family and brightness pattern even when B has a different material/color. Do not adapt the background palette to the new phone.
+PACKAGE REQUIREMENT: this preset contains packaging only. A smartphone-only B does not specify a replacement box; keep the original packaging only when explicitly requested, otherwise request its packaging reference. Do not place a smartphone into the flat lay.
+
+RENDERING
+Photoreal commercial product photograph. Accurate hard-surface geometry, fine material texture, readable true engravings, controlled specular highlights, neutral white balance and realistic contact physics. No added graphic titles, captions, watermarks or logos. Keep the original reference scene clean and empty.
+
+NEGATIVE CONSTRAINTS
+wrong viewpoint, mirrored image, reversed diagonal, different phone posture, wrong scale, arbitrary zoom, changed crop, warped rectangle, stretched device, invented cameras, missing camera, invented hinge, duplicate smartphone, transferred source-phone artwork, copied Om symbol, altered target design, recolored target, extra props, pedestal, hands, people, scenery, background hue adapted to product, dramatic new light setup, excessive glow, blown metallic highlights, unreadable invented text, watermark, floating unsupported object, unrequested transparent background.
+
+Use BOTH images with this prompt. Text alone cannot guarantee an exact spatial match; retain A as the composition reference during generation/editing.

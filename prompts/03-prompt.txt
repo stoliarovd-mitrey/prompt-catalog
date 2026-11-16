@@ -1,0 +1,25 @@
+REFERENCE-MATCH PRODUCT PHOTOGRAPHY | PRESET 03
+Раскрытый смартфон стоя
+
+INPUT IMAGES AND PRIORITY
+Image A = the supplied numbered composition reference (03). Use it ONLY for camera viewpoint, orientation, framing, object placement, background, floor, lighting, cast shadows and reflection geometry.
+Image B = the replacement smartphone reference(s). Use it as the ONLY source of product identity: actual silhouette, proportions, materials, colors, camera count and layout, buttons, branding and decoration.
+REPLACEMENT PRODUCT: [Attach photo(s) of the smartphone to be substituted.]
+Do not copy the original phone design from A onto B. In particular, do not add its Om symbol, lotus engraving, red enamel, gold panels, gemstones, anniversary marks or serial numbers unless those details actually exist on B. Do not recolor B to match the gold/silver reference. Preserve B faithfully.
+
+FIXED COMPOSITION 03
+Output aspect ratio 1143:2048; vertical 9:16-like portrait canvas, ideally 1143 × 2048.
+One book-style foldable smartphone stands on both lower edges, partly open in a V configuration. Its hinge is vertical, near x≈53% of the frame, extending approximately from y=33% to y=73%. The decorated rear half is on the LEFT; the opposite half with its dark outer screen faces the viewer on the RIGHT. These are two connected halves of ONE phone, never two separate phones. Match the opening angle, converging perspective, upper corners and visible hinge directly to image A; the top outer corners sit around (17%,30%) and (84%,29%). Approximate overall bounds x=15–85%, y=29–74%. Camera is slightly above the midpoint and looks down enough to reveal the top edges. No camera roll. Both bottom edges remain firmly grounded. The outer screen retains image B's real design/screen content; do not copy the original Caviar screen mark onto an unrelated phone.
+SCENE: seamless cool medium-light gray cyclorama, darker at the top and smoothly brighter toward the floor, without a sharp horizon. Smooth satin floor, subtle contact reflection only. Directional broad key from upper right/front; long soft-edged bluish gray shadow runs diagonally toward the lower left. Preserve the very generous blank upper third and the floor space below.
+
+MATCHING RULES
+Image A is the visual authority. The percentages above are approximate guides to observed framing, not measured camera calibration. Follow A's actual corner positions, silhouette orientation, negative space, camera azimuth/elevation, perspective compression and floor light pattern. Never mirror or reverse the composition. Preserve B's native proportions; match relative height and placement without stretching, cutting off new camera modules or distorting the hardware. Re-light B consistently with the fixed scene. Background must remain the same neutral color family and brightness pattern even when B has a different material/color. Do not adapt the background palette to the new phone.
+HARDWARE REQUIREMENT: B must show a compatible book-style foldable smartphone, preferably with references of both halves. Reproduce A’s hinge and opening posture using B’s real mechanism. If B is a rigid slab phone, STOP and request a compatible foldable reference or a different numbered preset. Never invent a hinge or a second phone.
+
+RENDERING
+Photoreal commercial product photograph. Accurate hard-surface geometry, fine material texture, readable true engravings, controlled specular highlights, neutral white balance and realistic contact physics. No added graphic titles, captions, watermarks or logos. Keep the original reference scene clean and empty.
+
+NEGATIVE CONSTRAINTS
+wrong viewpoint, mirrored image, reversed diagonal, different phone posture, wrong scale, arbitrary zoom, changed crop, warped rectangle, stretched device, invented cameras, missing camera, invented hinge, duplicate smartphone, transferred source-phone artwork, copied Om symbol, altered target design, recolored target, extra props, pedestal, hands, people, scenery, background hue adapted to product, dramatic new light setup, excessive glow, blown metallic highlights, unreadable invented text, watermark, floating unsupported object, unrequested transparent background.
+
+Use BOTH images with this prompt. Text alone cannot guarantee an exact spatial match; retain A as the composition reference during generation/editing.

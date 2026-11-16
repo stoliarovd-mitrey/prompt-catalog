@@ -1,0 +1,25 @@
+REFERENCE-MATCH PRODUCT PHOTOGRAPHY | PRESET 10
+Каталожная вырезка
+
+INPUT IMAGES AND PRIORITY
+Image A = the supplied numbered composition reference (10). Use it ONLY for camera viewpoint, orientation, framing, object placement, background, floor, lighting, cast shadows and reflection geometry.
+Image B = the replacement smartphone reference(s). Use it as the ONLY source of product identity: actual silhouette, proportions, materials, colors, camera count and layout, buttons, branding and decoration.
+REPLACEMENT PRODUCT: [Attach photo(s) of the smartphone to be substituted.]
+Do not copy the original phone design from A onto B. In particular, do not add its Om symbol, lotus engraving, red enamel, gold panels, gemstones, anniversary marks or serial numbers unless those details actually exist on B. Do not recolor B to match the gold/silver reference. Preserve B faithfully.
+
+FIXED COMPOSITION 10
+Output aspect ratio 830:950; portrait catalog cutout.
+A single closed smartphone isolated as a clean product cutout on a TRANSPARENT alpha background, with no studio scene. Portrait canvas matching image A's 830:950 proportions. The complete silhouette occupies approximately x=15–85%, y=4–96%. Rear face is dominant, with its LEFT metal side visible in a restrained three-quarter view. The top edge slopes gently down toward the right; the bottom edge is almost horizontal with slight perspective. Match the reference object size, center, corner positions and visible side thickness without cropping any corner. Keep camera end at the top and the phone upright. Use only image B's actual body design, proportions, cameras, markings and materials. No original Om emblem, engraved floral motif or gold panels may be added unless they are present on image B.
+SCENE: no background at all, no floor, no horizon, no cast shadow outside the silhouette, no floor reflection, no white rectangle, no checkerboard baked into the pixels. Render controlled neutral studio material lighting on the object only. Preserve its contact-free cutout appearance, crisp antialiased alpha edges and realistic fine detail. Output PNG with true transparency where supported. If the image generator cannot emit alpha, use a uniform white background and remove that background in a separate step; do not pretend a white JPEG is transparent.
+
+MATCHING RULES
+Image A is the visual authority. The percentages above are approximate guides to observed framing, not measured camera calibration. Follow A's actual corner positions, silhouette orientation, negative space, camera azimuth/elevation, perspective compression and floor light pattern. Never mirror or reverse the composition. Preserve B's native proportions; match relative height and placement without stretching, cutting off new camera modules or distorting the hardware. Re-light B consistently with the fixed scene. Background must remain the same neutral color family and brightness pattern even when B has a different material/color. Do not adapt the background palette to the new phone.
+If B does not show an essential side or rear detail required by this view, request another product photo rather than inventing hardware or artwork.
+
+RENDERING
+Photoreal commercial product photograph. Accurate hard-surface geometry, fine material texture, readable true engravings, controlled specular highlights, neutral white balance and realistic contact physics. No added graphic titles, captions, watermarks or logos. PNG alpha cutout; no external shadow or reflected floor.
+
+NEGATIVE CONSTRAINTS
+wrong viewpoint, mirrored image, reversed diagonal, different phone posture, wrong scale, arbitrary zoom, changed crop, warped rectangle, stretched device, invented cameras, missing camera, invented hinge, duplicate smartphone, transferred source-phone artwork, copied Om symbol, altered target design, recolored target, extra props, pedestal, hands, people, scenery, background hue adapted to product, dramatic new light setup, excessive glow, blown metallic highlights, unreadable invented text, watermark, floor, cast shadow, floor reflection, baked checkerboard, opaque background.
+
+Use BOTH images with this prompt. Text alone cannot guarantee an exact spatial match; retain A as the composition reference during generation/editing.

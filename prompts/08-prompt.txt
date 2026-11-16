@@ -1,0 +1,25 @@
+REFERENCE-MATCH PRODUCT PHOTOGRAPHY | PRESET 08
+Макро задней панели
+
+INPUT IMAGES AND PRIORITY
+Image A = the supplied numbered composition reference (08). Use it ONLY for camera viewpoint, orientation, framing, object placement, background, floor, lighting, cast shadows and reflection geometry.
+Image B = the replacement smartphone reference(s). Use it as the ONLY source of product identity: actual silhouette, proportions, materials, colors, camera count and layout, buttons, branding and decoration.
+REPLACEMENT PRODUCT: [Attach photo(s) of the smartphone to be substituted.]
+Do not copy the original phone design from A onto B. In particular, do not add its Om symbol, lotus engraving, red enamel, gold panels, gemstones, anniversary marks or serial numbers unless those details actually exist on B. Do not recolor B to match the gold/silver reference. Preserve B faithfully.
+
+FIXED COMPOSITION 08
+Output aspect ratio 1143:2048; vertical 9:16-like portrait canvas, ideally 1143 × 2048.
+A single closed smartphone lies rear-side up and fills nearly the whole frame in a diagonal macro/close product view. Camera is above and to its LEFT side. The camera end lies toward the upper left; the long body continues down/right. Keep the exact asymmetric crop: the topmost far corner is near (71%,17%), the left rounded corner near (3%,39%), the near long side descends diagonally toward the bottom/right, and the RIGHT edge and lower/right end are cut by the canvas. Do not shrink the phone to fit it fully into frame. The upper camera area, adjacent branding/material area and a large central section of the new rear panel are all sharply readable. Preserve the new phone's own camera module and rear design; frame its corresponding regions, without adding the original Om emblem, lotus engraving, red enamel or gemstones. Match the viewpoint and the ratio of visible rear plane to thin left side.
+SCENE: cool slate-gray studio surface with a darker upper-left gradient and a restrained diffuse bright area upper-right. Only limited background is visible above and to the left of the phone. Controlled directional soft studio light gives clean bright edge highlights and precise material microstructure without blown whites. Tight grounded contact shadow along the near long edge. No bokeh that obscures the cameras or rear detail; do not show the whole silhouette.
+
+MATCHING RULES
+Image A is the visual authority. The percentages above are approximate guides to observed framing, not measured camera calibration. Follow A's actual corner positions, silhouette orientation, negative space, camera azimuth/elevation, perspective compression and floor light pattern. Never mirror or reverse the composition. Preserve B's native proportions; match relative height and placement without stretching, cutting off new camera modules or distorting the hardware. Re-light B consistently with the fixed scene. Background must remain the same neutral color family and brightness pattern even when B has a different material/color. Do not adapt the background palette to the new phone.
+If B does not show an essential side or rear detail required by this view, request another product photo rather than inventing hardware or artwork.
+
+RENDERING
+Photoreal commercial product photograph. Accurate hard-surface geometry, fine material texture, readable true engravings, controlled specular highlights, neutral white balance and realistic contact physics. No added graphic titles, captions, watermarks or logos. Keep the original reference scene clean and empty.
+
+NEGATIVE CONSTRAINTS
+wrong viewpoint, mirrored image, reversed diagonal, different phone posture, wrong scale, arbitrary zoom, changed crop, warped rectangle, stretched device, invented cameras, missing camera, invented hinge, duplicate smartphone, transferred source-phone artwork, copied Om symbol, altered target design, recolored target, extra props, pedestal, hands, people, scenery, background hue adapted to product, dramatic new light setup, excessive glow, blown metallic highlights, unreadable invented text, watermark, floating unsupported object, unrequested transparent background.
+
+Use BOTH images with this prompt. Text alone cannot guarantee an exact spatial match; retain A as the composition reference during generation/editing.

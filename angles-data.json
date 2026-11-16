@@ -1,0 +1,112 @@
+[
+  {
+    "id": "01",
+    "title": "Прямой вид сзади",
+    "pose": "Смартфон стоит, почти без разворота",
+    "background": "Светлый холодный фон, отражение внизу",
+    "kind": "phone",
+    "src": "references/01.jpg",
+    "aspect": "1143:2048",
+    "scene": "A single closed smartphone stands upright on its bottom edge, rear panel facing the camera almost perfectly square-on. The vertical axis is upright without roll. Only a very narrow sliver of its side/second folded layer is visible at the right edge; do not turn this into a strong three-quarter view. Match the flat top and bottom edge directions and the reference silhouette. Entire phone is visible. Approximate object bounds on the full canvas: x=18–82%, y=23–76%, with the contact point at y≈75.5%. Its visual center sits below the canvas center, with large uninterrupted headroom. Preserve the new phone's own aspect ratio, using the same height occupancy rather than stretching it to the original width.\nSCENE: seamless cool light silver-gray studio cyclorama, slightly darker toward the upper part, brightening to a nearly white horizontal floor region near y≈68–71%, without a hard drawn horizon. Smooth pale semi-gloss floor. Broad soft directional illumination from upper right/front produces a wide low-contrast cast shadow extending leftward along the floor. Keep the soft, vertically stretched, heavily defocused reflection below the base, fading toward the bottom edge; do not make a crisp mirror copy. No pedestal or props.",
+    "source": "iPhone_duo_Omkara_image_01_idea.jpg"
+  },
+  {
+    "id": "02",
+    "title": "Упаковка сверху",
+    "pose": "Два элемента упаковки, без телефона",
+    "background": "Светло-серая матовая поверхность",
+    "kind": "package",
+    "src": "references/02.jpg",
+    "aspect": "1143:2048",
+    "scene": "A strictly overhead flat lay of TWO separate rectangular packaging components, with their faces parallel to the image plane. No smartphone appears in this image. The upper component is a closed dark-navy leather presentation case with a softly raised inset panel, gentle diagonal folds in the inset and a small gold crown centered on its lower lip. Approximate bounds x=11–89%, y=19–47%. The lower component is a wider dark-navy textured outer box, with a vertical center seam, approximate bounds x=10–91%, y=50–80%. Keep the narrow empty gap between them and their exact horizontal alignment. The original lower box has gold CAVIAR ROYAL GIFT on the left, a small centered 15 YEARS OF BRILLIANCE anniversary emblem, and SUPREME EDITION on the right. Retain these marks only when matching the same packaging; if image B supplies another package, use ONLY its actual logos and wording while retaining this arrangement. Do not invent new lettering.\nSCENE: nearly white, subtly cool-gray matte studio floor with a gentle luminance falloff toward the bottom/right. No horizon, no perspective camera tilt, no specular floor reflection. Large soft light from upper left casts broad soft shadows mainly down and right. Preserve the large empty margin above the top case and below the outer box.",
+    "source": "iPhone_duo_Omkara_image_02_package.jpg"
+  },
+  {
+    "id": "03",
+    "title": "Раскрытый смартфон стоя",
+    "pose": "Шарнир по центру, раскрытие буквой V",
+    "background": "Холодный серый фон, тень влево",
+    "kind": "fold",
+    "src": "references/03.jpg",
+    "aspect": "1143:2048",
+    "scene": "One book-style foldable smartphone stands on both lower edges, partly open in a V configuration. Its hinge is vertical, near x≈53% of the frame, extending approximately from y=33% to y=73%. The decorated rear half is on the LEFT; the opposite half with its dark outer screen faces the viewer on the RIGHT. These are two connected halves of ONE phone, never two separate phones. Match the opening angle, converging perspective, upper corners and visible hinge directly to image A; the top outer corners sit around (17%,30%) and (84%,29%). Approximate overall bounds x=15–85%, y=29–74%. Camera is slightly above the midpoint and looks down enough to reveal the top edges. No camera roll. Both bottom edges remain firmly grounded. The outer screen retains image B's real design/screen content; do not copy the original Caviar screen mark onto an unrelated phone.\nSCENE: seamless cool medium-light gray cyclorama, darker at the top and smoothly brighter toward the floor, without a sharp horizon. Smooth satin floor, subtle contact reflection only. Directional broad key from upper right/front; long soft-edged bluish gray shadow runs diagonally toward the lower left. Preserve the very generous blank upper third and the floor space below.",
+    "source": "iPhone_duo_Omkara_image_03_enamel.jpg"
+  },
+  {
+    "id": "04",
+    "title": "Полураскрытый смартфон лёжа",
+    "pose": "Низкий ракурс, треугольник из двух половин",
+    "background": "Серый глянцевый пол, длинная тень",
+    "kind": "fold",
+    "src": "references/04.jpg",
+    "aspect": "1143:2048",
+    "scene": "One foldable smartphone is partly opened and lies sideways in a low tent/wedge configuration. The lower half rests flat on the floor with its dark screen facing upward, most clearly visible as a triangular area at lower left. The decorated rear half rises above it like a tilted sloping roof, connected at the long hinge near the lower/front edge. Match the exact reference hinge location and wedge aperture; do not substitute an upright open book. The decorated rear face extends diagonally from the left/lower region toward the upper-right camera end; its cameras lie in the upper-right portion of that face. Approximate object bounds x=9–93%, y=35–68%. Main visible top-face corners are roughly (10%,44%), (68%,36%), (92%,53%), (30%,65%). Camera is at a low elevated three-quarter angle, exposing the lower layer, port and side thickness. Keep the entire device visible with ample empty space above and below. Do not rotate the image to make the phone vertical.\nSCENE: cool light-gray seamless studio, darker upper backdrop, pale smooth semi-gloss floor. Strong controlled key from upper right creates a long shadow to lower left, a bright diagonal floor band and a soft defocused warm-white reflection near the front/right. The phone is resting, never floating. Keep these light patterns even if the replacement phone has dark materials.",
+    "source": "iPhone_duo_Omkara_image_04_OM.jpg"
+  },
+  {
+    "id": "05",
+    "title": "Закрытый смартфон по диагонали",
+    "pose": "Вид сверху под углом, корпус целиком",
+    "background": "Серый фон с мягкой диагональю света",
+    "kind": "phone",
+    "src": "references/05.jpg",
+    "aspect": "1143:2048",
+    "scene": "A single closed smartphone lies flat, rear face upward, on a pale gray floor. Camera views it from above in a three-quarter perspective. The camera end is toward the UPPER LEFT, the opposite end toward the LOWER RIGHT. The long axis descends diagonally from upper left to lower right. Approximate extreme silhouette points are (7%,38%), (45%,24%), (96%,55%), (56%,70%). Overall bounds x=7–96%, y=24–71%. Show the complete phone, including the near left long side, lower/right end edge, realistic thickness and ports when present. Preserve its rigid rectangular geometry, diagonal direction and exact perspective compression. Do not convert this to an overhead orthographic flat lay. Keep the new phone's actual camera count and placement; the rear artwork from image A must not be transferred.\nSCENE: seamless cool light-gray studio floor/background. A large soft bright diagonal wash enters from the upper left and sweeps behind the phone toward lower right; outer corners remain slightly darker. A grounded shadow extends down/right, most visible under the lower/right side; do not reverse it. Subtle broad metallic reflections on the phone, no mirror-floor copy. A large empty area remains above the phone, and an even larger open floor margin below.",
+    "source": "iPhone_duo_Omkara_image_05_gold+brilliants.jpg"
+  },
+  {
+    "id": "06",
+    "title": "Узкий боковой профиль",
+    "pose": "Телефон стоит, задняя панель видна узкой полосой",
+    "background": "Серо-голубой фон, светлая полоса у основания",
+    "kind": "phone",
+    "src": "references/06.jpg",
+    "aspect": "1143:2048",
+    "scene": "One closed smartphone stands vertically on its bottom edge, seen at an extreme side-biased three-quarter angle. The slim metal side is nearest the camera on the LEFT; the rear panel recedes away to the RIGHT and is visible as a narrow foreshortened plane. Do not show a broad rear face. Approximate bounds x=40–64%, y=23–79%; its apparent center lies slightly right of the frame center. The left near edge is almost vertical, with a rounded top corner around (42%,23%). The far rear top edge slopes down/right. Retain the thin stacked seam only if the new phone is foldable. Show image B's correct buttons, ports, engravings and thickness, without inheriting reference serial numbers or hallmarks. The entire device and its ground contact remain visible. Camera roll is zero and camera height is close to the phone midpoint.\nSCENE: smooth cool blue-gray seamless background, soft luminous floor band near y≈64%. Pale satin floor with a controlled warm-white patch at the base. Key light comes from upper right, creating a small bright glint near the top rear corner and a long soft dark shadow extending toward the lower left. Keep the unusually large empty margins on both sides and above. No pedestal, no floating.",
+    "source": "iPhone_duo_Omkara_image_06_LE.jpg"
+  },
+  {
+    "id": "07",
+    "title": "Крупный герой, левый торец",
+    "pose": "Почти прямой вид, видим левую боковину",
+    "background": "Холодный серый фон, мягкое отражение",
+    "kind": "phone",
+    "src": "references/07.jpg",
+    "aspect": "1143:2048",
+    "scene": "One closed smartphone stands upright with its rear face toward the viewer. View it from the LEFT rear three-quarter side, only moderately turned: the decorated rear face still dominates, while a narrow but unmistakable LEFT side edge and thickness remain visible. The top edge slopes gently downward toward the right; the bottom edge rises slightly toward the right. Approximate overall bounds x=16–87%, y=16–86%. The phone is much larger in frame than preset 01, occupying about 70% of image height. Match the corner positions, perspective and vertical standing posture to image A. Entire phone remains in frame; no close-up crop. The camera end stays at the top, with the phone nearly vertical. Preserve the replacement phone's actual proportions, rear layout and side buttons instead of projecting the reference decoration onto it.\nSCENE: cool medium silver-gray seamless cyclorama, a smooth brighter floor near the base. Broad controlled upper-right/front light creates a clear bright top/right metallic edge and readable material detail. Broad cast shadow stretches leftward from the base. A soft vertically smeared, low-contrast reflection extends into the lower foreground and fades out. No hard horizon or scenery. Do not add a second device.",
+    "source": "iPhone_duo_Omkara_image_07_main.jpg"
+  },
+  {
+    "id": "08",
+    "title": "Макро задней панели",
+    "pose": "Диагональный кроп, камера и декор крупно",
+    "background": "Тёмный холодный серый фон, малая площадь фона",
+    "kind": "phone",
+    "src": "references/08.jpg",
+    "aspect": "1143:2048",
+    "scene": "A single closed smartphone lies rear-side up and fills nearly the whole frame in a diagonal macro/close product view. Camera is above and to its LEFT side. The camera end lies toward the upper left; the long body continues down/right. Keep the exact asymmetric crop: the topmost far corner is near (71%,17%), the left rounded corner near (3%,39%), the near long side descends diagonally toward the bottom/right, and the RIGHT edge and lower/right end are cut by the canvas. Do not shrink the phone to fit it fully into frame. The upper camera area, adjacent branding/material area and a large central section of the new rear panel are all sharply readable. Preserve the new phone's own camera module and rear design; frame its corresponding regions, without adding the original Om emblem, lotus engraving, red enamel or gemstones. Match the viewpoint and the ratio of visible rear plane to thin left side.\nSCENE: cool slate-gray studio surface with a darker upper-left gradient and a restrained diffuse bright area upper-right. Only limited background is visible above and to the left of the phone. Controlled directional soft studio light gives clean bright edge highlights and precise material microstructure without blown whites. Tight grounded contact shadow along the near long edge. No bokeh that obscures the cameras or rear detail; do not show the whole silhouette.",
+    "source": "iPhone_duo_Omkara_image_08_camera.jpg"
+  },
+  {
+    "id": "09",
+    "title": "Герой, правый торец",
+    "pose": "Умеренный разворот, видим правую боковину",
+    "background": "Холодный серый фон, тень вправо",
+    "kind": "phone",
+    "src": "references/09.jpg",
+    "aspect": "1143:2048",
+    "scene": "One closed smartphone stands upright on its bottom edge, rear face dominant, viewed from the RIGHT rear three-quarter side. The narrow RIGHT side edge/folded stack is visible as a vertical dark/silver strip; the left side is not the exposed nearest side. This is the reverse azimuth of preset 07. The top edge rises toward the RIGHT and the lower edge slopes slightly down toward the RIGHT. Approximate overall bounds x=21–83%, y=20–81%. The upper-left rear corner sits around (23%,24%), upper-right near hinge around (78%,20%); match the reference silhouette rather than mirroring its artwork. Entire phone is visible, fairly centered with large empty headroom. Camera end remains at the top. Preserve the new device's actual rear-camera arrangement, engravings and edge construction, without inventing a fold in a slab phone.\nSCENE: cool medium gray seamless cyclorama with a darker upper field and a bright neutral-gray floor. Key light from upper LEFT/front produces a defined but softly edged cast shadow extending to the RIGHT of the phone near its base. Subtle broad vertically blurred floor reflection below the phone. No pedestal, no sharp horizon. Match the brighter near left rear face and slightly darker right side.",
+    "source": "iPhone_duo_Omkara_image_09_side.jpg"
+  },
+  {
+    "id": "10",
+    "title": "Каталожная вырезка",
+    "pose": "Телефон целиком, прозрачный фон",
+    "background": "Без пола, отражений и падающей тени",
+    "kind": "phone",
+    "src": "references/10.png",
+    "aspect": "830:950",
+    "scene": "A single closed smartphone isolated as a clean product cutout on a TRANSPARENT alpha background, with no studio scene. Portrait canvas matching image A's 830:950 proportions. The complete silhouette occupies approximately x=15–85%, y=4–96%. Rear face is dominant, with its LEFT metal side visible in a restrained three-quarter view. The top edge slopes gently down toward the right; the bottom edge is almost horizontal with slight perspective. Match the reference object size, center, corner positions and visible side thickness without cropping any corner. Keep camera end at the top and the phone upright. Use only image B's actual body design, proportions, cameras, markings and materials. No original Om emblem, engraved floral motif or gold panels may be added unless they are present on image B.\nSCENE: no background at all, no floor, no horizon, no cast shadow outside the silhouette, no floor reflection, no white rectangle, no checkerboard baked into the pixels. Render controlled neutral studio material lighting on the object only. Preserve its contact-free cutout appearance, crisp antialiased alpha edges and realistic fine detail. Output PNG with true transparency where supported. If the image generator cannot emit alpha, use a uniform white background and remove that background in a separate step; do not pretend a white JPEG is transparent.",
+    "source": "iPhone_Duo_Omkara_catalog.png"
+  }
+]

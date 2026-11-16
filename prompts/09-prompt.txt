@@ -1,0 +1,25 @@
+REFERENCE-MATCH PRODUCT PHOTOGRAPHY | PRESET 09
+Герой, правый торец
+
+INPUT IMAGES AND PRIORITY
+Image A = the supplied numbered composition reference (09). Use it ONLY for camera viewpoint, orientation, framing, object placement, background, floor, lighting, cast shadows and reflection geometry.
+Image B = the replacement smartphone reference(s). Use it as the ONLY source of product identity: actual silhouette, proportions, materials, colors, camera count and layout, buttons, branding and decoration.
+REPLACEMENT PRODUCT: [Attach photo(s) of the smartphone to be substituted.]
+Do not copy the original phone design from A onto B. In particular, do not add its Om symbol, lotus engraving, red enamel, gold panels, gemstones, anniversary marks or serial numbers unless those details actually exist on B. Do not recolor B to match the gold/silver reference. Preserve B faithfully.
+
+FIXED COMPOSITION 09
+Output aspect ratio 1143:2048; vertical 9:16-like portrait canvas, ideally 1143 × 2048.
+One closed smartphone stands upright on its bottom edge, rear face dominant, viewed from the RIGHT rear three-quarter side. The narrow RIGHT side edge/folded stack is visible as a vertical dark/silver strip; the left side is not the exposed nearest side. This is the reverse azimuth of preset 07. The top edge rises toward the RIGHT and the lower edge slopes slightly down toward the RIGHT. Approximate overall bounds x=21–83%, y=20–81%. The upper-left rear corner sits around (23%,24%), upper-right near hinge around (78%,20%); match the reference silhouette rather than mirroring its artwork. Entire phone is visible, fairly centered with large empty headroom. Camera end remains at the top. Preserve the new device's actual rear-camera arrangement, engravings and edge construction, without inventing a fold in a slab phone.
+SCENE: cool medium gray seamless cyclorama with a darker upper field and a bright neutral-gray floor. Key light from upper LEFT/front produces a defined but softly edged cast shadow extending to the RIGHT of the phone near its base. Subtle broad vertically blurred floor reflection below the phone. No pedestal, no sharp horizon. Match the brighter near left rear face and slightly darker right side.
+
+MATCHING RULES
+Image A is the visual authority. The percentages above are approximate guides to observed framing, not measured camera calibration. Follow A's actual corner positions, silhouette orientation, negative space, camera azimuth/elevation, perspective compression and floor light pattern. Never mirror or reverse the composition. Preserve B's native proportions; match relative height and placement without stretching, cutting off new camera modules or distorting the hardware. Re-light B consistently with the fixed scene. Background must remain the same neutral color family and brightness pattern even when B has a different material/color. Do not adapt the background palette to the new phone.
+If B does not show an essential side or rear detail required by this view, request another product photo rather than inventing hardware or artwork.
+
+RENDERING
+Photoreal commercial product photograph. Accurate hard-surface geometry, fine material texture, readable true engravings, controlled specular highlights, neutral white balance and realistic contact physics. No added graphic titles, captions, watermarks or logos. Keep the original reference scene clean and empty.
+
+NEGATIVE CONSTRAINTS
+wrong viewpoint, mirrored image, reversed diagonal, different phone posture, wrong scale, arbitrary zoom, changed crop, warped rectangle, stretched device, invented cameras, missing camera, invented hinge, duplicate smartphone, transferred source-phone artwork, copied Om symbol, altered target design, recolored target, extra props, pedestal, hands, people, scenery, background hue adapted to product, dramatic new light setup, excessive glow, blown metallic highlights, unreadable invented text, watermark, floating unsupported object, unrequested transparent background.
+
+Use BOTH images with this prompt. Text alone cannot guarantee an exact spatial match; retain A as the composition reference during generation/editing.

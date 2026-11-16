@@ -1,0 +1,25 @@
+REFERENCE-MATCH PRODUCT PHOTOGRAPHY | PRESET 05
+Закрытый смартфон по диагонали
+
+INPUT IMAGES AND PRIORITY
+Image A = the supplied numbered composition reference (05). Use it ONLY for camera viewpoint, orientation, framing, object placement, background, floor, lighting, cast shadows and reflection geometry.
+Image B = the replacement smartphone reference(s). Use it as the ONLY source of product identity: actual silhouette, proportions, materials, colors, camera count and layout, buttons, branding and decoration.
+REPLACEMENT PRODUCT: [Attach photo(s) of the smartphone to be substituted.]
+Do not copy the original phone design from A onto B. In particular, do not add its Om symbol, lotus engraving, red enamel, gold panels, gemstones, anniversary marks or serial numbers unless those details actually exist on B. Do not recolor B to match the gold/silver reference. Preserve B faithfully.
+
+FIXED COMPOSITION 05
+Output aspect ratio 1143:2048; vertical 9:16-like portrait canvas, ideally 1143 × 2048.
+A single closed smartphone lies flat, rear face upward, on a pale gray floor. Camera views it from above in a three-quarter perspective. The camera end is toward the UPPER LEFT, the opposite end toward the LOWER RIGHT. The long axis descends diagonally from upper left to lower right. Approximate extreme silhouette points are (7%,38%), (45%,24%), (96%,55%), (56%,70%). Overall bounds x=7–96%, y=24–71%. Show the complete phone, including the near left long side, lower/right end edge, realistic thickness and ports when present. Preserve its rigid rectangular geometry, diagonal direction and exact perspective compression. Do not convert this to an overhead orthographic flat lay. Keep the new phone's actual camera count and placement; the rear artwork from image A must not be transferred.
+SCENE: seamless cool light-gray studio floor/background. A large soft bright diagonal wash enters from the upper left and sweeps behind the phone toward lower right; outer corners remain slightly darker. A grounded shadow extends down/right, most visible under the lower/right side; do not reverse it. Subtle broad metallic reflections on the phone, no mirror-floor copy. A large empty area remains above the phone, and an even larger open floor margin below.
+
+MATCHING RULES
+Image A is the visual authority. The percentages above are approximate guides to observed framing, not measured camera calibration. Follow A's actual corner positions, silhouette orientation, negative space, camera azimuth/elevation, perspective compression and floor light pattern. Never mirror or reverse the composition. Preserve B's native proportions; match relative height and placement without stretching, cutting off new camera modules or distorting the hardware. Re-light B consistently with the fixed scene. Background must remain the same neutral color family and brightness pattern even when B has a different material/color. Do not adapt the background palette to the new phone.
+If B does not show an essential side or rear detail required by this view, request another product photo rather than inventing hardware or artwork.
+
+RENDERING
+Photoreal commercial product photograph. Accurate hard-surface geometry, fine material texture, readable true engravings, controlled specular highlights, neutral white balance and realistic contact physics. No added graphic titles, captions, watermarks or logos. Keep the original reference scene clean and empty.
+
+NEGATIVE CONSTRAINTS
+wrong viewpoint, mirrored image, reversed diagonal, different phone posture, wrong scale, arbitrary zoom, changed crop, warped rectangle, stretched device, invented cameras, missing camera, invented hinge, duplicate smartphone, transferred source-phone artwork, copied Om symbol, altered target design, recolored target, extra props, pedestal, hands, people, scenery, background hue adapted to product, dramatic new light setup, excessive glow, blown metallic highlights, unreadable invented text, watermark, floating unsupported object, unrequested transparent background.
+
+Use BOTH images with this prompt. Text alone cannot guarantee an exact spatial match; retain A as the composition reference during generation/editing.

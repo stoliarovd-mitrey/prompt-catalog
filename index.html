@@ -264,6 +264,7 @@ input,textarea{font:inherit;color:inherit}
   @keyframes drift{from{transform:translateX(-4%)}50%{transform:translateX(4%)}to{transform:translateX(-4%)}}
 }
 </style>
+<link rel="stylesheet" href="angles.css">
 <!--ARTIFACT-HEAD-END-->
 </head>
 <body>
@@ -291,6 +292,7 @@ input,textarea{font:inherit;color:inherit}
     <span class="rail__brand">Caviar</span>
     <button class="tab" id="tabCat" role="tab" aria-selected="true" aria-controls="secCat">Каталог</button>
     <button class="tab" id="tabBuild" role="tab" aria-selected="false" aria-controls="secBuild">Конструктор</button>
+    <button class="tab" id="tabAngles" role="tab" aria-selected="false" aria-controls="secAngles">Ракурсы по референсам</button>
   </div>
 </nav>
 
@@ -342,6 +344,37 @@ input,textarea{font:inherit;color:inherit}
     </div>
   </div>
 </section>
+
+<section class="sec" id="secAngles" hidden>
+ <div class="wrap">
+  <div class="sec__head angles-intro">
+   <div class="eyebrow">Фиксированные сцены · 01–10</div>
+   <h2>Ваш смартфон. Тот же кадр.</h2>
+   <p>Десять пронумерованных шаблонов по вашим изображениям. Выберите ракурс, укажите новый смартфон и передайте генератору оба референса вместе с готовым промптом. Фон и положение устройства задаёт образец A, дизайн смартфона задаёт изображение B.</p>
+  </div>
+  <div class="angles-steps">
+   <div class="angles-step"><b>01 · ВЫБЕРИТЕ КАДР</b>Номера постоянные: 01–09 соответствуют именам исходных файлов, 10 — каталожная вырезка.</div>
+   <div class="angles-step"><b>02 · ПОДСТАВЬТЕ СМАРТФОН</b>Добавьте фото нового устройства. Оно войдёт в скачиваемый комплект и останется в вашем браузере.</div>
+   <div class="angles-step"><b>03 · ПЕРЕДАЙТЕ ГЕНЕРАТОРУ</b>Прикрепите образец ракурса A, фото смартфона B и скопируйте промпт. Одного текста для точного совпадения недостаточно.</div>
+  </div>
+  <div id="anglesGrid" class="angles-grid" aria-label="Пронумерованные ракурсы"></div>
+  <div id="angleEditor" class="angle-editor">
+   <div class="angle-editor__head"><div><div id="angleNumber" class="angle-number">ШАБЛОН №01</div><h3 id="angleTitle">Прямой вид сзади</h3><p id="angleDescription"></p></div></div>
+   <div class="angle-workspace">
+    <div class="angle-reference">
+     <figure><img id="angleReferenceImage" alt="Выбранный референс" src="references/01.jpg"><figcaption>A · Фон, положение и ракурс</figcaption><a class="link" id="angleReferenceLink" href="references/01.jpg" download="01-reference.jpg">Скачать оригинал</a></figure>
+     <figure><div class="angle-upload" id="angleUpload"><img id="angleTargetImage" alt="Фото нового устройства"><span class="angle-upload__hint">Добавьте фото нового смартфона<br>JPG, PNG или WebP · до 25 МБ</span><input id="angleFile" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Загрузить фото нового смартфона или упаковки"></div><figcaption id="angleTargetLabel">B · Ваш смартфон</figcaption></figure>
+    </div>
+    <div class="angle-form"><label id="angleProductLabel" for="angleProduct">Какой смартфон должен быть в кадре</label><textarea id="angleProduct" placeholder="Например: Samsung Galaxy S24 Ultra, чёрный титановый корпус. Сохранить камеры и оформление с моего фото."></textarea><p>Описание подставляется во все шаблоны. Промпт обновляется автоматически и запрещает переносить декор старого телефона на новый. Можно оставить поле пустым и использовать фото B.</p><div class="angle-notice" id="angleRequirement"></div><p class="angle-source" id="angleSource"></p></div>
+   </div>
+   <div class="angle-actions"><button class="btn btn--gold" id="angleCopy" type="button">Копировать промпт</button><button class="btn" id="angleBundle" type="button">Скачать комплект ZIP</button><a class="btn" id="angleDownloadPrompt" href="prompts/01-prompt.txt" download="01-prompt.txt">Скачать TXT</a></div>
+   <p id="angleStatus" class="angle-status" role="status" aria-live="polite"></p>
+   <label class="angle-number" for="angleOutput">ГОТОВЫЙ ПРОМПТ ДЛЯ ГЕНЕРАТОРА</label>
+   <textarea class="angle-output" id="angleOutput" readonly spellcheck="false" aria-label="Готовый промпт выбранного ракурса"></textarea>
+  </div>
+ </div>
+</section>
+
 </main>
 
 <footer class="foot">
@@ -591,10 +624,10 @@ function copyText(text,btn,label){
 /* ================= tabs ================= */
 var tabCat=$("#tabCat"),tabBuild=$("#tabBuild"),secCat=$("#secCat"),secBuild=$("#secBuild");
 function mode(which){
-  var isCat=which==="cat";
-  tabCat.setAttribute("aria-selected",isCat?"true":"false");
-  tabBuild.setAttribute("aria-selected",isCat?"false":"true");
-  secCat.hidden=!isCat; secBuild.hidden=isCat;
+  [ ['cat',tabCat,secCat], ['build',tabBuild,secBuild], ['angles',document.getElementById('tabAngles'),document.getElementById('secAngles')] ].forEach(function(item){
+    var active=which===item[0];item[1].setAttribute('aria-selected',String(active));item[2].hidden=!active;
+  });
+  if(which!=="angles" && location.hash.indexOf('#angles/')===0) history.replaceState(null,'',location.pathname+location.search);
 }
 tabCat.addEventListener("click",function(){mode("cat")});
 tabBuild.addEventListener("click",function(){mode("build")});
@@ -975,6 +1008,7 @@ $("#gen").addEventListener("click",function(){
   applyPreset(14);
 })();
 </script>
+<script src="angles.js"></script>
 <!--ARTIFACT-BODY-END-->
 </body>
 </html>
