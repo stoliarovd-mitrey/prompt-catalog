@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--ARTIFACT-HEAD-START-->
+<title>Промт-библиотека Caviar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800&display=swap">
+<style>
+:root{
+  --gold:#a89974;
+  --gold-h:#968758;
+  --gold-lite:#b89968;
+  --ink:#0d1117;
+  --ink-2:#11161d;
+  --ink-3:#171d26;
+  --blue:#06224d;
+  --blue-2:#04162f;
+  --light:#f7f7f7;
+  --txt:#f7f7f7;
+  --txt-2:rgba(247,247,247,.66);
+  --txt-3:rgba(247,247,247,.42);
+  --line:rgba(168,153,116,.35);
+  --line-soft:rgba(168,153,116,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --gut:32px;
+  --max:1280px;
+  font-synthesis-weight:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--txt);
+  font-family:"Nunito Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:17px;
+  line-height:24px;
+  letter-spacing:.17px;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+::selection{background:rgba(168,153,116,.35)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gut)}
+.eyebrow{font-weight:700;font-size:14px;line-height:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold)}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:var(--ink);border-bottom:1px solid var(--line-soft)}
+.hero__bands{position:absolute;inset:0;pointer-events:none;opacity:.55}
+.hero__bands i{position:absolute;left:-10%;width:120%;display:block;background:linear-gradient(90deg,transparent,rgba(200,208,220,.5),rgba(136,144,160,.16),transparent);filter:blur(1px)}
+.hero__bands i:nth-child(1){top:14%;height:2px;opacity:.75}
+.hero__bands i:nth-child(2){top:26%;height:7px;opacity:.16}
+.hero__bands i:nth-child(3){top:41%;height:1px;opacity:.5}
+.hero__bands i:nth-child(4){top:58%;height:14px;opacity:.1}
+.hero__bands i:nth-child(5){top:73%;height:3px;opacity:.4}
+.hero__bands i:nth-child(6){top:88%;height:1px;opacity:.28}
+.hero__glow{position:absolute;left:50%;top:8%;width:min(1100px,120%);height:120%;transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(closest-side,rgba(168,153,116,.17),rgba(168,153,116,.05) 45%,transparent 72%)}
+.hero__in{position:relative;display:flex;gap:56px;align-items:flex-end;justify-content:space-between;padding-block:56px 40px;flex-wrap:wrap}
+.hero__col{max-width:720px}
+.hero h1{
+  margin:16px 0 0;font-weight:800;font-size:clamp(34px,5vw,60px);line-height:1.03;
+  letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance;
+}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero__lead{max-width:600px;margin:20px 0 0;color:var(--txt-2)}
+.hero__stats{display:flex;gap:40px;flex-wrap:wrap;padding-block:0 6px}
+.stat__n{font-weight:800;font-size:52px;line-height:1;letter-spacing:-.03em;color:var(--gold);font-variant-numeric:tabular-nums}
+.stat__l{margin-top:8px;font-size:12.5px;line-height:1.3;text-transform:uppercase;letter-spacing:.12em;color:var(--txt-3)}
+
+/* ---------- mode rail ---------- */
+.rail{position:sticky;top:0;z-index:30;background:rgba(13,17,23,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.rail__in{display:flex;align-items:center;gap:8px;height:62px}
+.rail__brand{font-weight:800;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-right:auto;white-space:nowrap}
+.tab{
+  appearance:none;background:none;border:1px solid transparent;border-radius:50px;
+  padding:9px 22px;font-weight:700;font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:var(--txt-3);
+  transition:color .25s,border-color .25s,background .25s;
+}
+.tab:hover{color:var(--txt)}
+.tab[aria-selected="true"]{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+
+/* ---------- sections ---------- */
+.sec{padding-block:64px}
+.sec--cat{background:var(--ink-2)}
+.sec--build{background:var(--blue);background-image:linear-gradient(180deg,var(--blue) 0%,var(--blue-2) 100%)}
+.sec__head{max-width:750px;margin-bottom:36px}
+.sec__head h2{margin:14px 0 0;font-weight:700;font-size:clamp(30px,4vw,52px);line-height:1.03;letter-spacing:-.02em;text-wrap:balance}
+.sec__head p{margin:16px 0 0;color:var(--txt-2)}
+
+/* ---------- filters ---------- */
+.filters{display:flex;flex-direction:column;gap:18px;padding:26px 28px;border:1px solid var(--line);background:rgba(255,255,255,.02);margin-bottom:36px}
+.fsearch{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.fsearch svg{flex:0 0 16px;color:var(--gold)}
+.fsearch input{flex:1;min-width:0;background:none;border:0;padding:4px 0;font-size:17px}
+.fsearch input::placeholder{color:var(--txt-3)}
+.fsearch input:focus{outline:none}
+.frow{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.frow__l{flex:0 0 110px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--txt-3);padding-top:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;flex:1;min-width:0}
+.chip{
+  appearance:none;background:none;border:1px solid var(--line);border-radius:50px;
+  padding:6px 16px;font-size:13px;line-height:24px;letter-spacing:.04em;color:var(--txt-2);
+  transition:color .2s,border-color .2s,background .2s;
+}
+.chip:hover{color:var(--txt);border-color:var(--gold)}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
+.fbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:4px;border-top:1px solid var(--line-soft)}
+.fcount{font-size:13px;color:var(--txt-3);font-variant-numeric:tabular-nums}
+.fcount b{color:var(--gold);font-weight:800}
+.link{appearance:none;background:none;border:0;padding:0;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);border-bottom:1px solid var(--line)}
+.link:hover{color:var(--gold-h)}
+
+/* ---------- cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:28px}
+.card{display:flex;flex-direction:column;background:var(--ink-3);border:1px solid var(--line-soft);transition:border-color .3s}
+.card:hover{border-color:var(--line)}
+.card__cover{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0a0c10}
+.card__cover img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.card:hover .card__cover img{transform:scale(1.03)}
+.card__num{position:absolute;left:0;top:0;padding:7px 12px;background:rgba(13,17,23,.78);color:var(--gold);font-weight:800;font-size:12px;letter-spacing:.14em;font-variant-numeric:tabular-nums}
+.card__tpl{position:absolute;right:0;top:0;padding:7px 12px;background:var(--gold);color:var(--ink);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase}
+.card__body{display:flex;flex-direction:column;gap:12px;padding:22px 22px 24px;flex:1}
+.card__body h3{margin:0;font-weight:700;font-size:21px;line-height:26px;letter-spacing:-.01em;text-wrap:balance}
+.card__en{margin:-6px 0 0;font-size:12.5px;line-height:17px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
+.card__desc{margin:0;font-size:15px;line-height:22px;color:var(--txt-2)}
+.pills{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.pills li{border:1px solid var(--line-soft);border-radius:50px;padding:2px 11px;font-size:11.5px;line-height:19px;letter-spacing:.07em;color:var(--txt-3)}
+.card__actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.btn{appearance:none;border:1px solid var(--gold);border-radius:0;padding:12px 20px;font-weight:700;font-size:12.5px;line-height:1;letter-spacing:.1em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}
+.btn--gold{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.btn--gold:hover{background:var(--gold-h);border-color:var(--gold-h)}
+.btn--ghost{background:none;color:var(--gold)}
+.btn--ghost:hover{background:rgba(168,153,116,.14)}
+.btn.is-done{background:#2f7d5b;border-color:#2f7d5b;color:#fff}
+.card__more{border-top:1px solid var(--line-soft);margin-top:4px}
+.card__more summary{list-style:none;cursor:pointer;padding:14px 0 0;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);display:flex;align-items:center;gap:8px}
+.card__more summary::-webkit-details-marker{display:none}
+.card__more summary::after{content:"+";font-size:16px;line-height:1;margin-left:auto;color:var(--gold)}
+.card__more[open] summary::after{content:"–"}
+.note{margin:16px 0 0;border-left:2px solid var(--gold);background:rgba(168,153,116,.1);padding:14px 18px;font-size:14px;line-height:21px;color:var(--txt-2)}
+.note strong{color:var(--txt)}
+.prompt{
+  margin:16px 0 0;max-height:420px;overflow:auto;
+  background:#0a0c10;border:1px solid var(--line-soft);padding:18px;
+  font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:12.5px;line-height:19px;
+  white-space:pre-wrap;word-break:break-word;color:rgba(247,247,247,.86);
+}
+.src{margin-top:12px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt-3)}
+.empty{padding:64px 0;text-align:center;color:var(--txt-3)}
+
+/* ---------- constructor ---------- */
+.build{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:40px;align-items:start}
+.groups{display:flex;flex-direction:column;gap:2px}
+.grp{border:1px solid rgba(168,153,116,.28);background:rgba(255,255,255,.025);padding:22px 24px}
+.grp+.grp{border-top:0}
+.grp__head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.grp__n{font-weight:800;font-size:11.5px;letter-spacing:.14em;color:var(--gold);font-variant-numeric:tabular-nums}
+.grp__t{font-weight:700;font-size:16px;letter-spacing:.01em}
+.grp__hint{font-size:12.5px;color:var(--txt-3);margin-left:auto}
+.sub{margin:14px 0 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(247,247,247,.34)}
+.sub:first-of-type{margin-top:0}
+.opt{
+  appearance:none;text-align:left;background:none;border:1px solid rgba(168,153,116,.3);
+  padding:8px 15px;border-radius:50px;font-size:13.5px;line-height:20px;color:var(--txt-2);
+  transition:background .2s,color .2s,border-color .2s;
+}
+.opt:hover{color:var(--txt);border-color:var(--gold)}
+.opt[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:700}
+.opt small{display:block;font-size:11px;line-height:15px;opacity:.6;font-weight:400}
+.obj label{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);font-weight:700;margin-bottom:10px}
+.obj textarea{
+  width:100%;min-height:96px;resize:vertical;background:rgba(0,0,0,.28);
+  border:1px solid rgba(168,153,116,.3);padding:14px 16px;font-size:15px;line-height:22px;
+}
+.obj textarea:focus{outline:none;border-color:var(--gold)}
+.obj p{margin:10px 0 0;font-size:12.5px;line-height:18px;color:var(--txt-3)}
+
+.panel{position:sticky;top:86px;border:1px solid var(--line);background:rgba(4,10,22,.72);padding:24px}
+.panel__t{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold)}
+.spec{display:grid;grid-template-columns:1fr auto;gap:0;margin:18px 0 0;font-size:13px}
+.spec div{padding:8px 0;border-bottom:1px solid var(--line-soft)}
+.spec div:nth-child(odd){color:var(--txt-3);text-transform:uppercase;font-size:11px;letter-spacing:.1em;padding-right:12px}
+.spec div:nth-child(even){text-align:right;color:var(--txt);font-variant-numeric:tabular-nums}
+.panel .btn{width:100%;margin-top:20px;padding:15px 20px}
+.out{margin-top:20px}
+.out__hint{font-size:13px;line-height:20px;color:var(--txt-3)}
+.out pre{
+  margin:0;max-height:46vh;overflow:auto;background:#02080f;border:1px solid var(--line-soft);
+  padding:16px;font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:12px;line-height:18px;
+  white-space:pre-wrap;word-break:break-word;color:rgba(247,247,247,.88);
+}
+.out__bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.out__meta{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-3);font-variant-numeric:tabular-nums}
+
+.foot{padding-block:40px 56px;background:var(--ink);border-top:1px solid var(--line-soft);color:var(--txt-3);font-size:13px}
+.foot b{color:var(--gold)}
+
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:80;
+  background:var(--gold);color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  padding:13px 26px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--ease);
+}
+.toast.is-on{opacity:1;transform:translateX(-50%) translateY(-6px)}
+
+/* ---------- example popover ---------- */
+.opt{position:relative}
+.opt.has-ex::after{
+  content:"";position:absolute;top:6px;right:8px;width:4px;height:4px;border-radius:50%;
+  background:var(--gold);opacity:.5;
+}
+.opt[aria-pressed="true"].has-ex::after{background:var(--ink);opacity:.45}
+.pop{
+  position:fixed;z-index:60;width:250px;pointer-events:none;
+  background:#05090f;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.6);
+  opacity:0;transition:opacity .16s ease;
+}
+.pop.is-on{opacity:1}
+.pop__img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#0a0c10}
+.pop__no{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;
+  background:#0a0c10;color:var(--txt-3);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:0 18px}
+.pop__t{padding:12px 14px 4px;font-weight:700;font-size:13px;line-height:17px;color:var(--gold)}
+.pop__d{padding:0 14px 13px;font-size:12px;line-height:17px;color:var(--txt-2)}
+@media (max-width:640px){.pop{width:min(78vw,260px)}}
+
+[hidden]{display:none !important}
+
+@media (max-width:1100px){
+  .build{grid-template-columns:1fr}
+  .panel{position:static}
+  .hero__in{padding-block:44px 34px}
+  .hero__stats{gap:28px}
+  .stat__n{font-size:48px}
+}
+@media (max-width:640px){
+  :root{--gut:20px}
+  .sec{padding-block:44px}
+  .filters{padding:20px 18px}
+  .frow__l{flex:0 0 100%;padding-top:0}
+  .grid{grid-template-columns:1fr;gap:22px}
+  .rail__in{height:56px;gap:6px}
+  .rail__brand{font-size:11px;letter-spacing:.16em}
+  .tab{padding:8px 14px;font-size:11.5px;letter-spacing:.09em}
+  .card__actions .btn{flex:1 1 100%;text-align:center}
+  .grp{padding:18px 16px}
+  .panel{padding:18px 16px}
+  .stat__n{font-size:42px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero__bands i{animation:drift 26s linear infinite}
+  .hero__bands i:nth-child(2){animation-duration:38s;animation-direction:reverse}
+  .hero__bands i:nth-child(4){animation-duration:46s}
+  .hero__bands i:nth-child(5){animation-duration:32s;animation-direction:reverse}
+  @keyframes drift{from{transform:translateX(-4%)}50%{transform:translateX(4%)}to{transform:translateX(-4%)}}
+}
+</style>
+<!--ARTIFACT-HEAD-END-->
+</head>
+<body>
+<!--ARTIFACT-BODY-START-->
+
+<header class="hero">
+  <div class="hero__glow"></div>
+  <div class="hero__bands" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="wrap hero__in">
+    <div class="hero__col">
+      <div class="eyebrow">Caviar · съёмочные промты</div>
+      <h1>Промт-<em>библиотека</em> и конструктор кадра</h1>
+      <p class="hero__lead">Девятнадцать отснятых шаблонов — от каталожного профиля до ювелирного ультрамакро — и конструктор, который собирает новый промт из тех же оптических, световых и цветовых решений.</p>
+    </div>
+    <div class="hero__stats">
+      <div><div class="stat__n" id="statCards">19</div><div class="stat__l">готовых<br>шаблонов</div></div>
+      <div><div class="stat__n">15</div><div class="stat__l">осей<br>конструктора</div></div>
+      <div><div class="stat__n" id="statOpts">0</div><div class="stat__l">съёмочных<br>решений</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Разделы">
+  <div class="wrap rail__in">
+    <span class="rail__brand">Caviar</span>
+    <button class="tab" id="tabCat" role="tab" aria-selected="true" aria-controls="secCat">Каталог</button>
+    <button class="tab" id="tabBuild" role="tab" aria-selected="false" aria-controls="secBuild">Конструктор</button>
+  </div>
+</nav>
+
+<main>
+<section class="sec sec--cat" id="secCat">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow">Каталог</div>
+      <h2>Девятнадцать шаблонов</h2>
+      <p>Одна кнопка — промт в буфере. Раскройте карточку, чтобы прочитать все одиннадцать разделов целиком, или отправьте шаблон в конструктор и измените в нём что угодно.</p>
+    </div>
+
+    <div class="filters">
+      <div class="fsearch">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4 14 14"/></svg>
+        <input id="q" type="search" placeholder="Поиск по названию, описанию и тексту промта" aria-label="Поиск по шаблонам">
+      </div>
+      <div id="filterRows"></div>
+      <div class="fbar">
+        <span class="fcount">Показано <b id="shown">19</b> из 19</span>
+        <button class="link" id="reset" type="button">Сбросить фильтры</button>
+      </div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>Ничего не найдено. Снимите часть фильтров или измените запрос.</p>
+  </div>
+</section>
+
+<section class="sec sec--build" id="secBuild" hidden>
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow">Конструктор промта</div>
+      <h2>Соберите свой кадр</h2>
+      <p>Опции собраны из девятнадцати отснятых шаблонов: реальные фокусные, диафрагмы, температуры и палитры. Негативные промты подставляются автоматически под каждое решение — включая случаи, когда приём намеренный (fisheye, dutch angle, tilt-shift).</p>
+      <p>У опций с золотой точкой есть пример кадра: наведите курсор — рядом всплывёт снимок одного и того же нейтрального объекта, снятого именно с этим параметром. На телефоне — долгое нажатие.</p>
+    </div>
+
+    <div class="build">
+      <div class="groups" id="groups"></div>
+      <aside class="panel" aria-label="Результат">
+        <div class="panel__t">Техкарта кадра</div>
+        <div class="spec" id="spec"></div>
+        <button class="btn btn--gold" id="gen" type="button">Сгенерировать промт</button>
+        <div class="out" id="out">
+          <p class="out__hint">Выберите параметры слева и нажмите «Сгенерировать промт» — здесь появится готовый текст со всеми одиннадцатью разделами и кнопкой копирования.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    Источник шаблонов — папка <b>Promt instruction</b>, 19 файлов <b>.md</b> и обложки к ним. Промт подставляется в генератор вместе с описанием объекта: блок <b>[Место для объекта]</b> заменяется вашим текстом.
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><style>.tab{display:none}#secBuild{display:block !important}.filters{display:none}</style></noscript>
+
+<script>
+/* ================= data ================= */
+var PROMPTS = [{"id":1,"num":"01","title":"Универсальный beauty-кадр — адаптивная студия","en":"Universal Luxury Beauty Shot — Adaptive Sunlit Studio","desc":"Объект «парит» под диагональным углом над светлой полу-глянцевой поверхностью, освещён направленным светом с эффектом «солнечного луча». Палитра автоматически подстраивается под материал объекта.","note":"","prompt":"1. Общее описание\nКинематографичное luxury beauty-shot изображение объекта в изолированной полу-студийной среде. Объект расположен в центре кадра под лёгким диагональным углом, визуально «парит» над светлой матовой поверхностью с мягким отражением. Главный акцент — на материалах объекта, его конструкции, фасках, рельефе и микроотражениях.\nВ кадре присутствуют выраженные «солнечные» световые лучи и яркие световые пятна, которые рисуют поверхность пола и подчёркивают контуры объекта. Фон — чистый светлый бесшовный gradient (бело-серый, светло-голубой или нейтрально-холодный), без деталей и текстур, плавно переходящий из светлого в более холодный и тёмный тон в верхней части кадра.\nАдаптивность: цветовая палитра, температура света, рефлексы и тени полностью адаптируются под материалы и оттенки референсного объекта: тёплая золотистая палитра для золотых поверхностей, холодная стальная — для серебристых/стальных, цветные акценты — под цветные элементы (зелёный, синий, бордовый и т.д.). Фон сохраняет ту же температурную логику, что и объект.\nСтиль: luxury beauty shot / cinematic product photography / premium editorial aesthetic / high-end commercial still life.\n\n2. Camera\nLens: 85mm prime lens\nAperture: f/4\nDepth of field: medium shallow\nFocus: резкий фокус на центральной плоскости объекта, особенно на ключевых функциональных и декоративных элементах\nFalloff: мягкий cinematic falloff с плавным размытием передних и задних краёв объекта\nLens Distortion: полностью отсутствует, чистая портретная компрессия перспективы\nОптика создаёт: premium compression, clean geometry, ultra refined microcontrast, precise edge rendering.\nNegative Prompt (Camera): wide-angle distortion, fisheye, flat perspective, extreme bokeh, motion blur, handheld shake, soft focus, smartphone lens look, oversharpening, chromatic aberration, perspective warp\n\n3. Lighting\nДраматичное cinematic studio lighting с выраженным направленным ключевым светом, имитирующим «солнечный луч» в студии. Основной источник расположен сверху и сбоку, формируя: яркое световое пятно («light pool») на поверхности рядом с объектом, длинные мягкие тени с плавным градиентным затуханием, чистые контурные блики на краях и фасках объекта, controlled specular highlights на отражающих поверхностях, тонкие elongated reflections, рисующие материал. Дополнительный мягкий заполняющий свет смягчает тени внутри объекта и сохраняет читаемость деталей.\nАдаптация температуры: тёплые тона (золотистые, янтарные, медовые) — для золота, латуни, тёплых материалов; холодные тона (стальные, серебристые, ледяные) — для стали, платины, белых металлов; нейтрально-белый baseline — для смешанных или цветных материалов; тонкие цветовые акценты в бликах, соответствующие цветным элементам объекта. Свет всегда: чистый, контролируемый, премиальный, cinematic, с высоким микроконтрастом и без пересветов.\nNegative Prompt (Lighting): flat lighting, harsh frontal flash, blown highlights, dirty reflections, uncontrolled glare, HDR glow, harsh shadows, ring light look, even softbox flood, dramatic orange tungsten, cold sterile fluorescent, uneven exposure\n\n4. Angle & Composition\nКомпозиция: минималистичная, асимметричная, с объектом в центре или с лёгким смещением. Объект занимает 40–55% кадра. Большое количество чистого негативного пространства используется для рисования световых лучей и пятен, построения длинных мягких теней и premium editorial breathing room. Композиция ощущается лёгкой, дорогой, спокойной и инженерно выверенной. Объект визуально «парит» над поверхностью, создавая ощущение веса и одновременно изящества.\nУгол съёмки: low three-quarter angle — камера расположена близко к поверхности, чуть ниже центра объекта, под небольшим диагональным разворотом. Создаёт ощущение монументальности, масштаба и precision engineering, одновременно раскрывая профиль, фронтальную плоскость и боковые грани объекта.\nNegative Prompt (Angle & Composition): top-down flat shot, strict front view, strict side profile, centered symmetry, dutch angle, cropped object, busy framing, cluttered composition, dynamic tilt, off-center chaos, awkward crop\n\n5. Atmosphere\nЧистая, премиальная, кинематографичная атмосфера изолированного студийного пространства. Воздух визуально прозрачный, без зерна, дымки и шумов. Фон — бесшовный матовый gradient, плавно переходящий из светлого тона в нижней части кадра в более насыщенный/холодный/тёплый в верхней, в зависимости от палитры объекта.\nАтмосфера передаёт ощущение: precision craftsmanship, expensive engineering, high-end manufacturing, modern luxury minimalism, quiet sophistication. Поверхность пола обладает мягкой полу-глянцевой отзывчивостью: создаёт деликатное отражение объекта и тонкие световые блики, но не зеркальная и не текстурированная.\nNegative Prompt (Atmosphere): fog, haze, dust, grain, noise, visible environment, textured background, cluttered backdrop, dark studio, colorful gradients, neon background, props, dirty surfaces, busy patterns\n\n6. Mood Keywords\nLuxury, cinematic, refined, premium, elegant, sophisticated, precise, engineered, bold, editorial, sunlit, atmospheric, immersive, tactile, high-end craftsmanship, controlled, timeless, modern, clean, status, exclusive\nNegative Prompt (Mood): casual, playful, vintage, cozy, friendly, understated, chaotic, emotional chaos, cheap commercial look, flat catalog style, harsh realism, sterile, plain, generic, mass-market","words":665,"img":"assets/01.webp","src":"01_Universalnyy_beauty_kadr.md","plan":"Общий кадр","pal":"Адаптивная","bg":"Светлый","use":"Beauty","tpl":true},{"id":2,"num":"02","title":"Строгий профиль сбоку — чистая студия","en":"Strict Side Profile — Clean Studio","desc":"Строго боковая техническая съёмка на белом фоне. Акцент на профиле, толщине корпуса и чистоте линий. Максимальная нейтральность для каталога и документации.","note":"","prompt":"1. Общее описание\nМинималистичное студийное изображение объекта, снятого строго сбоку на чистом белом фоне. Кадр выполнен в стиле industrial / product design, с акцентом на профиль, толщину корпуса и чистоту линий. Объект полностью изолирован от окружения, представлен как чёткий силуэт без визуального шума. Объект занимает центральное положение в кадре, без отвлекающих элементов. Объект хорошо освещён и насыщен по цвету, контрастность умеренная, детализация высокая, объект располагается вертикально.\n\n2. Camera\nLens: 100mm\nAperture: f/8\nDepth of field: deep\nFocus: резкий фокус по всей боковой плоскости объекта\nFalloff: отсутствует, резкость равномерная от переднего до заднего края\nLens Distortion: полностью отсутствует, нейтральная компрессия перспективы\nNegative Prompt (Camera): wide-angle lens, perspective distortion, fisheye, shallow depth of field, background blur, motion blur, soft focus, camera tilt\n\n3. Lighting\nРовное мягкое студийное освещение с боковой ориентацией, подчёркивающее контур и толщину объекта. Основной источник света расположен перпендикулярно плоскости объекта, создавая аккуратный градиент света и лёгкую тень для читаемости формы. Контраст низкий, свет нейтральный, без бликов.\nNegative Prompt (Lighting): hard shadows, dramatic contrast, rim light glow, backlight flare, specular highlights, uneven lighting, overexposure\n\n4. Angle & Composition\nКомпозиция: минималистичная, объект расположен по центру кадра в горизонтальной ориентации, с равным негативным пространством сверху и снизу. Композиция подчёркивает профиль и геометрию без декоративных элементов.\nУгол съёмки: чётко боковой (strict side view), камера на уровне центра объекта, без наклона и без перспективного смещения.\nNegative Prompt (Angle & Composition): three-quarter view, front view, top view, diagonal angle, dynamic composition, cropped silhouette, asymmetry\n\n5. Atmosphere\nСтерильная, техническая студийная атмосфера. Воздух визуально чистый и прозрачный, без зерна, дымки или текстур. Атмосфера подчёркивает инженерную точность и функциональность объекта.\nNegative Prompt (Atmosphere): fog, haze, dust, grain, noise, environmental context, textured background, reflections\n\n6. Mood Keywords\nMinimal, precise, technical, industrial, clean, controlled, modern, functional, neutral\nNegative Prompt (Mood): emotional, artistic, dramatic, playful, warm, vintage, chaotic, expressive","words":298,"img":"assets/02.webp","src":"02_Strogiy_profil_sboku.md","plan":"Общий кадр","pal":"Нейтральная","bg":"Светлый","use":"Каталог","tpl":false},{"id":3,"num":"03","title":"Фронтальный симметричный снимок","en":"Frontal Symmetric Product Shot — Clean Studio","desc":"Строго фронтальный кадр, симметрия и геометрия. Мягкий равномерный свет, минимум теней. Для технической и каталожной референс-съёмки.","note":"","prompt":"1. Общее описание изображения\nМинималистичное студийное изображение объекта, снятого строго фронтально на чистом белом фоне. Кадр выполнен в стиле industrial / product design, с акцентом на геометрию, симметрию и текстуру поверхности. Объект занимает центральное положение в кадре, визуально изолирован от окружения, без отвлекающих элементов. Объект должен быть хорошо освещён и насыщен по цвету, контрастность умеренная, детализация высокая.\n\n2. Camera\nLens: 85mm\nAperture: f/8\nDepth of field: deep\nFocus: равномерный фокус по всей фронтальной плоскости объекта\nFalloff: минимальный, почти отсутствует, плавный только по краям\nLens Distortion: отсутствует, нейтральная перспектива\nNegative Prompt (Camera): wide-angle distortion, fisheye, perspective warp, shallow depth of field, motion blur, soft focus, tilted frame\n\n3. Lighting\nМягкое студийное освещение с равномерным фронтальным заполнением. Основной источник света расположен прямо перед объектом, чуть выше уровня центра, обеспечивая чистые формы и читаемую текстуру. Дополнительный заполняющий свет минимизирует тени, создавая аккуратный, почти графический вид. Контраст низкий, свет нейтральный.\nNegative Prompt (Lighting): harsh shadows, dramatic lighting, side light dominance, backlight glow, overexposure, underexposure, specular highlights\n\n4. Angle & Composition\nКомпозиция: Центрированная, симметричная. Объект расположен строго по вертикальной оси кадра, с равными отступами слева и справа. Пространство вокруг объекта используется как негативное, подчёркивая форму и дизайн.\nУгол съёмки: чётко фронтальный, eye-level, без наклона камеры и без перспективного искажения.\nNegative Prompt (Angle & Composition): low angle, high angle, diagonal composition, cropped edges, asymmetry, off-center framing, dynamic perspective\n\n5. Atmosphere\nЧистая, стерильная, нейтральная студийная атмосфера. Воздух визуально прозрачный, без дымки и зерна. Атмосфера подчёркивает технологичность и аккуратность объекта, создавая ощущение точности и инженерной выверенности.\nNegative Prompt (Atmosphere): fog, haze, dust, grain, noise, environmental context, cluttered background\n\n6. Mood Keywords\nMinimal, clean, precise, industrial, modern, functional, calm, controlled, premium, neutral\nNegative Prompt (Mood): emotional, dramatic, aggressive, playful, chaotic, warm, vintage, artistic chaos","words":285,"img":"assets/03.webp","src":"03_Frontalnyy_simmetrichnyy.md","plan":"Общий кадр","pal":"Нейтральная","bg":"Светлый","use":"Каталог","tpl":false},{"id":4,"num":"04","title":"Диагональный hero-кадр — тёплый","en":"Diagonal Hero Shot — Warm Cinematic Luxury Tech","desc":"Объект парит по диагонали на тёмном фоне. Тёплый направленный свет подчёркивает металл и рельеф. Эффект статусности и эксклюзивности.","note":"","prompt":"1. Общее описание\nКинематографичное студийное изображение объекта в изолированном пространстве с тёмным градиентным фоном. Объект представлен в виде динамичной диагональной композиции, визуально «парящей» в кадре. Основной акцент сделан на сложную конструкцию, контраст материалов, текстуры и технологические детали. Стиль — luxury tech / cinematic product shot.\n\n2. Camera\nLens: 70mm\nAperture: f/4\nDepth of field: medium\nFocus: точечный фокус на центральной плоскости объекта с плавным спадом к краям\nFalloff: мягкий, контролируемый, усиливающий глубину\nLens Distortion: минимальный, лёгкая компрессия перспективы\nNegative Prompt (Camera): wide-angle distortion, fisheye, flat perspective, extreme bokeh, motion blur, soft focus, camera shake\n\n3. Lighting\nДраматичное студийное освещение с выраженным направленным ключевым светом. Основной источник расположен сверху и сбоку, формируя глубокие тени и подчёркивая рельеф, фаски и текстуры поверхности. Дополнительный контровой свет мягко отделяет объект от фона. Свет тёплый, с акцентом на металлические элементы и детали.\nNegative Prompt (Lighting): flat lighting, harsh blown highlights, uncontrolled reflections, cold daylight, uneven exposure, harsh frontal flash\n\n4. Angle & Composition\nКомпозиция: диагональная, динамичная, с визуальным ощущением движения. Объект расположен под углом, занимая большую часть кадра, с достаточным негативным пространством вокруг для усиления премиального восприятия.\nУгол съёмки: низкий трёхчетвертной угол (low three-quarter angle), камера направлена снизу вверх, усиливая ощущение массивности и технологической сложности.\nNegative Prompt (Angle & Composition): flat front view, strict side view, centered symmetry, cropped edges, static composition, top-down angle\n\n5. Atmosphere\nТёплая, плотная, кинематографичная атмосфера с ощущением глубины и объёма. Фон мягко затемнён, без деталей, создаёт ощущение изолированного пространства. Атмосфера подчёркивает статусность, технологичность и эксклюзивность.\nNegative Prompt (Atmosphere): bright background, clutter, environmental context, fog, dust, grain, noise, busy backdrop\n\n6. Mood Keywords\nCinematic, luxury, high-tech, powerful, dramatic, premium, precise, engineered, bold\nNegative Prompt (Mood): casual, playful, soft, minimalistic, vintage, cozy, friendly, understated","words":282,"img":"assets/04.webp","src":"04_Diagonalnyy_hero_teplyy.md","plan":"Общий кадр","pal":"Тёплая","bg":"Тёмный","use":"Hero","tpl":false},{"id":5,"num":"05","title":"Диагональный hero-кадр — холодный","en":"Diagonal Hero Shot — Cool Cinematic High-Tech","desc":"То же построение, но холодная палитра: нейтрально-белый свет с голубым оттенком, crisp-рефлексы на металле и стекле. Для high-tech продуктов.","note":"","prompt":"1. Общее описание\nКинематографичное студийное изображение объекта в изолированном пространстве с тёмным градиентным фоном. Объект представлен в виде динамичной диагональной композиции, визуально «парящей» в кадре. Основной акцент сделан на сложную конструкцию, контраст материалов, текстуры и технологические детали. Стиль — luxury tech / cinematic product shot.\n\n2. Camera\nLens: 70mm\nAperture: f/4\nDepth of field: medium\nFocus: точечный фокус на центральной плоскости объекта с плавным спадом к краям\nFalloff: мягкий, контролируемый, усиливающий глубину\nLens Distortion: минимальный, лёгкая компрессия перспективы\nNegative Prompt (Camera): wide-angle distortion, fisheye, flat perspective, extreme bokeh, motion blur, soft focus, camera shake\n\n3. Lighting\nДраматичное студийное освещение с выраженным направленным ключевым светом. Основной источник расположен сверху и сбоку, формируя глубокие тени и подчёркивая рельеф, фаски и текстуры поверхности. Дополнительный контровой свет мягко отделяет объект от фона.\nТемпература света: нейтрально-белый или слегка холодный (cool white / soft blue tint); чистые, технологичные хайлайты без тёплых оттенков.\nЭффект: акцент на металле, стекле и инженерных деталях; crisp reflections, controlled specular highlights; ощущение precision и high-tech эстетики.\nNegative Prompt (Lighting): warm lighting, yellow/orange tint, tungsten glow, flat lighting, harsh blown highlights, uncontrolled reflections, uneven exposure, harsh frontal flash\n\n4. Angle & Composition\nКомпозиция: диагональная, динамичная, с визуальным ощущением движения. Объект расположен под углом, занимая большую часть кадра, с достаточным негативным пространством вокруг для усиления премиального восприятия.\nУгол съёмки: низкий трёхчетвертной угол (low three-quarter angle), камера направлена снизу вверх, усиливая ощущение массивности и технологической сложности.\nNegative Prompt (Angle & Composition): flat front view, strict side view, centered symmetry, cropped edges, static composition, top-down angle\n\n5. Atmosphere\nХолодная, чистая, кинематографичная атмосфера с ощущением глубины и объёма. Фон мягко затемнён, без деталей, создаёт ощущение изолированного пространства. Атмосфера подчёркивает статусность, технологичность и эксклюзивность.\nNegative Prompt (Atmosphere): bright background, clutter, environmental context, fog, dust, grain, noise, busy backdrop\n\n6. Mood Keywords\nCinematic, luxury, high-tech, powerful, dramatic, premium, precise, engineered, bold, clean, futuristic, cold elegance\nNegative Prompt (Mood): casual, playful, soft, warm, vintage, cozy, friendly, understated","words":317,"img":"assets/05.webp","src":"05_Diagonalnyy_hero_kholodnyy.md","plan":"Общий кадр","pal":"Холодная","bg":"Тёмный","use":"Hero","tpl":false},{"id":6,"num":"06","title":"Ювелирное макро — холодное","en":"Jewelry Macro Detail — Cool Cinematic Closeup","desc":"Крупный фрагмент с декоративными элементами и рельефом. Холодный свет с высоким микроконтрастом подчёркивает гравировку и обработку материала.","note":"","prompt":"1. Общее описание\nКинематографичное макро-изображение объекта в изолированной студийной среде. В кадре показан фрагмент объекта крупным планом, с акцентом на декоративные элементы, сложный рельеф поверхности и высокоточную обработку материалов. Объект визуально «вырывается» из фона, создавая ощущение ювелирного изделия в масштабе макро. Стиль — luxury macro / cinematic detail shot.\n\n2. Camera\nLens: 100mm macro\nAperture: f/2.8\nDepth of field: very shallow\nFocus: точечный фокус на центральном декоративном элементе и микро-текстуре поверхности\nFalloff: выраженный, быстрый спад резкости от точки фокуса к переднему и заднему плану\nLens Distortion: отсутствует, оптическая точность макро-объектива\nNegative Prompt (Camera): wide-angle lens, deep depth of field, flat focus, soft macro, motion blur, camera shake, perspective distortion, low detail\n\n3. Lighting\nЮвелирное студийное освещение, адаптированное под макросъёмку. Основной мягкий направленный свет подчёркивает рельеф, гравировку и микро-детали. Дополнительные акцентные источники создают тонкие блики на металлических элементах, усиливая ощущение глубины и премиальности.\nЦвет света: нейтральный белый или слегка холодный (cool white), без тёплых оттенков. Свет чистый, точный, с высоким микроконтрастом, подчёркивающий технологичность и безупречную обработку материалов.\nNegative Prompt (Lighting): warm light, yellow tint, orange highlights, flat lighting, harsh specular highlights, blown reflections, uneven exposure, uncontrolled glare, hard shadows\n\n4. Angle & Composition\nКомпозиция: крупный кадр с частичным кадрированием объекта. Композиция сосредоточена на одном ключевом фрагменте, остальная часть уходит в размытие. Негативное пространство минимально и используется исключительно для усиления фокуса внимания.\nУгол съёмки: близкий макро-угол с лёгким наклоном для раскрытия объёма рельефа, без динамических искажений.\nNegative Prompt (Angle & Composition): full object view, wide framing, centered symmetry, distant shot, flat front macro, cluttered framing\n\n5. Atmosphere\nПлотная, интимная, кинематографичная атмосфера макросъёмки. Фон тёмный, гладкий, полностью расфокусированный. Атмосфера создаёт ощущение ручной работы, эксклюзивности и высокой стоимости, словно объект рассматривается под лупой.\nNegative Prompt (Atmosphere): busy background, visible environment, fog, haze, dust, grain, noise, texture bleed\n\n6. Mood Keywords\nLuxury, macro, tactile, intimate, cinematic, refined, detailed, precision, craftsmanship, premium, clean, cool, technical\nNegative Prompt (Mood): casual, playful, minimal flat, industrial cold, vintage, noisy, chaotic, emotional chaos","words":323,"img":"assets/06.webp","src":"06_Yuvelirnoe_makro_kholodnoe.md","plan":"Макро","pal":"Холодная","bg":"Тёмный","use":"Ювелирное","tpl":false},{"id":7,"num":"07","title":"Диагональный макро hero — тёплый","en":"Diagonal Macro Hero Shot — Warm Cinematic Luxury Tech","desc":"Тот же макро-подход, но в тёплом свете: тонкие блики на металлических деталях, ощущение ручной работы и высокой стоимости.","note":"","prompt":"1. Общее описание\nКинематографичное макро-изображение объекта в изолированной студийной среде. В кадре показан фрагмент объекта крупным планом, с акцентом на декоративные элементы, сложный рельеф поверхности и высокоточную обработку материалов. Объект визуально «вырывается» из фона, создавая ощущение ювелирного изделия в масштабе макро. Стиль — luxury macro / cinematic detail shot.\n\n2. Camera\nLens: 100mm macro\nAperture: f/2.8\nDepth of field: very shallow\nFocus: точечный фокус на центральном декоративном элементе и микро-текстуре поверхности\nFalloff: выраженный, быстрый спад резкости от точки фокуса к переднему и заднему плану\nLens Distortion: отсутствует, оптическая точность макро-объектива\nNegative Prompt (Camera): wide-angle lens, deep depth of field, flat focus, soft macro, motion blur, camera shake, perspective distortion, low detail\n\n3. Lighting\nЮвелирное студийное освещение, адаптированное под макросъёмку. Основной мягкий направленный свет подчёркивает рельеф, гравировку и микро-детали. Дополнительные акцентные источники создают тонкие блики на металлических элементах, усиливая ощущение глубины и премиальности. Свет тёплый, контролируемый, с высоким микроконтрастом.\nNegative Prompt (Lighting): flat lighting, harsh specular highlights, blown reflections, cold light, uneven exposure, uncontrolled glare, hard shadows\n\n4. Angle & Composition\nКомпозиция: крупный кадр с частичным кадрированием объекта. Композиция сосредоточена на одном ключевом фрагменте, остальная часть уходит в размытие. Негативное пространство минимально и используется исключительно для усиления фокуса внимания.\nУгол съёмки: близкий макро-угол с лёгким наклоном для раскрытия объёма рельефа, без динамических искажений.\nNegative Prompt (Angle & Composition): full object view, wide framing, centered symmetry, distant shot, flat front macro, cluttered framing\n\n5. Atmosphere\nПлотная, интимная, кинематографичная атмосфера макросъёмки. Фон тёмный, гладкий, полностью расфокусированный. Атмосфера создаёт ощущение ручной работы, эксклюзивности и высокой стоимости, словно объект рассматривается под лупой.\nNegative Prompt (Atmosphere): busy background, visible environment, fog, haze, dust, grain, noise, texture bleed\n\n6. Mood Keywords\nLuxury, macro, tactile, intimate, cinematic, refined, detailed, precision, craftsmanship, premium\nNegative Prompt (Mood): casual, playful, minimal flat, industrial cold, vintage, noisy, chaotic, emotional chaos","words":298,"img":"assets/07.webp","src":"07_Diagonalnyy_makro_hero_teplyy.md","plan":"Макро","pal":"Тёплая","bg":"Тёмный","use":"Ювелирное","tpl":false},{"id":8,"num":"08","title":"Диагональный ультрамакро","en":"Diagonal Ultra Macro Hero Shot","desc":"Экстремальное увеличение: форма превращается в абстрактную микро-скульптуру. Силуэт продукта не читается — важна только фактура.","note":"","prompt":"1. Общее описание\nЭкстремальная ultramacro-съёмка фрагмента объекта, при которой форма воспринимается как микро-скульптура. В кадре отсутствует целостное понимание объекта — видна только часть декоративного элемента и поверхности, увеличенная до уровня микроструктур. Основной акцент сделан на текстуру, границы материалов, микрорельеф и отражения. Стиль — ultra-macro / luxury material study / cinematic abstraction. На изображении отсутствуют царапины.\n\n2. Camera\nLens: 180mm ultra macro\nAperture: f/2.0\nDepth of field: ultra shallow (fractions of millimeter)\nFocus: экстремально точечный, зафиксирован на одной микрозоне поверхности\nFalloff: мгновенный, резкость резко обрывается за пределами фокусной плоскости\nLens Distortion: отсутствует, лабораторная оптическая точность\nNegative Prompt (Camera): standard macro, deep focus, full object visibility, wide lens, perspective distortion, soft details, motion blur, camera shake\n\n3. Lighting\nСверхконтролируемое micro-lighting, рассчитанное на ultramacro-масштаб. Один основной микроскопический источник света подчёркивает рельеф и микрофаски. Дополнительные слабые акцентные блики используются для выделения границ материала. Свет направленный, тёплый, с высоким микро-контрастом, без паразитных отражений.\nNegative Prompt (Lighting): flat light, broad softboxes, blown highlights, uncontrolled glare, cold harsh light, uneven illumination\n\n4. Angle & Composition\nКомпозиция: абстрактная, фрагментарная. Кадр охватывает лишь малую часть элемента, превращая объект в визуальный паттерн. Негативное пространство создаётся исключительно за счёт размытия.\nУгол съёмки: экстремально близкий ultramacro-угол, с минимальным наклоном для выявления микрорельефа, без читаемой перспективы.\nNegative Prompt (Angle & Composition): full product view, recognizable silhouette, centered symmetry, wide framing, standard macro distance\n\n5. Atmosphere\nИнтимная, лабораторная, почти стерильная атмосфера. Фон полностью растворён в расфокусе. Возникает ощущение наблюдения за объектом под микроскопом или ювелирной лупой. Атмосфера подчёркивает эксклюзивность, точность и ручную работу.\nNegative Prompt (Atmosphere): environmental context, visible background texture, fog, dust, grain, noise, cinematic haze\n\n6. Mood Keywords\nUltramacro, extreme detail, abstract, tactile, microscopic, precision, luxury craftsmanship, intimate, cinematic\nNegative Prompt (Mood): casual, decorative, illustrative, playful, emotional, narrative, chaotic, minimal flat","words":289,"img":"assets/08.webp","src":"08_Diagonalnyy_ultramakro.md","plan":"Ультрамакро","pal":"Тёплая","bg":"Тёмный","use":"Ювелирное","tpl":false},{"id":9,"num":"09","title":"Люксовое индустриальное макро","en":"Luxury Industrial Macro — Precision Studio Still Life","desc":"Инженерная точность: чистая светлая поверхность, мягкий дневной свет, длинные тени. Холодная палитра без драмы. Для техники и механизмов.","note":"","prompt":"1. Общее описание\nМинималистичная macro still-life сцена в high-end industrial luxury эстетике. Главный объект расположен в изолированном студийном пространстве на идеально чистой светлой поверхности. Основной визуальный акцент строится на взаимодействии формы, света, теней и премиальных отражений. Композиция воздушная, минималистичная и инженерно-точная. Изображение передаёт ощущение высокотехнологичного производства, precision craftsmanship и дорогой industrial aesthetic.\nСтиль: luxury industrial macro / premium commercial still life / precision editorial photography.\n\n2. Camera\nLens: 100mm macro\nAperture: f/5.6\nDepth of field: shallow-medium\nFocus: идеально резкая центральная плоскость объекта с мягким cinematic falloff\nFalloff: плавный, органичный\nLens Distortion: полностью отсутствует\nОптика создаёт: premium compression, clean geometry, precise edge rendering, ultra refined microcontrast.\nNegative Prompt (Camera): fisheye distortion, wide-angle look, smartphone lens, handheld shake, motion blur, oversharpening, distorted perspective, deep focus clutter\n\n3. Lighting\nОсновной стиль света: bright controlled studio daylight lighting. Источник света — сверху, слегка сбоку, мягкий, но направленный. Освещение создаёт: чистые elongated shadows, premium specular reflections, мягкие reflective gradients, controlled metallic highlights.\nСветовое поведение: свет очень чистый, high-key, airy, technically precise. Блики — тонкие, длинные, контролируемые, без пересветов. Тени — мягкие, светло-серые, слегка размытые, с аккуратным градиентом затухания.\nReflection Design: отражения ultra clean, glossy but controlled, physically realistic, premium commercial quality. Никаких грязных спекуляров, HDR glow, harsh reflections.\nNegative Prompt (Lighting): dark lighting, cinematic orange glow, warm tungsten light, harsh flash, flat lighting, blown highlights, dirty reflections, dramatic contrast\n\n4. Angle & Composition\nКомпозиция: минималистичная asymmetrical composition с большим количеством чистого negative space. Композиция ощущается лёгкой, дорогой, спокойной и инженерной. Объект расположен свободно в пространстве с акцентом на форму теней, геометрию отражений и воздушность кадра.\nУгол съёмки: low macro three-quarter angle. Камера расположена близко к поверхности, немного ниже центра объекта, создаёт ощущение масштаба и precision engineering.\nNegative Prompt (Angle & Composition): top-down flat shot, cluttered composition, centered symmetry, dynamic tilt, dutch angle, busy framing, cropped object\n\n5. Background\nФон: seamless matte white/light gray studio surface, clean daylight gradients, soft reflection bloom, premium minimal environment. Поверхность имеет: subtle glossy response, мягкие shadow transitions, controlled reflection softness.\nNegative Prompt (Background): visible environment, textured backdrop, dark studio, colorful gradients, clutter, props, dirty surface\n\n6. Atmosphere\nАтмосфера: sterile, refined, ultra premium, industrial luxury, technically perfect. Изображение вызывает ощущение: precision craftsmanship, expensive engineering, high-end manufacturing, modern luxury minimalism.\n\n7. Material & Surface Rendering\nВсе поверхности выглядят: ultra precise, flawlessly machined, highly refined, premium finished.\nSurface Quality: идеально чистые, без пыли, отпечатков, микроцарапин, noise texture, производственных дефектов.\nReflection Quality: мягкие, controlled, realistic, physically accurate.\nNegative Prompt (Materials): dust, fingerprints, scratches, dirty reflections, rough surfaces, damaged edges, cheap plastic look, noisy materials\n\n8. Color Grading\nЦветокоррекция: luxury industrial daylight grading. Палитра: cool whites, silver-gray, soft neutral tones, subtle blue accents, clean metallic highlights. Контраст: мягкий, controlled, premium editorial balance.\nТональность: bright, clean, expensive, technical, elegant.\nNegative Prompt (Color): oversaturated colors, teal-orange grade, warm sepia, muddy shadows, aggressive HDR, vintage grading, neon colors\n\n9. Rendering Quality\nultra photorealistic, luxury macro realism, premium industrial rendering, cinematic daylight behavior, clean reflection physics, high microcontrast, studio-grade still life quality, 8k detail.\n\n10. Mood Keywords\nLuxury industrial macro, precision engineering, premium still life, high-end commercial photography, clean daylight aesthetic, modern technical elegance, engineered perfection, refined minimalism.\n\n11. Full Negative Prompt\ndark studio lighting, warm orange glow, dirty reflections, fingerprints, scratches, dust, textured background, cluttered composition, noisy shadows, HDR effect, oversaturated colors, CGI appearance, cartoon render, bloom overload, handheld shot, smartphone look, cheap reflections, damaged surfaces","words":558,"img":"assets/09.webp","src":"09_Lyuksovoe_industrialnoe_makro.md","plan":"Макро","pal":"Холодная","bg":"Светлый","use":"Каталог","tpl":false},{"id":10,"num":"10","title":"Атмосферное макро editorial","en":"Atmospheric Macro Editorial — Cinematic Closeup","desc":"Сверхмалая глубина резкости, фон — абстрактный атмосферный пейзаж в цветовой гамме объекта. Арт-подача вместо каталожной.","note":"","prompt":"1. Общее описание\nКинематографичное macro luxury product изображение с экстремально малой глубиной резкости и художественной атмосферой. В кадре показан ультра-крупный фрагмент объекта с акцентом на: материалы, контуры, микротекстуры, отражения, фаски, декоративные элементы, световые переходы. Главный объект занимает большую часть кадра и визуально растворяется в мягком cinematic blur по краям.\nЦветовая палитра окружающей среды полностью формируется из цветов, материалов и визуального характера объекта. На заднем плане — абстрактный размытый atmospheric landscape в идентичной цветовой гамме: мягкие градиенты, туманные формы, световые переходы, дымчатые силуэты, отражающие поверхности, cinematic haze. Фон выглядит как эмоциональное продолжение объекта и усиливает его luxury aesthetic.\nСтиль: macro luxury photography / cinematic macro shot / premium editorial aesthetic / atmospheric product close-up.\n\n2. Camera\nLens: 100mm macro lens\nAperture: f/2.8\nDepth of field: extremely shallow\nFocus: сверхточечный фокус на небольшой области объекта\nFalloff: очень плавный cinematic blur с быстрым уходом в расфокус\nLens Distortion: отсутствует\nМакро-съёмка должна создавать ощущение премиальной тактильности и микродетализации.\nNegative Prompt (Camera): wide-angle lens, deep focus, flat perspective, fisheye distortion, full product visibility, documentary framing, motion blur\n\n3. Lighting\nМягкое направленное cinematic lighting с деликатными бликами и глубокими тенями. Освещение подчёркивает: микротекстуры, рельеф материалов, контуры, глубину формы, reflective edges, polished surfaces.\nСветовые оттенки фона формируются из доминирующих цветов объекта: янтарные, бордовые, сапфировые, изумрудные, серебристые, золотистые, дымчато-серые. Освещение: атмосферное, мягкое, luxury cinematic, с controlled reflections и subtle bloom effect.\nNegative Prompt (Lighting): flat lighting, harsh flash, cold studio light, overexposed highlights, aggressive reflections, hard shadows\n\n4. Angle & Composition\nКомпозиция: extreme macro close-up с частичным отображением объекта. Кадр построен вокруг одного участка поверхности, декоративного элемента, изгиба формы, отражающей грани или текстурного перехода. Фон полностью defocused и воспринимается как cinematic color atmosphere. Большое количество негативного пространства создаёт premium editorial look.\nУгол съёмки: macro three-quarter angle с минимальной дистанцией до объекта.\nNegative Prompt (Angle & Composition): full product shot, centered symmetry, top-down angle, catalog framing, busy composition, sharp background\n\n5. Background Atmosphere\nРазмытый atmospheric background создаётся как цветовое и эмоциональное продолжение объекта. Фон включает: cinematic haze, мягкие tonal gradients, отражённый свет, абстрактные природные формы, дымчатые silhouettes, soft glow transitions. Все элементы фона полностью размыты и не имеют чётких границ. Бэкграунд должен повторять цветовую температуру объекта, усиливать luxury mood, создавать глубину пространства и не отвлекать внимание.\nNegative Prompt (Background): sharp scenery, visible details, realistic environment, cityscape, clutter, detailed landscape, hard edges\n\n6. Surface & Reflection Behavior\nМакро-съёмка акцентирует: premium reflections, polished highlights, micro contrast, subtle gloss, material transitions, smooth reflective gradients. Поверхности должны выглядеть дорогими, тактильными, глубоко проработанными, визуально чистыми. Отражения: мягкие, controlled, cinematic, layered.\nNegative Prompt (Reflections): dirty reflections, noisy gloss, scratches emphasis, chaotic highlights, low-quality shine\n\n7. Atmosphere\nПлотная cinematic macro atmosphere с: мягкой дымкой, atmospheric blur, volumetric softness, глубокой цветовой средой, immersive depth. Изображение должно вызывать ощущение: luxury craftsmanship, exclusivity, intimacy, premium tactile quality, artistic sophistication.\nNegative Prompt (Atmosphere): flat atmosphere, sterile studio, sharp environment, bright daylight, hard realism, empty background\n\n8. Mood Keywords\nMacro luxury, cinematic, atmospheric, elegant, tactile, premium, refined, artistic, editorial, sophisticated, immersive, soft-focus, high-end craftsmanship\nNegative Prompt (Mood): cheap commercial look, harsh realism, playful, casual, minimal flat lighting, sterile catalog shot","words":509,"img":"assets/10.webp","src":"10_Atmosfernoe_makro_editorial.md","plan":"Макро","pal":"Адаптивная","bg":"Атмосферный","use":"Editorial","tpl":false},{"id":11,"num":"11","title":"Атмосферный editorial — парящий объект","en":"Atmospheric Cinematic Editorial — Floating Luxury Object","desc":"Объект парит в центре кадра на фоне размытого пейзажа, повторяющего его палитру. Эффект «объект как единственная реальность в атмосферном сне».","note":"","prompt":"1. Общее описание\nКинематографичное luxury product изображение с премиальной студийной эстетикой. Главный объект расположен в центре композиции и визуально «парит» в пространстве. Основной акцент — на гармонии между объектом и окружающей атмосферой.\nЦветовая палитра фона полностью формируется на основе цветов, материалов и эмоционального характера главного объекта. Бэкграунд визуально продолжает эстетику объекта и воспринимается как его атмосферное расширение.\nНа заднем плане — мягкий размытый пейзаж с художественной глубиной, в той же цветовой гамме, что и объект: плавные градиенты, мягкие световые переходы, атмосферная дымка, абстрактные природные формы, cinematic haze, отражающие поверхности, деликатные tonal transitions. Фон не содержит чётких деталей и работает как premium atmospheric environment, усиливая визуальную идентичность объекта.\nСтиль: luxury product photography / cinematic advertising / premium atmospheric visual / elegant editorial aesthetic.\n\n2. Camera\nLens: 85mm\nAperture: f/2.8\nDepth of field: shallow\nFocus: точечный фокус исключительно на объекте\nFalloff: очень мягкий, cinematic\nLens Distortion: отсутствует\nГлубина резкости создаёт сильное отделение объекта от окружающего пространства.\nNegative Prompt (Camera): wide-angle lens, deep focus, flat perspective, fisheye distortion, documentary look, motion blur, handheld shot\n\n3. Lighting\nМягкое кинематографичное студийное освещение с деликатными направленными источниками света. Свет подчёркивает: материалы, объём, контуры, отражения, глубину формы. Освещение фона адаптируется под цветовую палитру объекта и создаёт единое визуальное пространство.\nСветовые оттенки фона формируются из доминирующих цветов объекта: холодные синие, глубокие изумрудные, тёплые янтарные, золотистые, бордовые, серебристые, дымчато-серые. Свет мягкий, дорогой, атмосферный, cinematic, с плавными tonal gradients.\nNegative Prompt (Lighting): flat lighting, harsh flash, cold white studio light, overexposed highlights, uncontrolled reflections, hard shadows\n\n4. Angle & Composition\nКомпозиция: главный объект в центре или слегка смещён, визуально парит в пространстве. Фон полностью размытый и построен как художественный cinematic landscape: мягкие силуэты, абстрактные формы, плавные линии горизонта, отражения, световые пятна, дымчатая глубина. Композиция минималистичная, с большим количеством негативного пространства и премиальной визуальной чистотой.\nУгол съёмки: three-quarter cinematic angle с лёгким ощущением глубины и объёма.\nNegative Prompt (Angle & Composition): busy composition, sharp background, realistic landscape details, clutter, flat front view, top-down shot\n\n5. Background Atmosphere\nРазмытый атмосферный фон создаётся как эмоциональное продолжение объекта. Бэкграунд должен повторять цветовую температуру объекта, поддерживать его настроение, усиливать luxury aesthetic и создавать художественную глубину.\nВозможные визуальные ассоциации: туманные горные силуэты, абстрактная водная поверхность, мягкие облачные формы, дымчатые градиенты, отражённый свет, cinematic mist, glowing haze. Фон всегда: defocused, atmospheric, soft, elegant, non-distracting.\nNegative Prompt (Background): sharp scenery, realistic cityscape, visible buildings, crowded environment, detailed nature, hard horizon line, noisy textures\n\n6. Surface & Reflection Behavior\nПоверхности и окружающая атмосфера мягко отражают цветовую гамму объекта. Допускаются: деликатные отражения, soft glossy reflections, cinematic bloom, smooth gradients, atmospheric diffusion. Все отражения должны быть контролируемыми, премиальными, минималистичными, без визуального шума.\nNegative Prompt (Reflections): chaotic reflections, mirror artifacts, dirty surfaces, aggressive gloss, noisy highlights\n\n7. Mood Keywords\nLuxury, cinematic, elegant, atmospheric, premium, editorial, refined, artistic, soft-focus, emotional, sophisticated, timeless, immersive\nNegative Prompt (Mood): cheap commercial look, flat catalog style, playful, chaotic, saturated clutter, harsh realism, sterile studio background","words":478,"img":"assets/11.webp","src":"11_Atmosfernyy_editorial_paryashchiy.md","plan":"Общий кадр","pal":"Адаптивная","bg":"Атмосферный","use":"Editorial","tpl":false},{"id":12,"num":"12","title":"Кинематографичный editorial — портрет с объектом","en":"Cinematic Luxury Editorial — Female Portrait with Object","desc":"Fashion-портрет: модель держит объект у линии плеча. Тёплый драматичный свет, контровой отделяет фигуру от тёмного фона.","note":"","prompt":"1. Общее описание\nКинематографичный fashion-editorial портрет в студийной среде. В кадре взрослая женская модель с утончённой, современной внешностью, держащая объект в руках у линии плеча, создавая выразительный и собранный жест. Модель со светлой кожей ровного тона и естественным сиянием. Лицо овальной формы с мягко выраженными скулами и аккуратным подбородком. Глаза светло-голубые, среднего размера, со спокойным, уверенным и сосредоточенным взглядом. Брови светлые, естественной формы, аккуратно оформленные. Нос прямой и пропорциональный. Губы средней полноты с чётким контуром и натуральным оттенком. Волосы светлые, блонд, гладко зачёсаны назад и собраны в аккуратную низкую причёску, подчёркивающую линию шеи и скул. Внешность чистая, собранная, с ярко выраженной luxury fashion-эстетикой. Стиль кадра — cinematic luxury editorial.\n\n2. Camera\nLens: 85mm\nAperture: f/4\nDepth of field: shallow to medium\nFocus: резкий фокус на лице модели и руках\nFalloff: мягкий, плавный спад резкости к фону\nLens Distortion: отсутствует, портретная компрессия\nNegative Prompt (Camera): wide-angle lens, fisheye, perspective distortion, extreme bokeh, motion blur, soft focus, camera tilt\n\n3. Lighting\nДраматичное студийное освещение с выраженным направленным ключевым светом. Основной источник расположен сверху и сбоку, формируя глубокие тени и подчёркивая рельеф, фаски и текстуры поверхности. Дополнительный контровой свет мягко отделяет объект от фона. Свет тёплый, с акцентом на металлические элементы и детали.\nNegative Prompt (Lighting): flat lighting, harsh blown highlights, uncontrolled reflections, cold daylight, uneven exposure, harsh frontal flash\n\n4. Angle & Composition\nКомпозиция: сбалансированная cinematic-editorial композиция с акцентом на верхнюю часть корпуса и лицо. Модель занимает большую часть кадра, руки с объектом формируют вторичную визуальную точку, усиливающую глубину и статусность сцены.\nУгол съёмки: почти фронтальный с лёгким трёхчетвертным поворотом головы, камера на уровне глаз, без динамических искажений.\nNegative Prompt (Angle & Composition): low angle, high angle, diagonal framing, aggressive crop, off-center chaos, awkward pose\n\n5. Atmosphere\nТёплая, плотная, кинематографичная атмосфера с ощущением глубины и объёма. Фон мягко затемнён, без деталей, создаёт ощущение изолированного пространства. Атмосфера подчёркивает статусность, технологичность и эксклюзивность.\nNegative Prompt (Atmosphere): bright background, clutter, environmental context, fog, dust, grain, noise, busy backdrop\n\n6. Mood Keywords\nCinematic, luxury, high-tech, powerful, dramatic, premium, precise, engineered, bold\nNegative Prompt (Mood): casual, playful, soft, minimalistic, vintage, cozy, friendly, understated","words":346,"img":"assets/12.webp","src":"12_Editorial_portret_s_obektom.md","plan":"Портрет","pal":"Тёплая","bg":"Тёмный","use":"Editorial","tpl":false},{"id":13,"num":"13","title":"Холодный лоу-кей — силуэт с контровым светом","en":"Cold Cinematic Low-Key — Luxury Rim-Lit Silhouette","desc":"Объект почти полностью в тени, форма раскрывается тонкими холодными контурными бликами. Ощущение элитарной точности через минимум света.","note":"","prompt":"1. Общее описание\nКинематографичное low-key изображение luxury-объекта в полностью изолированной студийной среде. Объект почти полностью скрыт в глубокой тени, а его форма раскрывается исключительно через тонкие холодные контурные блики и мягкие отражения на металлических поверхностях. Главная идея — не показать объект полностью, а создать ощущение загадочности, инженерной точности и премиальной технологичности через минимальное количество света. Композиция минималистичная, центральная, с сильным визуальным весом силуэта. Объект воспринимается как монолитный технический артефакт.\nСтиль: luxury horology / cinematic low-key product shot / cold industrial elegance.\n\n2. Camera\nLens: 85mm\nAperture: f/4\nDepth of field: medium shallow\nFocus: точечный фокус на центральной плоскости объекта с мягким спадом резкости к краям\nFalloff: плавный, кинематографичный\nLens Distortion: отсутствует, оптически чистая перспектива\nИзображение должно выглядеть снятым на high-end cinema lens с мягкой компрессией пространства и очень чистой передачей микроконтраста.\nNegative Prompt (Camera): wide-angle distortion, fisheye, handheld shake, motion blur, oversharpening, soft focus, smartphone lens look, flat perspective, distorted proportions\n\n3. Lighting\nОсновной стиль света: холодное cinematic rim lighting с ultra controlled studio illumination. Основной источник света расположен позади объекта, немного сверху, под острым углом.\nСвет создаёт: тонкий контурный rim light, холодные металлические блики, мягкое разделение объекта и фона, глубокие тени внутри силуэта.\nЦвет света — только холодная палитра: cool white, icy blue highlights, silver reflections, neutral steel tones. Без тёплых янтарных оттенков, оранжевого света, золотистых бликов.\nСветовое поведение: освещение едва раскрывает форму, подчёркивает геометрию корпуса, создаёт ощущение precision engineering и сохраняет почти чёрный силуэт. Отдельные элементы читаются через edge reflections, polished contours, subtle metallic transitions.\nReflection Design: отражения тонкие, контролируемые, чистые, elongated studio reflections. Без пересветов, грязных спекуляров, хаотичных бликов.\nNegative Prompt (Lighting): warm light, orange glow, amber tones, tungsten lighting, flat lighting, HDR reflections, blown highlights, harsh flash, uncontrolled glare, bright exposure, daylight look\n\n4. Angle & Composition\nКомпозиция: центральная симметричная с доминирующим силуэтом. Объект занимает большую часть кадра, расположен фронтально, сохраняет строгую вертикальную ось. Негативное пространство минималистичное и подчинено силуэту.\nУгол съёмки: прямой slightly low frontal angle. Камера немного ниже центра объекта — для усиления монументальности и статуса.\nNegative Prompt (Angle & Composition): top-down angle, dynamic tilt, dutch angle, wide composition, cropped object, side profile, busy framing, asymmetric composition\n\n5. Background\nФон полностью студийный, гладкий и кинематографичный. Градиент: холодный графитовый, тёмно-синий, стальной серый, мягкий cyan falloff. Фон плавно растворяется в темноте без текстур и деталей.\nNegative Prompt (Background): visible room, environment details, textures, patterns, colorful backdrop, neon background, noisy gradients, clutter\n\n6. Atmosphere\nАтмосфера: холодная, инженерная, премиальная, сдержанная, технологичная. Изображение должно вызывать ощущение: secrecy, precision, elite craftsmanship, mechanical purity.\n\n7. Material Rendering\nМеталл: brushed steel texture, polished edges, cold chrome reflections, ultra clean surface transitions.\nСтекло: глубокое затемнение, controlled reflections, subtle transparency.\nПоверхности: идеально чистые, без пыли, царапин, отпечатков, micro imperfections.\nNegative Prompt (Materials): dust, scratches, fingerprints, dirty reflections, rough metal, damaged surfaces, noise texture, cheap plastic look\n\n8. Color Grading\nЦветокоррекция: cold cinematic grading. Палитра: steel blue, graphite, silver, deep navy, cool monochrome shadows. Контраст: глубокий, low-key, мягкий highlight rolloff, плотные тени.\nТональность: premium, modern, expensive, minimal, cinematic.\nNegative Prompt (Color): warm tones, orange shadows, sepia, teal-orange blockbuster grade, oversaturated colors, colorful highlights, vintage grading\n\n9. Rendering Quality\nultra photorealistic, cinematic realism, luxury commercial quality, extremely controlled reflections, high microcontrast, realistic shadow physics, premium optical rendering, 8k detail, studio-grade realism.\n\n10. Mood Keywords\nLuxury, cold cinematic lighting, precision engineering, mysterious silhouette, premium craftsmanship, industrial elegance, low-key studio photography, ultra refined, technical sophistication, elite product aesthetic.\n\n11. Full Negative Prompt\nwarm lighting, orange glow, golden reflections, flat lighting, bright exposure, noisy shadows, dirty surfaces, scratches, fingerprints, cluttered background, visible environment, overexposed highlights, cheap reflections, plastic materials, HDR look, cartoon render, CGI appearance, chromatic aberration, lens dirt, bloom overload, oversaturated colors, aggressive sharpening, grainy image","words":608,"img":"assets/13.webp","src":"13_Kholodnyy_lou_key_siluet.md","plan":"Общий кадр","pal":"Холодная","bg":"Тёмный","use":"Hero","tpl":false},{"id":14,"num":"14","title":"Steel Chiaroscuro — соло-герой на стали","en":"Steel Chiaroscuro — Solo Object Hero Reveal","desc":"Универсальный шаблон. Объект выхвачен светом из темноты, фон — имитация полированной стали с горизонтальными полосами отражённого света.","note":"","prompt":"Steel Chiaroscuro — Solo Object Hero Reveal (Universal Template)\n\n---\n\n1. Общее описание\nКинематографический кадр премиального объекта, снятого соло в тёмном драматическом пространстве с эффектом полированной стальной поверхности на фоне — в стиле высокобюджетной рекламной кампании. Фон — тёмный металлический задник с горизонтальными полосами отражённого света (brushed steel gradient), создающими глубину и движение. Объект парит/стоит в центре кадра, выхваченный направленным светом из окружающей тьмы — как герой рекламного ролика. Стиль — cinematic luxury campaign / dark steel studio / dramatic chiaroscuro product reveal.\n\n[Место для объекта: сюда подставляется описание конкретного продукта — форма, материалы, ключевые детали, силуэт. Всё остальное в промте остаётся неизменным независимо от того, что это за объект.]\n\n---\n\n2. Camera\n- Lens: 85–100mm\n- Aperture: f/5.6–f/8\n- Depth of field: medium-deep — объект полностью резкий, фон уходит в мягкий тональный градиент полос\n- Focus: приоритет — ключевые детали и грани объекта\n- Falloff: медленный, плавный к краям\n- Lens Distortion: нулевая — строгая прямолинейная оптика\n\nNegative Prompt (Camera):\nwide-angle distortion, fish-eye, shallow DOF with blurred object, motion blur, chromatic aberration, tilt-shift, telephoto compression\n\n---\n\n3. Lighting\nОсновной стиль света: dramatic cinematic key на тёмном фоне с эффектом brushed steel reflections — направленный источник создаёт выраженный chiaroscuro; горизонтальные полосы отражённого света на фоне имитируют полированную металлическую поверхность в движении\nИсточники:\n— Верхний направленный key-свет — падает на объект сверху-сбоку, создавая чёткий highlight на верхних гранях\n— Боковой rim-свет — очерчивает контур объекта тонкой светлой линией на фоне тёмного окружения\n— Фоновые горизонтальные полосы света (практический эффект studio steel wall) — создают глубину и ритм за счёт чередования светлых и тёмных зон\n— Минимальный fill — тени остаются глубокими, сохраняется высокий контраст\n— Нижний bounce — слабый, от тёмной глянцевой поверхности\nСвет создаёт: объект выхвачен из темноты направленным светом; материалы и детали ловят яркие блики; фон живёт собственной световой динамикой независимо от объекта; глубокие тени вокруг объекта подчёркивают его форму\nЦветовая температура: нейтрально-холодная — 5500–6500K, стальной металлический тон\nReflection Design: полированные/глянцевые поверхности объекта отражают направленный свет чёткими strip-highlights; рельефные текстуры дают микроблики; фон — горизонтальные размытые полосы отражённого света, характерные для brushed metal studio backdrop\n\nNegative Prompt (Lighting):\nflat even illumination, warm amber tones, no rim light, no background steel gradient, shadowless exposure, daylight balance, visible studio equipment, uniform artificial glow on metal, neural plastic shine\n\n---\n\n4. Angle & Composition\nКомпозиция: объект по центру-нижней трети кадра — стоит/парит в центре с пространством над головой; много воздуха, уходящего в тёмный верх кадра; фон с горизонтальными стальными полосами занимает весь кадр\nУгол съёмки: eye-level или чуть ниже — камера на уровне объекта, придаёт монументальность; лёгкий three-quarter Y-rotation ~25–35° для демонстрации объёма; вертикальный формат 3:4 или 4:5\n\nNegative Prompt (Angle & Composition):\ntop-down flat lay, extreme high angle, dutch angle, object dead-center without vertical space, object touching frame edges, symmetrical flat front profile\n\n---\n\n5. Background\nТип фона: тёмная студийная стена с эффектом полированной стали — горизонтальные размытые полосы света и тени, напоминающие отражения в брашированном металле или движущийся свет в туннеле\nЦвет и градиент: глубокий тёмно-серый/почти чёрный (#0A0C10–#1A1E24) с горизонтальными светлыми полосами (#8890A0–#C8D0DC) разной интенсивности и ширины; в нижней части — плавный переход к светлому подиуму/полу\nДетализация: полосы имитируют отражение в стальной поверхности — мягкий вертикальный blur, создающий ощущение глубины и движения; нижняя часть кадра — светлая горизонтальная плоскость (подиум)\n\nNegative Prompt (Background):\nwhite or plain background, coloured background, warm-toned background, no horizontal light bands, flat single-tone background, sharp hard-edged bands, textured surface unrelated to metal, architectural elements, props\n\n---\n\n6. Atmosphere\nХарактер атмосферы: cinematic luxury campaign, dramatic power, premium object as icon, steel-cold sophistication, hero product reveal\nИзображение вызывает: ощущение высокобюджетного рекламного ролика — объект представлен как культовая вещь, выхваченная из тьмы направленным светом\n\nNegative Prompt (Atmosphere):\ncasual lifestyle mood, daylight softness, cheap catalogue look, flat product shot without drama, warm cozy feeling, no cinematic tension\n\n---\n\n7. Material Rendering\nПолированные/металлические поверхности объекта: ЧЕСТНАЯ физика — отражают направленный свет чёткими strip-highlights; рельефные текстуры (гравировка, шов, фактура) ловят свет по каждой детали; anisotropic reflections вдоль направления полировки/фактуры\nТёмные/матовые зоны объекта: глубокий контраст, отражают контур rim-света по краю\nАкцентные декоративные элементы (логотип, эмблема, деталь): объёмные, ловят ключевой свет ярким бликом\nФон: имитация brushed steel — горизонтальные полосы с мягким градиентом яркости, не резкие линии, а плавные световые волны\n\nNegative Prompt (Materials):\nflat matte object without highlights, no rim light on edges, plastic-looking material, dull unlit accents, hard-edged background stripes, no gradient in background bands\n\n---\n\n8. Color Grading\nСтиль цветокоррекции: dark steel cinematic grade — холодный монохромный металлический тон с глубоким контрастом\nПалитра: near-black (#0A0C10 — фон и тени), steel grey (#8890A0–#C8D0DC — световые полосы и rim), цвет материала объекта как контрастный акцент\nКонтраст и тональность: высокий контраст; глубокие чёрные тени; highlights чистые, не пересвеченные\nОбщее впечатление: cinematic steel campaign, dramatic product hero, premium power\n\nNegative Prompt (Color):\nwarm amber grade, orange/teal LUT, desaturated flat tones, low contrast, washed-out highlights, colour cast, oversaturated\n\n---\n\n9. Rendering Quality\nUltra-high resolution, 8K output, photorealistic render, accurate anisotropic metal reflections, precise rim-light contour, smooth horizontal background gradient bands without banding artefacts, deep shadow detail preserved, no noise, no compression artefacts, cinematic-grade post-processing\n\n---\n\n10. Mood Keywords\nSteel chiaroscuro, dramatic rim light, brushed metal background, solo hero object, cinematic campaign, dark power, polished surfaces, material highlights, contrast accent, premium icon, deep shadow, monumental presence, three-quarter reveal\n\n---\n\n11. Full Negative Prompt\nwhite or plain background, coloured background, warm-toned background, no horizontal light bands, flat single-tone background, sharp hard-edged bands, textured unrelated surface, architectural elements, props, flat even illumination, warm amber tones, no rim light, shadowless exposure, daylight balance, visible studio equipment, uniform artificial glow, neural plastic shine, wide-angle distortion, fish-eye, shallow DOF, motion blur, chromatic aberration, tilt-shift, top-down flat lay, extreme high angle, dutch angle, object dead-center without space, symmetrical flat front profile, flat matte object, no rim light on edges, plastic-looking material, dull unlit accents, warm amber grade, orange/teal LUT, desaturated flat tones, low contrast, washed-out highlights, oversaturated, noise, banding, compression artefacts","words":978,"img":"assets/14.webp","src":"14_Steel_Chiaroscuro.md","plan":"Общий кадр","pal":"Холодная","bg":"Тёмный","use":"Кампания","tpl":true},{"id":15,"num":"15","title":"Champagne Taupe Glow — драматичный spotlight","en":"Champagne Taupe Glow — Dramatic Spotlight Object","desc":"Тёплый шампань-тауповый ореол за объектом, зеркальный глянцевый пол, выраженный chiaroscuro. Эффект киноплаката.","note":"","prompt":"1. Студийная съёмка объекта в кинематографической постановке: объект стоит на тёмной глянцевой поверхности в драматическом тёплом освещении приглушённого шампань-таупового оттенка (#A89974). Фон — насыщенный градиент от глубокого тёмного по краям к мягкому золотисто-бежевому свечению в центре-горизонте, создающему эффект светящегося ореола за объектом. Объект подсвечен направленным боковым/контровым светом, выявляющим его форму и текстуру через игру highlight и тени. Поверхность под объектом — зеркально-глянцевая, даёт чёткое отражение. Стиль — cinematic poster lighting / muted champagne glow / luxury chiaroscuro / film key visual.\n\n2. Camera\nLens: 85–100mm\nAperture: f/5.6–f/8\nDepth of field: medium-deep — объект полностью резкий; фон уходит в мягкий тональный градиент\nFocus: равномерный по объекту, приоритет — текстура поверхности и контур\nFalloff: медленный, плавный к краям\nLens Distortion: нулевая — строгая прямолинейная оптика\nNegative Prompt (Camera): wide-angle barrel distortion, fish-eye, shallow DOF with blurred object, motion blur, chromatic aberration, tilt-shift, telephoto compression\n\n3. Lighting\nОсновной стиль света: dramatic cinematic key — направленный источник создаёт выраженный chiaroscuro; backlight glow за объектом формирует светящийся таупово-золотистый ореол.\nРасположение и источники:\n— Контровой/background источник: мягкий тёплый источник позади-снизу объекта (приглушённый champagne taupe ~#A89974, эквивалент ~3500–4000K с пониженной насыщенностью) — создаёт светящееся пятно за объектом и тёплый rim вдоль верхних граней.\n— Боковой key: направленный с одной стороны — выявляет текстуру и форму через directional highlight; противоположная сторона уходит в глубокую тень.\n— Минимальный fill — тени остаются глубокими, сохраняется высокий контраст.\n— Нижний bounce от глянцевого пола — мягкий taupe рефлекс под объектом.\nСвет создаёт: выраженный chiaroscuro — освещённая сторона и тёмная теневая; тёплый rim light вдоль контура от backlight; светящийся champagne-taupe фон-ореол за объектом; чёткое зеркальное отражение на глянцевом полу.\nЦветовая температура: тёплая приглушённая — champagne taupe (#A89974), мягкий золотисто-бежевый без яркой янтарной насыщенности; единый muted warm колор-филд.\nReflection Design: глянцевый пол даёт зеркальное отражение объекта; directional highlights вдоль граней; backlight rim подчёркивает силуэт.\nNegative Prompt (Lighting): flat even illumination, cold blue tones, neutral white light, shadowless exposure, no backlight glow, no rim light, soft wraparound light without contrast, daylight balance, visible studio equipment, multi-directional fill killing shadows, oversaturated orange amber glow\n\n4. Angle & Composition\nКомпозиция: объект по центру-левее кадра с тёплым воздухом вокруг; светящееся champagne-taupe пятно фона строго за объектом как ореол; глянцевый пол с отражением занимает нижнюю треть; горизонт фона — мягкая линия перехода тёмного в светлое.\nУгол съёмки: eye-level или чуть ниже — камера на уровне нижней части объекта; лёгкий low angle придаёт монументальность; вертикальный формат 4:5 или 3:4.\nNegative Prompt (Angle & Composition): top-down flat lay, extreme high angle, dutch angle, object touching frame edges, object dead-center without breathing space, no floor reflection, no background glow halo\n\n5. Background\nТип фона: студийный градиентный с драматическим световым ореолом.\nЦвет и градиент: глубокий тёмный тёплый (#1A1610) по верхним углам и краям, плавно переходящий в мягкое champagne-taupe свечение (#A89974–#C0B088) в центре-горизонте за объектом; радиальный glow от backlight.\nДетализация: чистый, без текстур; единственный элемент — световой градиент-ореол; мягкая линия горизонта между фоном и полом.\nNegative Prompt (Background): white or grey background, cool-toned background, neutral background, textured surface, architectural elements, props, hard vignette, flat single-tone background, no glow gradient, cold blue glow, oversaturated orange background\n\n6. Atmosphere\nХарактер атмосферы: cinematic mystery, muted luxury, soft warm chiaroscuro tension, poster-grade staging, объект как герой кадра.\nИзображение вызывает: ощущение киноплаката — сдержанный драматизм, премиальность, фокус на объекте через свет и тьму.\nNegative Prompt (Atmosphere): clean clinical neutral feel, flat product shot, cold sterile studio, lifestyle context, daylight casual, no drama, no cinematic tension, technical catalogue look\n\n7. Material Rendering\nПоверхности объекта: текстура читается через directional light — освещённая сторона раскрывает рельеф (шлифовка, фактура), теневая уходит в глубокий тёплый мрак; backlight rim очерчивает контур.\nГлянцевые/металлические поверхности: directional strip highlights вдоль граней; мягкий champagne-taupe отсвет на освещённой стороне.\nМатовые поверхности: плавный градиент от мягкого warm highlight к тёмной тени.\nГлянцевый пол: зеркальное отражение объекта — чёткое, слегка размытое к краям; тёплый taupe тон.\nТень/отражение: объект отбрасывает отражение вниз на глянцевую поверхность.\nNegative Prompt (Materials): flat matte object without texture reveal, no rim light on edges, cold-toned highlights, no floor reflection, hard point specular, plastic-looking surface, shadowless flat rendering, blown overexposed highlights\n\n8. Color Grading\nСтиль цветокоррекции: muted champagne-taupe grade — единый мягкий золотисто-бежевый колор-филд приглушённой насыщенности; высокий контраст с глубокими тёмными.\nПалитра: deep warm black-brown (#1A1610 — края и тени), champagne taupe (#A89974 — фон glow), soft warm highlight (#C0B088 — освещённые грани), тёмный объект с тёплыми taupe отсветами.\nКонтраст и тональность: высокий контраст; глубокие тёплые тени с сохранением деталей в светах; backlight зона — самая яркая.\nОбщее впечатление: cinematic film poster, muted luxury chiaroscuro, refined warm premium editorial.\nNegative Prompt (Color): cool blue grade, neutral white balance, desaturated to grey, flat low-contrast, cold cast, grey-tinted shadows, oversaturated orange amber, bright gold, orange/teal LUT, pink or green cast\n\n9. Rendering Quality\nUltra-high resolution, 8K output, photorealistic render, accurate texture reveal under directional light, precise warm rim light along contour, clean glossy floor reflection with natural falloff, smooth background glow gradient without banding, deep shadow detail preserved, no noise, no compression artefacts.\n\n10. Mood Keywords\nCinematic champagne, dramatic backlight, muted warm chiaroscuro, glowing taupe halo, glossy floor reflection, directional key light, rim-lit contour, deep warm shadows, film poster lighting, refined luxury staging, soft golden glow, monumental object, warm tension, premium editorial, spotlight reveal\n\n11. Full Negative Prompt\nwhite or grey background, cool-toned background, neutral background, flat single-tone background, no glow gradient, cold blue glow, oversaturated orange background, flat even illumination, cold blue tones, neutral white light, shadowless exposure, no backlight glow, no rim light, soft wraparound light without contrast, daylight balance, visible studio equipment, multi-directional fill killing shadows, wide-angle barrel distortion, fish-eye, shallow DOF with blurred object, motion blur, chromatic aberration, tilt-shift, top-down flat lay, extreme high angle, dutch angle, object touching frame edges, object dead-center, no floor reflection, no background halo, flat matte object without texture, cold-toned highlights, hard point specular, plastic-looking surface, blown overexposed highlights, cool blue grade, neutral white balance, desaturated to grey, flat low-contrast, grey-tinted shadows, oversaturated orange amber, bright gold, orange/teal LUT, pink or green cast, noise, banding, compression artefacts","words":996,"img":"assets/15.webp","src":"15_Champagne_Taupe_Glow.md","plan":"Общий кадр","pal":"Тёплая","bg":"Тёмный","use":"Кампания","tpl":true},{"id":16,"num":"16","title":"Steel Chiaroscuro — макро-деталь","en":"Steel Chiaroscuro — Macro Detail Reveal","desc":"Макро-версия шаблона Steel Chiaroscuro. В кадре — одна ключевая деталь (грань, гравировка, стык материалов); целостная форма объекта не читается. Фон со стальными полосами полностью растворён в блюре. Ключевой приём — grazing side light под малым углом, выявляющий каждую борозду гравировки.","note":"Парный к промту **Steel Chiaroscuro — Solo Object Hero Reveal** (файл 14): та же световая схема и фон, но общий план вместо макро. Удобно снимать серией — геройский кадр плюс макро-деталь в единой эстетике.","prompt":"Steel Chiaroscuro — Macro Detail Reveal\n\n1. Общее описание\nКинематографичное макро-изображение фрагмента премиального объекта, снятого в тёмном драматическом пространстве с эффектом полированной стальной поверхности на фоне — в стиле высокобюджетной рекламной кампании. В кадре — экстремально крупный план одной ключевой детали (грань, гравировка, стык материалов, декоративный элемент), целостная форма объекта не читается. Фон — тёмный металлический задник с горизонтальными полосами отражённого света, полностью растворённый в глубоком блюре. Деталь выхвачена направленным светом из окружающей тьмы. Стиль — cinematic luxury macro / dark steel studio / dramatic chiaroscuro micro-detail reveal.\n\n2. Camera\n* Lens: 100–150mm macro\n* Aperture: f/2.0–f/2.8\n* Depth of field: экстремально малая — резкость только на одной микрозоне детали\n* Focus: сверхточечный, зафиксирован на ключевом декоративном элементе или переходе материалов\n* Falloff: выраженный, быстрый спад резкости от точки фокуса к переднему и заднему плану\n* Lens Distortion: нулевая — оптическая точность макрообъектива\nNegative Prompt (Camera): wide-angle distortion, fish-eye, deep depth of field, flat focus, full object visibility, standard product distance, motion blur, chromatic aberration, tilt-shift\n\n3. Lighting\nОсновной стиль света: dramatic cinematic macro key на тёмном фоне с эффектом brushed steel reflections — направленный источник создаёт выраженный chiaroscuro на уровне детали\nИсточники:\n— Верхний направленный key-свет — падает точечно на деталь сверху-сбоку, создавая чёткий highlight на грани или гравировке\n— Боковой rim-свет — очерчивает контур фрагмента тонкой светлой линией на фоне тёмного окружения\n— Grazing side light под малым углом — критично для выявления микрорельефа: подсвечивает каждую борозду гравировки и фактуру поверхности\n— Фоновые горизонтальные полосы света в глубоком блюре — создают атмосферный контекст\n— Минимальный fill — тени в углублениях рельефа остаются глубокими, высокий микроконтраст\nСвет создаёт: деталь выхвачена из темноты; каждая борозда, грань или стык материалов ловит отдельный микроблик; фон живёт собственной световой динамикой в размытии\nЦветовая температура: нейтрально-холодная — 5500–6500K, стальной металлический тон\nReflection Design: полированные микрограни отражают направленный свет чёткими strip-highlights; рельефная текстура даёт множественные точечные микроблики; фон — размытые горизонтальные полосы отражённого света\nNegative Prompt (Lighting): flat even illumination, warm amber tones, no rim light on fragment, no background steel gradient, shadowless exposure, daylight balance, visible studio equipment, uniform artificial glow on metal, neural plastic shine, low micro-contrast losing engraving detail\n\n4. Angle & Composition\nКомпозиция: кадр полностью заполнен фрагментом детали — виден только ключевой элемент; негативное пространство минимально, используется только фон в глубоком блюре\nУгол съёмки: сверхблизкий макро-ракурс с минимальной дистанцией до поверхности, лёгкий наклон для раскрытия объёма микрорельефа, без узнаваемого силуэта целого объекта; вертикальный или квадратный формат\nNegative Prompt (Angle & Composition): full object view, wide framing, recognizable silhouette, standard three-quarter product angle, distant shot, centered symmetry showing whole object, cluttered framing\n\n5. Background\nТип фона: тёмная студийная стена с эффектом полированной стали, полностью размытая экстремально малой глубиной резкости\nЦвет и градиент: глубокий тёмно-серый/почти чёрный (#0A0C10–#1A1E24) с горизонтальными светлыми полосами (#8890A0–#C8D0DC), растворёнными в блюре\nДетализация: полосы читаются только как мягкие световые волны без чётких границ — фон работает исключительно как атмосферный контекст\nNegative Prompt (Background): white or plain background, coloured background, warm-toned background, sharp hard-edged bands, sharp focused background details, textured surface unrelated to metal, architectural elements, props\n\n6. Atmosphere\nХарактер атмосферы: cinematic luxury macro campaign, dramatic power at micro scale, premium craftsmanship as icon, steel-cold sophistication, intimate detail reveal\nИзображение вызывает: ощущение эксклюзивного изучения качества обработки материала — деталь как культовый фрагмент, выхваченный из тьмы\nNegative Prompt (Atmosphere): casual lifestyle mood, daylight softness, cheap catalogue look, flat product shot without drama, warm cozy feeling, no cinematic tension, wide environmental context\n\n7. Material Rendering\nПолированные/металлические микрограни: ЧЕСТНАЯ физика — отражают направленный свет чёткими strip-highlights на уровне отдельных граней; рельефные текстуры (гравировка, шов, резцовые линии, фактура) ловят свет по каждому микроэлементу; anisotropic reflections вдоль направления полировки\nТёмные/матовые микрозоны: глубокий контраст, отражают контур rim-света по краю фрагмента\nАкцентный декоративный микроэлемент: объёмный, ловит ключевой свет ярким бликом\nФон: размытые полосы brushed steel с мягким градиентом яркости\nNegative Prompt (Materials): flat matte fragment without highlights, no rim light on edges, plastic-looking material, dull unlit accents, low micro-detail, smeared engraving without depth, scratches, fingerprints, dust\n\n8. Color Grading\nСтиль цветокоррекции: dark steel cinematic grade — холодный монохромный металлический тон с глубоким контрастом на уровне микродетали\nПалитра: near-black (#0A0C10 — фон и тени), steel grey (#8890A0–#C8D0DC — световые полосы и rim), цвет материала детали как контрастный акцент\nКонтраст и тональность: высокий контраст; глубокие чёрные тени в рельефе; highlights чистые, микроконтраст сохранён для читаемости гравировки\nОбщее впечатление: cinematic steel macro campaign, dramatic material hero, premium craftsmanship power\nNegative Prompt (Color): warm amber grade, orange/teal LUT, desaturated flat tones, low contrast, washed-out highlights, colour cast, oversaturated\n\n9. Rendering Quality\nUltra-high resolution extreme macro detail, 8K output, photorealistic render, accurate anisotropic metal reflections at micro scale, precise rim-light contour on fragment edge, micro-texture visible down to individual tool marks and engraving lines, smooth blurred background gradient without banding artefacts, deep shadow detail preserved in relief, no noise, no compression artefacts\n\n10. Mood Keywords\nSteel chiaroscuro macro, dramatic rim light, brushed metal blurred background, micro-detail hero, cinematic macro campaign, dark power, polished micro-surfaces, engraving highlights, material craftsmanship, premium precision, deep relief shadow, intimate detail reveal\n\n11. Full Negative Prompt\nwhite or plain background, coloured background, warm-toned background, sharp hard-edged bands, sharp focused background, textured unrelated surface, architectural elements, props, flat even illumination, warm amber tones, no rim light on fragment, shadowless exposure, daylight balance, visible studio equipment, uniform artificial glow, neural plastic shine, low micro-contrast, wide-angle distortion, fish-eye, deep depth of field, flat focus, motion blur, chromatic aberration, tilt-shift, full object view, wide framing, recognizable silhouette, standard product angle, distant shot, flat matte fragment, plastic-looking material, dull unlit accents, smeared engraving, scratches, fingerprints, dust, warm amber grade, orange/teal LUT, desaturated flat tones, low contrast, washed-out highlights, oversaturated, noise, banding, compression artefacts","words":939,"img":"assets/16.webp","src":"16_Steel_Chiaroscuro_makro.md","plan":"Макро","pal":"Холодная","bg":"Тёмный","use":"Кампания","tpl":true},{"id":17,"num":"17","title":"Champagne Taupe — макро-деталь","en":"Champagne Taupe Chiaroscuro — Macro Detail Reveal","desc":"Макро-версия шаблона Champagne Taupe Glow. В кадре — одна ключевая деталь (грань, гравировка, рельеф); целостная форма объекта не читается. За деталью — светящийся таупово-золотистый ореол, растворённый в блюре. Ключевой приём — боковой grazing key под малым углом, выявляющий каждую борозду гравировки.","note":"Парный к промту **Champagne Taupe Glow — Dramatic Spotlight Object** (файл 15): та же световая схема и палитра, но общий план вместо макро. Удобно снимать серией — геройский кадр плюс макро-деталь в единой эстетике.","prompt":"Champagne Taupe Chiaroscuro — Macro Detail Reveal\n\n1. Общее описание\nКинематографичное макро-изображение фрагмента объекта в драматическом тёплом освещении приглушённого шампань-таупового оттенка (#A89974). В кадре — экстремально крупный план одной ключевой детали (грань, гравировка, рельеф поверхности, стык материалов), целостная форма объекта не читается. Фон — насыщенный градиент от глубокого тёмного к мягкому золотисто-бежевому свечению за деталью, создающему эффект светящегося ореола, полностью растворённый в блюре. Деталь подсвечена направленным боковым/контровым светом, выявляющим микрорельеф через игру highlight и тени. Стиль — cinematic poster macro / muted champagne glow / luxury chiaroscuro detail shot.\n[Место для объекта: сюда подставляется описание конкретной детали продукта — материал, фактура, рельеф, ключевой элемент для крупного плана.]\n\n2. Camera\nLens: 100–150mm macro\nAperture: f/2.0–f/2.8\nDepth of field: экстремально малая — резкость только на одной микрозоне детали\nFocus: сверхточечный, зафиксирован на ключевом элементе рельефа или переходе материалов\nFalloff: выраженный, быстрый спад резкости от точки фокуса к переднему и заднему плану\nLens Distortion: нулевая — оптическая точность макрообъектива\nNegative Prompt (Camera):\nwide-angle barrel distortion, fish-eye, deep depth of field, flat focus, full object visibility, standard product distance, motion blur, chromatic aberration, tilt-shift\n\n3. Lighting\nОсновной стиль света: dramatic cinematic macro key — направленный источник создаёт выраженный chiaroscuro на уровне детали; backlight glow за фрагментом формирует светящийся таупово-золотистый ореол\nРасположение и источники:\n— Контровой/background источник: мягкий тёплый источник позади-снизу (приглушённый champagne taupe ~#A89974, ~3500–4000K с пониженной насыщенностью) — создаёт светящееся пятно за деталью и тёплый rim вдоль её верхнего края\n— Боковой grazing key под малым углом — критично для макро: выявляет каждую борозду гравировки, шлифовку и микрофактуру через directional highlight; противоположная сторона уходит в глубокую тень\n— Минимальный fill — тени в углублениях рельефа остаются глубокими, высокий микроконтраст\n— Нижний bounce от глянцевой поверхности — мягкий taupe рефлекс\nСвет создаёт: выраженный chiaroscuro на микроуровне — каждая грань и борозда ловит отдельный тёплый блик; rim light вдоль контура фрагмента; светящийся champagne-taupe ореол в размытом фоне\nЦветовая температура: тёплая приглушённая — champagne taupe (#A89974), мягкий золотисто-бежевый без яркой янтарной насыщенности\nReflection Design: полированные микрограни дают directional strip highlights; рельефная текстура — множественные точечные микроблики; фон — мягкое размытое свечение\nNegative Prompt (Lighting):\nflat even illumination, cold blue tones, neutral white light, shadowless exposure, no backlight glow, no rim light, soft wraparound light without contrast, daylight balance, visible studio equipment, oversaturated orange amber glow, low micro-contrast losing engraving detail\n\n4. Angle & Composition\nКомпозиция: кадр полностью заполнен фрагментом детали — виден только ключевой элемент рельефа; светящееся champagne-taupe пятно фона за деталью как ореол; негативное пространство минимально, работает только размытый фон\nУгол съёмки: сверхблизкий макро-ракурс с минимальной дистанцией до поверхности, лёгкий наклон для раскрытия объёма микрорельефа, без узнаваемого силуэта целого объекта; вертикальный формат 4:5 или квадратный\nNegative Prompt (Angle & Composition):\nfull object view, wide framing, recognizable silhouette, distant shot, top-down flat lay, extreme high angle, dutch angle, centered symmetry showing whole object, no background glow halo\n\n5. Background\nТип фона: размытый студийный градиент с драматическим световым ореолом\nЦвет и градиент: глубокий тёмный тёплый (#1A1610) по краям, плавно переходящий в мягкое champagne-taupe свечение (#A89974–#C0B088) непосредственно за деталью\nДетализация: полностью растворён в блюре — ни текстур, ни читаемых границ; единственный элемент — световой градиент-ореол как атмосферный контекст\nNegative Prompt (Background):\nwhite or grey background, cool-toned background, neutral background, textured surface, sharp focused background details, architectural elements, props, hard vignette, no glow gradient, cold blue glow, oversaturated orange background\n\n6. Atmosphere\nХарактер атмосферы: cinematic mystery на микроуровне, muted luxury, soft warm chiaroscuro tension, intimate craftsmanship reveal\nИзображение вызывает: ощущение изучения качества обработки под лупой в свете киноплаката — сдержанный драматизм, премиальность, тактильность материала\nNegative Prompt (Atmosphere):\nclean clinical neutral feel, flat product shot, cold sterile studio, lifestyle context, daylight casual, no drama, no cinematic tension, wide environmental context\n\n7. Material Rendering\nПоверхность детали: микрофактура читается через grazing light — освещённая сторона раскрывает каждую борозду, резцовую линию, шлифовку; теневая уходит в глубокий тёплый мрак; backlight rim очерчивает край фрагмента\nГлянцевые/металлические микрограни: directional strip highlights вдоль каждой грани; мягкий champagne-taupe отсвет на освещённой стороне\nМатовые микрозоны: плавный градиент от мягкого warm highlight к тёмной тени\nГлянцевая поверхность в кадре: зеркальное отражение фрагмента с быстрым уходом в блюр; тёплый taupe тон\nNegative Prompt (Materials):\nflat matte surface without texture reveal, no rim light on edges, cold-toned highlights, hard point specular, plastic-looking surface, shadowless flat rendering, blown overexposed highlights, low micro-detail, smeared engraving, scratches, fingerprints, dust\n\n8. Color Grading\nСтиль цветокоррекции: muted champagne-taupe grade — единый мягкий золотисто-бежевый колор-филд приглушённой насыщенности; высокий микроконтраст с глубокими тёмными\nПалитра: deep warm black-brown (#1A1610 — тени и края), champagne taupe (#A89974 — фон glow), soft warm highlight (#C0B088 — освещённые микрограни)\nКонтраст и тональность: высокий контраст; глубокие тёплые тени в рельефе с сохранением деталей; backlight зона — самая яркая\nОбщее впечатление: cinematic film poster macro, muted luxury chiaroscuro, refined warm premium detail\nNegative Prompt (Color):\ncool blue grade, neutral white balance, desaturated to grey, flat low-contrast, cold cast, grey-tinted shadows, oversaturated orange amber, bright gold, orange/teal LUT, pink or green cast\n\n9. Rendering Quality\nUltra-high resolution extreme macro detail, 8K output, photorealistic render, accurate micro-texture reveal under grazing directional light down to individual tool marks, precise warm rim light along fragment contour, smooth blurred background glow gradient without banding, deep shadow detail preserved in relief, no noise, no compression artefacts\n\n10. Mood Keywords\nCinematic champagne macro, dramatic backlight, muted warm chiaroscuro, glowing taupe halo, micro-detail hero, grazing key light, rim-lit fragment, deep warm relief shadows, film poster lighting, refined luxury craftsmanship, soft golden glow, intimate detail reveal, tactile premium\n\n11. Full Negative Prompt\nwhite or grey background, cool-toned background, neutral background, sharp focused background, textured unrelated surface, architectural elements, props, hard vignette, no glow gradient, cold blue glow, oversaturated orange background, flat even illumination, cold blue tones, neutral white light, shadowless exposure, no backlight glow, no rim light, soft wraparound light without contrast, daylight balance, visible studio equipment, low micro-contrast, wide-angle barrel distortion, fish-eye, deep depth of field, flat focus, motion blur, chromatic aberration, tilt-shift, full object view, wide framing, recognizable silhouette, distant shot, top-down flat lay, extreme high angle, dutch angle, flat matte surface without texture, cold-toned highlights, hard point specular, plastic-looking surface, blown overexposed highlights, smeared engraving, scratches, fingerprints, dust, cool blue grade, neutral white balance, desaturated to grey, flat low-contrast, grey-tinted shadows, oversaturated orange amber, bright gold, orange/teal LUT, pink or green cast, noise, banding, compression artefacts","words":1045,"img":"assets/17.webp","src":"17_Champagne_Taupe_makro.md","plan":"Макро","pal":"Тёплая","bg":"Тёмный","use":"Кампания","tpl":true},{"id":18,"num":"18","title":"Dark Leather Macro — low-key на коже","en":"Dark Leather Macro — Low-Key Detail Reveal","desc":"Универсальный шаблон. Фрагмент объекта лежит на тёмной кожаной поверхности; большая часть кадра — в почти полной темноте, единственный мягкий источник выхватывает ключевую деталь. Диагональное частичное кадрирование, объект уходит за границу кадра.","note":"В отличие от остальных макро-шаблонов, здесь есть **среда**: кожа с читаемой зернистостью работает как часть кадра, а не абстрактный фон. Даёт ощущение личного пространства — вещь на кожаном столе или сиденье в полумраке.","prompt":"Dark Leather Macro — Low-Key Detail Reveal (Universal Template)\n\n1. Общее описание\nКинематографичное макро-изображение фрагмента премиального объекта, лежащего на тёмной кожаной поверхности в глубоком low-key освещении. В кадре — крупный план части объекта под диагональным углом; большая часть кадра уходит в почти полную темноту, из которой мягкий направленный свет выхватывает только ключевую деталь. Фон — тёмная кожа с видимой мелкозернистой фактурой, растворяющаяся в блюре и тени. Стиль — low-key product macro / intimate luxury detail / dark leather still life.\n[Место для объекта: сюда подставляется описание конкретного продукта — форма, материалы, ключевые детали. Всё остальное в промте остаётся неизменным независимо от того, что это за объект.]\n\n2. Camera\nLens: 85–100mm macro\nAperture: f/2.8–f/4\nDepth of field: shallow-medium — ключевая деталь резкая, дальняя часть объекта и кожаная поверхность плавно уходят в расфокус\nFocus: точечный, на ближайших к камере элементах детали\nFalloff: выраженный, плавный уход в мягкое размытие вглубь кадра\nLens Distortion: нулевая — строгая прямолинейная оптика\nNegative Prompt (Camera):\nwide-angle barrel distortion, fish-eye, deep focus with everything sharp, motion blur, chromatic aberration, tilt-shift, flat frontal perspective\n\n3. Lighting\nОсновной стиль света: dramatic low-key — единственный мягкий направленный источник выхватывает объект из почти полной темноты\nРасположение и источники:\n— Основной key: мягкий рассеянный источник сверху-слева под небольшим углом — освещает только часть объекта, оставляя остальное в глубокой тени\n— Grazing angle по поверхности объекта — выявляет микрофактуру (анодирование, шлифовка, зернистость материала) через скользящий свет\n— Точечные specular блики на стеклянных/полированных элементах — маленькие яркие точки, единственные пересветы в кадре\n— Fill практически отсутствует — тени уходят в почти чёрный без деталей\nСвет создаёт: резкий градиент от освещённой зоны к глубокой тьме; мягкие блики на металлических кольцах и краях; едва читаемую кожаную фактуру на границе света и тени; ощущение интимности и приглушённости\nЦветовая температура: холодная нейтральная (5500–6000K) с лёгким синеватым оттенком в тенях\nReflection Design: глянцевые зоны объекта отражают мягкий источник протяжённой полосой; стеклянные элементы дают маленькие острые блики; кожаная поверхность матовая, почти без отражений\nNegative Prompt (Lighting):\nbright even illumination, flat frontal flash, high-key exposure, multiple light sources, warm amber tones, harsh hard shadows, overexposed highlights, studio softbox wraparound, visible light equipment\n\n4. Angle & Composition\nКомпозиция: объект расположен по диагонали, занимая верхнюю-правую часть кадра и уходя за границу; нижняя-левая часть кадра — пустая тёмная кожаная поверхность, создающая негативное пространство; кадрирование частичное — объект не помещается целиком, виден только фрагмент\nУгол съёмки: близкий макро-ракурс сверху-сбоку, камера под углом ~35–45° к поверхности; лёгкий диагональный наклон композиции; вертикальный формат 4:5 или 3:4\nNegative Prompt (Angle & Composition):\nfull object view, centered symmetric composition, straight top-down flat lay, eye-level side profile, wide framing with visible surroundings, object fully within frame, no negative space\n\n5. Background\nТип фона: тёмная кожаная поверхность с мелкозернистой натуральной фактурой (leather grain), на которой лежит объект; за объектом — глубокая темнота без деталей\nЦвет и градиент: почти чёрный (#0A0A0C) в теневых зонах, тёмно-серый (#2A2A2E) в освещённой части кожи; плавный градиент от едва подсвеченной ближней зоны к полной тьме вглубь кадра\nДетализация: фактура кожи читается только на границе света — мелкие поры и зернистость; остальная часть уходит в блюр и чёрный\nNegative Prompt (Background):\nwhite or bright background, coloured backdrop, smooth glossy surface without texture, fabric or wood texture, visible environment, props, architectural elements, evenly lit background\n\n6. Atmosphere\nХарактер атмосферы: интимная, приглушённая, тактильная; ощущение вещи в личном пространстве — объект лежит на кожаном столе или сиденье в полумраке\nИзображение вызывает: ощущение сдержанной премиальности, тактильного качества, приватного момента с дорогим предметом\nNegative Prompt (Atmosphere):\nbright commercial catalogue look, clinical studio sterility, lifestyle busy scene, daylight casual mood, no intimacy, flat neutral presentation\n\n7. Material Rendering\nПоверхности объекта: микрофактура раскрывается через grazing light — анодирование, шлифовка, зернистость металла читаются в освещённой зоне; теневая сторона уходит в почти чёрный\nМеталлические кольца и окантовка: тонкие полированные блики вдоль окружностей и граней\nСтеклянные элементы: глубокие тёмные с маленькими острыми specular точками\nКожаная поверхность: матовая, с видимой натуральной зернистостью в освещённой зоне, без глянца\nОбщий рендер: честная физика материалов, без пластикового равномерного сияния\nNegative Prompt (Materials):\nflat matte object without texture, uniform artificial glow, plastic-looking surface, glossy leather like patent, no grain visible, blown specular highlights, neural plastic shine\n\n8. Color Grading\nСтиль цветокоррекции: dark low-key grade — почти монохромная холодная гамма с глубокими чёрными и приглушённым цветом объекта как единственным акцентом\nПалитра: near-black (#0A0A0C — тени и фон), dark grey (#2A2A2E — освещённая кожа), холодный акцентный цвет объекта в средних тонах\nКонтраст и тональность: очень высокий контраст; большая часть кадра в тенях; светлые зоны сдержанные, не пересвеченные; сохранена детализация в глубоких тенях\nОбщее впечатление: intimate dark editorial, tactile premium, cinematic restraint\nNegative Prompt (Color):\nwarm amber grade, bright high-key exposure, oversaturated colours, flat low contrast, washed-out shadows, orange/teal LUT, neutral grey flatness\n\n9. Rendering Quality\nUltra-high resolution macro, photorealistic render, accurate micro-texture reveal under grazing light, precise small specular highlights on glass elements, natural leather grain in lit zone, smooth falloff into deep shadow without banding, shadow detail preserved, no noise, no compression artefacts\n\n10. Mood Keywords\nDark leather macro, low-key intimacy, grazing light texture, diagonal partial framing, deep shadow, tactile premium, cold restrained palette, specular glass points, negative space, cinematic still life\n\n11. Full Negative Prompt\nbright even illumination, flat frontal flash, high-key exposure, multiple light sources, warm amber tones, harsh hard shadows, overexposed highlights, softbox wraparound, visible studio equipment, white or bright background, coloured backdrop, smooth surface without leather grain, fabric or wood texture, visible environment, props, evenly lit background, wide-angle distortion, fish-eye, deep focus, motion blur, chromatic aberration, tilt-shift, full object view, centered symmetric composition, top-down flat lay, wide framing, object fully within frame, no negative space, flat matte object, uniform artificial glow, plastic-looking surface, patent glossy leather, blown speculars, neural plastic shine, warm grade, oversaturated colours, flat low contrast, washed-out shadows, orange/teal LUT, noise, banding, compression artefacts","words":955,"img":"assets/18.webp","src":"18_Dark_Leather_Macro.md","plan":"Макро","pal":"Холодная","bg":"Тёмный","use":"Кампания","tpl":true},{"id":19,"num":"19","title":"Floating Void — левитация с ювелирным металлом","en":"Floating Void — Levitating Object with Jewelry-Grade Reflections","desc":"Универсальный шаблон. Объект парит без опоры в тёмном нейтральном пространстве, под ним — мягкая эллиптическая тень. Металл отрабатывается по ювелирной логике: яркие блики чередуются с почти чёрными зонами отражения, граница между ними резкая.","note":"**Ключевое отличие от других шаблонов набора.** Свет строится из узких strip-источников и тёмных флагов специально ради отражений в металле: именно чередование ярких полос и чёрных зон даёт «ювелирную» жизнь поверхности. Без этого приёма металл в генерации обычно выходит плоским и пластиковым.\nГлубокая группа резкости (f/8–f/11) — объект резок целиком, в отличие от макро-шаблонов набора.","prompt":"Floating Void — Levitating Object with Jewelry-Grade Reflections (Universal Template)\n\n1. Общее описание\nМинималистичная студийная съёмка объекта, парящего в воздухе над гладкой светлой поверхностью в тёмном нейтральном пространстве. Объект висит строго по центру кадра без опоры, под ним — мягкая эллиптическая тень на полу, подтверждающая левитацию. Фон — глубокий градиент от тёмно-серого вверху к более светлой горизонтальной плоскости внизу, без единой детали. Все металлические и полированные элементы объекта отрабатываются в ювелирной логике: контрастные зеркальные отражения, чёткие грани света и тьмы на поверхности, преломления и игра бликов, характерные для съёмки драгоценностей. Стиль — minimal levitation product shot / dark neutral studio / jewelry-grade metal rendering.\n[Место для объекта: сюда подставляется описание конкретного продукта — форма, материалы, ключевые детали, силуэт. Всё остальное в промте остаётся неизменным независимо от того, что это за объект.]\n\n2. Camera\nLens: 85–100mm macro-capable\nAperture: f/8–f/11\nDepth of field: deep — объект полностью резкий от края до края; фон и пол в мягком тональном градиенте\nFocus: равномерный по всей поверхности объекта, приоритет — металлические грани и зоны отражений\nFalloff: практически отсутствует на объекте, плавный на дальнем плане\nLens Distortion: нулевая — строгая прямолинейная оптика\nNegative Prompt (Camera):\nwide-angle distortion, fish-eye, shallow DOF with blurred object, motion blur, chromatic aberration, tilt-shift, telephoto compression\n\n3. Lighting\nОсновной стиль света: soft controlled studio + jewelry accent lighting — мягкая обволакивающая база плюс направленные акцентные источники специально для металла\nРасположение и источники:\n— Верхний крупный softbox — основной источник, создаёт плавный градиент яркости на матовых зонах объекта\n— Боковые узкие strip-источники (jewelry lighting) — направленные, формируют контрастные вытянутые зеркальные блики на металлических гранях; именно они дают ювелирную «жизнь» металлу\n— Тёмные флаги/гобо по бокам — создают чёрные зоны в отражениях металла, обеспечивая контраст между яркими бликами и глубокими тёмными отражениями (ключевой приём ювелирной съёмки)\n— Подсветка пола сзади — формирует светлую горизонтальную зону под объектом\n— Минимальный нижний bounce\nСвет создаёт: мягкий tonal rolloff на матовых поверхностях; на металле — резкий контраст между зеркально-яркими бликами и почти чёрными зонами отражения, чёткие границы между ними, играющие по граням; эллиптическую размытую тень под объектом\nЦветовая температура: нейтральная холодная (5500–6000K)\nReflection Design: металлические элементы работают как зеркала — отражают контрастную световую среду: яркие полосы strip-источников чередуются с тёмными зонами флагов; на каждой грани и фаске читается отдельный блик; на скруглениях — вытянутые изогнутые отражения; полированные кромки дают тонкие яркие линии света; стеклянные/прозрачные элементы дают преломления с лёгкой дисперсией на краях\nNegative Prompt (Lighting):\nflat uniform illumination on metal, dull unreflective metal, harsh direct flash, warm amber tones, coloured gels, shadowless exposure, visible studio equipment, overexposed blown metal, uniform artificial glow without contrast zones\n\n4. Angle & Composition\nКомпозиция: объект строго по центру кадра или чуть выше центра, парит в воздухе; под ним — мягкая размытая эллиптическая тень на полу; много пустого пространства сверху и по бокам; линия горизонта в нижней трети кадра\nУгол съёмки: eye-level, строго фронтально или с минимальным разворотом, раскрывающим блики на металлических гранях; вертикальный формат 2:3 или 3:4\nNegative Prompt (Angle & Composition):\nobject touching the floor, no shadow beneath, top-down angle, extreme low angle, dutch tilt, object touching frame edges, cluttered composition, visible support or stand\n\n5. Background\nТип фона: бесшовное студийное пространство — тёмно-серый вертикальный фон, плавно переходящий в более светлую горизонтальную плоскость пола\nЦвет и градиент: тёмно-серый (#2A2C30) в верхних углах, слегка светлее к центру за объектом (#3A3D42); пол — светло-серый (#8A8D92–#B0B3B8); переход фон/пол размытый\nДетализация: полностью чистый — без текстур, предметов, архитектуры; только тональный градиент и тень\nNegative Prompt (Background):\nwhite background, coloured background, warm-toned backdrop, textured surface, visible hard horizon line, architectural elements, props, hard vignette, patterned floor\n\n6. Atmosphere\nХарактер атмосферы: невесомость, технологичная чистота, ювелирная точность в проработке материалов, сдержанная премиальность\nИзображение вызывает: ощущение product reveal уровня ювелирного каталога — объект как драгоценность, парящая в пустоте\nNegative Prompt (Atmosphere):\nlifestyle context, human presence, warm cozy feel, cheap catalogue look, busy commercial energy\n\n7. Material Rendering (критический раздел)\nМеталлические и полированные элементы — ювелирная логика:\n— Зеркальные поверхности отражают контрастную студийную среду: яркие полосы света чередуются с глубокими тёмными зонами; граница между светом и тенью на металле резкая, не размытая\n— Каждая фаска, грань и скругление ловит собственный отдельный блик разной интенсивности\n— Полированные кромки дают тонкие острые линии света (knife-edge highlights)\n— Изогнутые поверхности — вытянутые дугообразные отражения, повторяющие геометрию формы\n— Anisotropic reflections вдоль направления шлифовки, если поверхность брашированная\n— Никакого равномерного «пластикового» сияния — только честная зеркальная физика\nСтеклянные/прозрачные элементы: преломления с лёгкой дисперсией по краям, внутренние отражения, тёмные зоны с точечными яркими бликами\nМатовые зоны объекта: мягкий tonal rolloff без бликов — контраст с ювелирной игрой металла\nТень на полу: размытая эллиптическая, светлее к краям\nПол: матовый, без зеркального отражения объекта\nNegative Prompt (Materials):\nflat dull metal without reflections, uniform artificial glow, neural plastic shine, soft blurred reflection edges on metal, no dark zones in metal reflection, hard point specular only, plastic-looking chrome, matte lifeless surfaces, no refraction in glass elements, mirror floor reflection, sharp-edged shadow\n\n8. Color Grading\nСтиль цветокоррекции: neutral monochrome grade — нейтральная серая гамма без цветовых сдвигов; повышенный локальный контраст в зонах металла для сохранения ювелирной игры бликов\nПалитра: dark grey (#2A2C30 — фон), mid grey (#8A8D92 — пол), цвет материала объекта как акцент, чистый белый в пиках бликов\nКонтраст и тональность: средне-высокий общий контраст; на металле — максимальный локальный контраст от чистого белого блика до почти чёрного отражения; highlights яркие, но не выжженные — сохранена деталь в пиках\nОбщее впечатление: clean minimal tech с ювелирной проработкой материалов\nNegative Prompt (Color):\nwarm amber grade, cool blue cast, orange/teal LUT, oversaturated colours, flat low contrast, washed-out highlights, crushed blacks losing metal detail, any colour cast on grey\n\n9. Rendering Quality\nUltra-high resolution, 8K output, photorealistic render, ray-traced jewelry-grade metal reflections with environment mapping, accurate refraction and caustics in transparent elements, sharp reflection boundaries with full tonal range from specular white to deep black, smooth tonal gradients without banding, accurate soft shadow with natural falloff, no noise, no compression artefacts\n\n10. Mood Keywords\nLevitating object, weightless reveal, jewelry-grade metal reflections, contrast specular play, knife-edge highlights, refraction detail, neutral grey void, elliptical floor shadow, minimal composition, precision material rendering, quiet premium\n\n11. Full Negative Prompt\nflat dull metal without reflections, uniform artificial glow on metal, neural plastic shine, soft blurred reflection edges, no dark zones in metal reflection, plastic-looking chrome, matte lifeless surfaces, no refraction in glass, overexposed blown metal, white background, coloured background, warm-toned backdrop, textured surface, hard horizon line, architectural elements, props, patterned floor, harsh direct flash, warm amber tones, coloured gels, shadowless exposure, visible studio equipment, object touching floor, no shadow beneath, visible support or stand, top-down angle, extreme low angle, dutch tilt, object touching frame edges, wide-angle distortion, fish-eye, shallow DOF, motion blur, chromatic aberration, tilt-shift, mirror floor reflection, sharp-edged shadow, lifestyle context, human presence, warm amber grade, cool blue cast, orange/teal LUT, oversaturated colours, flat low contrast, washed-out highlights, crushed blacks, noise, banding, compression artefacts","words":1138,"img":"assets/19.webp","src":"19_Floating_Void.md","plan":"Общий кадр","pal":"Нейтральная","bg":"Тёмный","use":"Кампания","tpl":true}];
+
+var OPTS = {
+ style:{n:"01",t:"Стиль кадра",hint:"один",multi:false,o:[
+  {id:"beauty",l:"Luxury beauty shot",tag:"luxury beauty shot / cinematic product photography / high-end commercial still life",p:"Кинематографичное luxury beauty-shot изображение объекта в изолированной полу-студийной среде. Главный акцент — на материалах объекта, его конструкции, фасках, рельефе и микроотражениях.",neg:"cheap commercial look, flat catalog style, mass-market",mood:"luxury, refined, premium, elegant"},
+  {id:"catalog",l:"Каталожный industrial",tag:"industrial / product design / technical reference shot",p:"Минималистичное студийное изображение объекта в стиле industrial / product design, с акцентом на геометрию, симметрию, пропорции и чистоту линий. Объект полностью изолирован от окружения, представлен без визуального шума.",neg:"artistic chaos, dramatic staging, environmental context",mood:"minimal, precise, technical, functional, neutral"},
+  {id:"industrial_lux",l:"Luxury industrial still life",tag:"luxury industrial macro / premium commercial still life / precision editorial photography",p:"Минималистичная still-life сцена в high-end industrial luxury эстетике. Визуальный акцент строится на взаимодействии формы, света, теней и премиальных отражений; композиция воздушная и инженерно-точная.",neg:"dark cluttered staging, cheap reflections, noisy shadows",mood:"precision engineering, refined minimalism, engineered perfection"},
+  {id:"campaign",l:"Cinematic luxury campaign",tag:"cinematic luxury campaign / dramatic product reveal",p:"Кинематографический кадр премиального объекта в стиле высокобюджетной рекламной кампании: объект выхвачен направленным светом из окружающей темноты и подан как культовая вещь.",neg:"cheap catalogue look, flat product shot without drama, no cinematic tension",mood:"cinematic, dramatic, premium icon, monumental presence"},
+  {id:"jewelry",l:"Ювелирное макро",tag:"luxury macro / cinematic detail shot / jewelry-grade rendering",p:"Кинематографичное макро-изображение с акцентом на декоративные элементы, сложный рельеф поверхности и высокоточную обработку материалов — объект читается как ювелирное изделие в масштабе макро.",neg:"industrial cold, rough surfaces, low detail",mood:"tactile, intimate, craftsmanship, precision"},
+  {id:"editorial",l:"Атмосферный editorial",tag:"premium editorial aesthetic / atmospheric product close-up",p:"Художественное editorial-изображение, в котором объект и окружающая среда образуют единое цветовое и эмоциональное пространство: фон работает как атмосферное продолжение объекта.",neg:"sterile studio background, catalog framing, hard realism",mood:"atmospheric, artistic, sophisticated, immersive"},
+  {id:"lowkey",l:"Low-key chiaroscuro",tag:"cinematic low-key product shot / chiaroscuro reveal",p:"Кинематографичное low-key изображение: объект почти полностью скрыт в глубокой тени, форма раскрывается тонкими контурными бликами. Задача — не показать объект целиком, а создать ощущение загадочности и инженерной точности через минимум света.",neg:"bright exposure, high-key look, daylight softness",mood:"mysterious silhouette, cold elegance, elite product aesthetic"},
+  {id:"levitation",l:"Minimal levitation",tag:"minimal levitation product shot / dark neutral studio",p:"Минималистичная студийная съёмка объекта, парящего в воздухе без опоры в нейтральном пространстве; под объектом — мягкая эллиптическая тень, подтверждающая левитацию.",neg:"object touching the floor, visible support or stand, cluttered composition",mood:"weightless reveal, quiet premium, precision material rendering"},
+  {id:"fashion",l:"Fashion editorial с моделью",tag:"cinematic luxury editorial / fashion portrait with object",p:"Кинематографичный fashion-editorial портрет в студийной среде: модель держит объект у линии плеча, создавая выразительный и собранный жест. Объект формирует вторичную визуальную точку, усиливающую статусность сцены.",neg:"casual lifestyle mood, awkward pose, busy styling",mood:"cinematic, powerful, status, editorial"},
+  {id:"abstraction",l:"Ultra-macro material study",tag:"ultra-macro / luxury material study / cinematic abstraction",p:"Экстремальная ultramacro-съёмка, при которой форма воспринимается как микро-скульптура: целостное понимание объекта отсутствует, важны только текстура, границы материалов, микрорельеф и отражения.",neg:"recognizable silhouette, decorative illustration, narrative framing",mood:"abstract, microscopic, extreme detail, tactile"}
+ ]},
+
+ plan:{n:"02",t:"Тип плана и кадрирование",hint:"один",multi:false,o:[
+  {id:"hero",l:"Общий кадр — объект целиком",focus:"резкий фокус на ключевых функциональных и декоративных элементах объекта",comp:"объект занимает 40–55% кадра, вокруг — чистое негативное пространство для световых пятен и длинных теней; композиция лёгкая, спокойная, инженерно выверенная",neg:"cropped object, busy framing, cluttered composition"},
+  {id:"solo",l:"Соло-герой крупно",focus:"приоритет — ключевые грани и детали объекта",comp:"объект занимает большую часть кадра с запасом воздуха сверху; много пространства, уходящего в темноту верхней части кадра",neg:"distant shot, object touching frame edges, wide framing"},
+  {id:"macro",l:"Макро-деталь",focus:"сверхточечный фокус на ключевом декоративном элементе или переходе материалов",comp:"кадр сосредоточен на одном ключевом фрагменте — грань, гравировка, стык материалов; остальная часть уходит в размытие, целостная форма объекта не читается",neg:"full object view, wide framing, recognizable silhouette, distant shot"},
+  {id:"ultramacro",l:"Ультрамакро-фрагмент",focus:"экстремально точечный фокус, зафиксированный на одной микрозоне поверхности",comp:"кадр охватывает лишь малую часть элемента, превращая объект в визуальный паттерн; негативное пространство создаётся исключительно расфокусом",neg:"standard macro distance, full product view, readable perspective, recognizable silhouette"},
+  {id:"diagonal_crop",l:"Частичное диагональное кадрирование",focus:"точечный фокус на ближайших к камере элементах детали",comp:"объект расположен по диагонали и уходит за границу кадра; противоположный угол — пустое тёмное негативное пространство",neg:"object fully within frame, centered symmetric composition, no negative space"},
+  {id:"portrait",l:"Портрет с объектом",focus:"резкий фокус на лице модели и руках, удерживающих объект",comp:"сбалансированная cinematic-editorial композиция с акцентом на верхнюю часть корпуса и лицо; руки с объектом формируют вторичную визуальную точку",neg:"aggressive crop, off-center chaos, full-length shot"}
+ ]},
+
+ lens:{n:"03",t:"Оптика",hint:"один",multi:false,groups:true,o:[
+  {g:"Рекламная",id:"l85",l:"85mm prime",lens:"85mm prime lens",p:"premium compression, clean geometry, ultra refined microcontrast, precise edge rendering",dist:"полностью отсутствует, чистая портретная компрессия перспективы",neg:"wide-angle distortion, fisheye, perspective warp, flat perspective"},
+  {g:"Рекламная",id:"l100",l:"100mm",lens:"100mm",p:"нейтральная компрессия, верные пропорции, чистая техническая геометрия",dist:"полностью отсутствует, нейтральная компрессия перспективы",neg:"wide-angle lens, perspective distortion, fisheye, camera tilt"},
+  {g:"Рекламная",id:"l70",l:"70mm",lens:"70mm",p:"лёгкая динамика кадра при сохранении верных пропорций",dist:"минимальный, лёгкая компрессия перспективы",neg:"wide-angle distortion, fisheye, flat perspective"},
+  {g:"Рекламная",id:"l85100",l:"85–100mm (кампания)",lens:"85–100mm",p:"строгая прямолинейная оптика, кампанийная подача без искажений",dist:"нулевая — строгая прямолинейная оптика",neg:"wide-angle distortion, fish-eye, telephoto compression, tilt-shift"},
+  {g:"Рекламная",id:"l200",l:"200mm телефото",lens:"200mm telephoto",p:"сильная компрессия планов, объект отделяется от фона слоями",dist:"отсутствует, выраженная телефото-компрессия",neg:"wide-angle distortion, fisheye, perspective depth exaggeration"},
+  {g:"Художественная",id:"m100",l:"100mm macro",lens:"100mm macro",p:"премиальная тактильность и микродетализация, оптическая точность макро-объектива",dist:"отсутствует, оптическая точность макро-объектива",neg:"wide-angle lens, deep depth of field, soft macro, low detail"},
+  {g:"Художественная",id:"m100150",l:"100–150mm macro",lens:"100–150mm macro",p:"комфортная рабочая дистанция макро, чистая передача микрорельефа",dist:"нулевая — оптическая точность макрообъектива",neg:"wide-angle distortion, fish-eye, standard product distance, flat focus"},
+  {g:"Художественная",id:"m180",l:"180mm ultra macro",lens:"180mm ultra macro",p:"лабораторная оптическая точность, разрешение на уровне микроструктур поверхности",dist:"отсутствует, лабораторная оптическая точность",neg:"standard macro, wide lens, perspective distortion, soft details"},
+  {g:"Художественная",id:"l135",l:"135mm portrait",lens:"135mm portrait lens",p:"мягкая компрессия, изящное отделение объекта от фона",dist:"отсутствует, портретная компрессия",neg:"wide-angle lens, fisheye, perspective distortion"},
+  {g:"Креативная",id:"fisheye",l:"8mm fisheye",note:"намеренная дисторсия",lens:"8mm circular fisheye",p:"выраженная сферическая дисторсия — центр вытянут, края кадра загибаются; приём намеренный и является частью визуального замысла",dist:"экстремальная бочкообразная дисторсия, намеренный приём",neg:"rectilinear correction, neutral perspective, flat compression"},
+  {g:"Креативная",id:"w24",l:"24mm wide",note:"намеренная перспектива",lens:"24mm wide-angle",p:"подчёркнутая перспектива, объект доминирует над пространством, линии расходятся к краям",dist:"умеренная бочкообразная, намеренная",neg:"telephoto compression, flat neutral perspective"},
+  {g:"Креативная",id:"w14",l:"14mm ultra-wide",note:"агрессивная перспектива",lens:"14mm ultra-wide",p:"агрессивная перспектива, драматичное расхождение линий, ощущение масштаба",dist:"сильная, намеренная широкоугольная",neg:"telephoto compression, portrait compression, neutral perspective"},
+  {g:"Креативная",id:"tilt",l:"50mm tilt-shift",note:"наклонная плоскость фокуса",lens:"50mm tilt-shift",p:"наклонная плоскость фокуса: резкость идёт узкой полосой поперёк объекта, остальное уходит в градиентное размытие",dist:"контролируемая, со смещением плоскости фокуса",neg:"flat focal plane, uniform sharpness across frame"},
+  {g:"Креативная",id:"anamorphic",l:"40mm anamorphic",note:"овальное боке, горизонтальные блики",lens:"40mm anamorphic",p:"горизонтальные вытянутые блики, овальное боке, широкий кинематографичный кадр",dist:"анаморфная, с лёгким растяжением по краям",neg:"spherical bokeh, flat commercial optics"},
+  {g:"Креативная",id:"probe",l:"24mm macro probe",note:"широкий угол вплотную",lens:"24mm macro probe lens",p:"сверхблизкая дистанция при широком угле — деталь и окружающее пространство читаются одновременно",dist:"умеренная широкоугольная, намеренная",neg:"telephoto macro compression, distant shot"}
+ ]},
+
+ dof:{n:"04",t:"Диафрагма и глубина резкости",hint:"один",multi:false,o:[
+  {id:"f2",l:"f/2.0",note:"ultra shallow",f:"f/2.0",dof:"ultra shallow (доли миллиметра)",falloff:"мгновенный, резкость резко обрывается за пределами фокусной плоскости",neg:"deep depth of field, flat focus, everything sharp"},
+  {id:"f28",l:"f/2.8",note:"very shallow",f:"f/2.8",dof:"very shallow",falloff:"выраженный, быстрый спад резкости от точки фокуса к переднему и заднему плану",neg:"deep depth of field, flat focus, sharp background"},
+  {id:"f4",l:"f/4",note:"medium shallow",f:"f/4",dof:"medium shallow",falloff:"мягкий cinematic falloff с плавным размытием передних и задних краёв",neg:"extreme bokeh, deep focus clutter"},
+  {id:"f56",l:"f/5.6",note:"shallow-medium",f:"f/5.6",dof:"shallow-medium",falloff:"плавный, органичный",neg:"shallow DOF with blurred object, extreme bokeh"},
+  {id:"f8",l:"f/8",note:"deep",f:"f/8",dof:"deep — объект полностью резкий, фон уходит в мягкий тональный градиент",falloff:"медленный, практически отсутствует на объекте",neg:"shallow depth of field, background blur on object, soft focus"},
+  {id:"f11",l:"f/11",note:"ultra deep",f:"f/11",dof:"deep — объект резок от края до края",falloff:"отсутствует на объекте, плавный на дальнем плане",neg:"shallow DOF with blurred object, bokeh"}
+ ]},
+
+ angle:{n:"05",t:"Ракурс",hint:"один",multi:false,groups:true,o:[
+  {g:"Классический",id:"front",l:"Строго фронтальный, eye-level",p:"чётко фронтальный, eye-level, без наклона камеры и перспективного искажения",neg:"low angle, high angle, diagonal composition, dynamic perspective"},
+  {g:"Классический",id:"side",l:"Строгий профиль сбоку",p:"чётко боковой (strict side view), камера на уровне центра объекта, без наклона и перспективного смещения",neg:"three-quarter view, front view, top view, diagonal angle"},
+  {g:"Классический",id:"low34",l:"Низкий трёхчетвертной",p:"low three-quarter angle — камера близко к поверхности, чуть ниже центра объекта, под небольшим диагональным разворотом; раскрывает профиль, фронтальную плоскость и боковые грани, создаёт ощущение монументальности и precision engineering",neg:"top-down flat shot, strict front view, strict side profile"},
+  {g:"Классический",id:"eye34",l:"Eye-level три четверти",p:"eye-level с разворотом по Y на 25–35° — раскрывает объём, грани и глубину формы",neg:"top-down flat lay, symmetrical flat front profile, dutch angle"},
+  {g:"Классический",id:"slightlow",l:"Слегка низкий фронтальный",p:"прямой slightly low frontal angle — камера немного ниже центра объекта, для усиления монументальности и статуса",neg:"top-down angle, dynamic tilt, side profile"},
+  {g:"Классический",id:"macroclose",l:"Близкий макро-ракурс",p:"близкий макро-угол с лёгким наклоном для раскрытия объёма рельефа, без динамических искажений",neg:"distant shot, flat front macro, wide framing"},
+  {g:"Классический",id:"topdown",l:"Строго сверху, flat lay",p:"top-down: оптическая ось перпендикулярна поверхности, объект читается как графический силуэт",neg:"three-quarter view, perspective depth, low angle"},
+  {g:"Креативный",id:"worm",l:"Экстремально низкий, worm's eye",note:"максимальная монументальность",p:"камера практически на уровне поверхности, объект нависает над зрителем — предельная монументальность и масштаб",neg:"eye-level neutrality, top-down angle, high angle"},
+  {g:"Креативный",id:"dutch",l:"Dutch angle",note:"наклон горизонта 10–20°",p:"выраженный наклон камеры на 10–20°: ось кадра намеренно сбита, появляется напряжение и ощущение движения",neg:"level horizon, static composition, strict symmetry"},
+  {g:"Креативный",id:"over45",l:"Диагональ сверху 45°",p:"камера сверху-сбоку под углом 35–45° к поверхности, с лёгким диагональным наклоном композиции",neg:"straight top-down flat lay, eye-level side profile"},
+  {g:"Креативный",id:"throughglass",l:"Сквозь стекло и преломление",note:"расфокус на переднем плане",p:"передний план — расфокусированная стеклянная или полированная грань, кадр строится сквозь преломление и блик",neg:"clean unobstructed view, flat frontal framing"},
+  {g:"Креативный",id:"reflection",l:"Кадр через отражение",p:"объект читается в отражении полированной поверхности; сам объект частично выходит за границу кадра",neg:"direct unreflected view, centered product shot"},
+  {g:"Креативный",id:"grazingangle",l:"Скользящий вдоль поверхности",note:"рельеф на просвет",p:"оптическая ось почти параллельна поверхности объекта — рельеф читается на просвет, тени вытягиваются вдоль кадра",neg:"perpendicular frontal view, top-down angle"},
+  {g:"Креативный",id:"birds",l:"Bird's eye с высоты",p:"камера высоко над сценой под углом около 70°: объект и его тень образуют единую графическую пару",neg:"eye-level view, low angle, worm's eye"},
+  {g:"Креативный",id:"behind",l:"Из-за объекта на источник",note:"силуэт и ореол",p:"камера позади объекта, направлена в сторону источника света — читается силуэт и световой ореол вокруг контура",neg:"frontal key light, evenly lit front view"}
+ ]},
+
+ light:{n:"06",t:"Схема освещения",hint:"можно несколько",multi:true,o:[
+  {id:"softday",l:"Мягкий студийный дневной",p:"bright controlled studio daylight lighting: источник сверху, слегка сбоку, мягкий, но направленный. Освещение создаёт чистые elongated shadows, premium specular reflections, controlled metallic highlights. Свет high-key, airy, technically precise, без пересветов.",neg:"dark lighting, dramatic contrast, warm tungsten glow, harsh flash",mood:"clean daylight aesthetic"},
+  {id:"dramatickey",l:"Драматичный key + chiaroscuro",p:"dramatic cinematic key: направленный источник сверху-сбоку формирует выраженный chiaroscuro — освещённая сторона и глубокая теневая. Минимальный fill, тени остаются плотными, контраст высокий.",neg:"flat even illumination, shadowless exposure, multi-directional fill killing shadows",mood:"dramatic, high contrast"},
+  {id:"rimlowkey",l:"Контровой rim / low-key",p:"cinematic rim lighting с ultra controlled studio illumination: основной источник расположен позади объекта, немного сверху, под острым углом. Свет едва раскрывает форму — тонкий контурный rim light, мягкое отделение от фона, почти чёрный силуэт.",neg:"bright exposure, frontal key light, daylight look, flat lighting",mood:"rim-lit contour, mysterious"},
+  {id:"sunbeam",l:"Солнечный луч в студии",p:"направленный ключевой свет, имитирующий солнечный луч: яркое световое пятно (light pool) на поверхности рядом с объектом, длинные мягкие тени с градиентным затуханием, чистые контурные блики на краях и фасках.",neg:"even softbox flood, ring light look, flat lighting, uniform glow",mood:"sunlit, atmospheric"},
+  {id:"jewelry",l:"Ювелирная: strip-источники + флаги",p:"soft controlled studio + jewelry accent lighting: крупный верхний softbox как база, боковые узкие strip-источники формируют контрастные вытянутые зеркальные блики на металле, тёмные флаги и гобо создают чёрные зоны в отражениях. Именно чередование ярких полос и чёрных зон даёт металлу ювелирную жизнь.",neg:"flat uniform illumination on metal, dull unreflective metal, uniform artificial glow without contrast zones",mood:"jewelry-grade specular play"},
+  {id:"grazing",l:"Grazing side light",p:"grazing side light под малым углом — критичен для фактуры: подсвечивает каждую борозду гравировки, шлифовку и микрорельеф через directional highlight; противоположная сторона уходит в глубокую тень.",neg:"flat frontal flash, low micro-contrast losing engraving detail, softbox wraparound",mood:"grazing light texture"},
+  {id:"softdirectional",l:"Мягкий направленный cinematic",p:"мягкое направленное cinematic lighting с деликатными бликами и глубокими тенями: свет подчёркивает микротекстуры, рельеф материалов, контуры и reflective edges, сохраняя плавные тональные переходы.",neg:"harsh flash, cold sterile studio light, aggressive reflections, hard shadows",mood:"soft-focus, refined"},
+  {id:"flatfill",l:"Ровный фронтальный fill",p:"мягкое студийное освещение с равномерным фронтальным заполнением: основной источник прямо перед объектом чуть выше центра, дополнительный заполняющий свет минимизирует тени. Контраст низкий, вид почти графический.",neg:"dramatic lighting, side light dominance, hard shadows, backlight glow",mood:"neutral, controlled"},
+  {id:"backglow",l:"Backlight glow — светящийся ореол",p:"мягкий источник позади-снизу объекта формирует светящееся пятно-ореол на фоне и тёплый rim вдоль верхних граней; боковой key выявляет фактуру, противоположная сторона уходит в тень.",neg:"no backlight glow, no rim light, flat even illumination",mood:"glowing halo, spotlight reveal"},
+  {id:"steelbands",l:"Полосы отражённого света (brushed steel)",p:"фоновые горизонтальные полосы света имитируют полированную стальную поверхность в движении: чередование светлых и тёмных зон задаёт ритм и глубину, живущую независимо от объекта.",neg:"flat single-tone background, no horizontal light bands, sharp hard-edged bands",mood:"brushed metal backdrop"},
+  {id:"volumetric",l:"Объёмный свет сквозь дымку",note:"даёт видимую дымку",p:"volumetric lighting: направленный луч читается в воздухе за счёт лёгкой атмосферной дымки, формируя видимые световые конусы и мягкое свечение вокруг объекта.",neg:"perfectly clear sterile air, flat lighting",mood:"volumetric, immersive"}
+ ]},
+
+ temp:{n:"07",t:"Цвет источников света",hint:"один",multi:false,o:[
+  {id:"neutral",l:"Нейтральный белый",note:"5500–6000K",k:"5500–6000K",p:"нейтрально-белая, 5500–6000K, без цветового сдвига",neg:"warm amber tones, coloured gels, colour cast"},
+  {id:"steel",l:"Холодный стальной",note:"5500–6500K",k:"5500–6500K",p:"нейтрально-холодная, 5500–6500K, стальной металлический тон; чистые технологичные хайлайты без тёплых оттенков",neg:"warm lighting, yellow or orange tint, tungsten glow, golden highlights"},
+  {id:"icy",l:"Ледяной голубой",note:"6500K+",k:"6500K",p:"холодная палитра: cool white key, icy blue highlights, silver reflections, neutral steel tones",neg:"warm light, amber tones, golden reflections, tungsten lighting"},
+  {id:"warm",l:"Тёплый янтарный",note:"3200K",k:"3200K",p:"тёплая, около 3200K: янтарные, медовые и золотистые блики на металлических элементах",neg:"cold daylight, blue tint, cold sterile fluorescent"},
+  {id:"champagne",l:"Champagne taupe #A89974",note:"3500–4000K",k:"3500–4000K",p:"тёплая приглушённая — champagne taupe (#A89974), 3500–4000K с пониженной насыщенностью; мягкий золотисто-бежевый без яркой янтарной насыщенности",neg:"oversaturated orange amber glow, bright gold, cold blue tones"},
+  {id:"mixed",l:"Холодный key + тёплый rim",note:"смешанная",k:"5600K / 3200K",p:"смешанная схема: холодный нейтральный key 5600K и тёплый контровой 3200K — планы разделяются по температуре",neg:"single flat colour temperature, uniform white balance"},
+  {id:"gels",l:"Цветные гели по акценту объекта",k:"гели",p:"цветные гели, подобранные под акцентные материалы объекта (изумрудный, сапфировый, бордовый); основной свет остаётся нейтральным, цвет живёт только в рефлексах",neg:"flat neutral lighting only, colourless highlights"},
+  {id:"adaptive",l:"Адаптивная под материал",k:"адаптивная",p:"температура адаптируется под материалы объекта: тёплые тона для золота и латуни, холодные — для стали и белых металлов, нейтрально-белый baseline для смешанных, тонкие цветовые акценты в бликах под цветные элементы",neg:"fixed unrelated colour cast, arbitrary colour temperature"}
+ ]},
+
+ shadow:{n:"08",t:"Тени",hint:"один",multi:false,o:[
+  {id:"soft",l:"Мягкие градиентные",p:"мягкие, светло-серые, слегка размытые, с аккуратным градиентом затухания",neg:"harsh hard shadows, dramatic contrast, crushed blacks"},
+  {id:"elongated",l:"Длинные мягкие",p:"длинные мягкие тени с плавным градиентным затуханием, рисующие плоскость пола",neg:"shadowless exposure, short flat shadows"},
+  {id:"deep",l:"Контрастные глубокие",p:"глубокие плотные тени с сохранением детализации; резкий градиент от освещённой зоны к тьме",neg:"flat low contrast, washed-out shadows, lifted blacks"},
+  {id:"crushed",l:"Почти чёрные без деталей",p:"тени уходят в почти чёрный без деталей — fill практически отсутствует",neg:"lifted shadows, high-key exposure, visible fill light"},
+  {id:"minimal",l:"Минимальные",p:"тени сведены к минимуму, форма читается за счёт градиента, а не теневого рисунка",neg:"hard shadows, dramatic contrast, deep shadow pools"},
+  {id:"ellipse",l:"Эллиптическая под левитацией",p:"мягкая размытая эллиптическая тень на полу под парящим объектом, светлее к краям",neg:"sharp-edged shadow, no shadow beneath, hard contact shadow"},
+  {id:"relief",l:"Тени внутри рельефа",p:"тени живут внутри микрорельефа: каждая борозда и фаска даёт собственную плотную тень, микроконтраст максимальный",neg:"low micro-contrast, smeared engraving without depth, flat relief"}
+ ]},
+
+ atmo:{n:"09",t:"Атмосфера",hint:"один",multi:false,o:[
+  {id:"clean",l:"Чистая студийная",p:"чистая, премиальная атмосфера изолированного студийного пространства; воздух визуально прозрачный, без зерна, дымки и шумов",neg:"fog, haze, dust, grain, noise, visible environment",mood:"clean, controlled"},
+  {id:"sterile",l:"Стерильная техническая",p:"стерильная техническая студийная атмосфера, подчёркивающая инженерную точность и функциональность объекта",neg:"artistic haze, dramatic mood, environmental context",mood:"technical, functional"},
+  {id:"cinematic",l:"Кинематографичная плотная",p:"плотная кинематографичная атмосфера с ощущением глубины и объёма; фон мягко затемнён, пространство изолировано",neg:"bright background, flat atmosphere, catalogue neutrality",mood:"cinematic, immersive"},
+  {id:"artistic",l:"Художественная атмосферная",p:"плотная cinematic atmosphere с мягкой дымкой, atmospheric blur, volumetric softness и глубокой цветовой средой",neg:"sterile studio, sharp environment, hard realism, empty background",mood:"atmospheric, artistic"},
+  {id:"campaign",l:"Рекламная кампанийная",p:"атмосфера высокобюджетного рекламного ролика: объект подан как культовая вещь, выхваченная из тьмы направленным светом",neg:"casual lifestyle mood, cheap catalogue look, no cinematic tension",mood:"campaign, dramatic power"},
+  {id:"intimate",l:"Интимная приглушённая",p:"интимная, приглушённая, тактильная атмосфера — ощущение вещи в личном пространстве, приватного момента с дорогим предметом",neg:"bright commercial catalogue look, clinical studio sterility, busy lifestyle scene",mood:"intimate, tactile"},
+  {id:"lab",l:"Лабораторная макро",p:"интимная, лабораторная, почти стерильная атмосфера — ощущение наблюдения за объектом под микроскопом или ювелирной лупой",neg:"wide environmental context, cinematic haze, decorative mood",mood:"laboratory precision, intimate"},
+  {id:"weightless",l:"Невесомость и чистота",p:"невесомость и технологичная чистота, ювелирная точность в проработке материалов, сдержанная премиальность",neg:"lifestyle context, human presence, busy commercial energy",mood:"weightless, quiet premium"}
+ ]},
+
+ material:{n:"10",t:"Материал-рендер",hint:"можно несколько",multi:true,o:[
+  {id:"jewelrymetal",l:"Ювелирная зеркальная физика",p:"Металл работает как зеркало: яркие полосы света чередуются с почти чёрными зонами отражения, граница между ними резкая; каждая фаска и скругление ловит собственный блик; полированные кромки дают knife-edge highlights; на изогнутых поверхностях — вытянутые дугообразные отражения.",refl:"металлические элементы отражают контрастную световую среду — яркие полосы strip-источников чередуются с тёмными зонами флагов",neg:"flat dull metal without reflections, uniform artificial glow, neural plastic shine, no dark zones in metal reflection, soft blurred reflection edges on metal"},
+  {id:"brushed",l:"Brushed steel, anisotropic",p:"Брашированные поверхности дают anisotropic reflections вдоль направления шлифовки — вытянутые мягкие блики, повторяющие фактуру.",refl:"anisotropic strip-highlights вдоль направления полировки",neg:"isotropic plastic shine, random chaotic highlights"},
+  {id:"polished",l:"Полированный металл, strip highlights",p:"Полированные грани отражают направленный свет чёткими strip-highlights; рельефные текстуры ловят свет по каждой детали.",refl:"чёткие strip-highlights вдоль граней и фасок",neg:"flat matte object without highlights, dull unlit accents, no rim light on edges"},
+  {id:"micro",l:"Микрорельеф и гравировка",p:"Микрофактура раскрывается через скользящий свет: каждая борозда, резцовая линия и след инструмента читается в освещённой зоне; теневая сторона уходит в мрак.",refl:"множественные точечные микроблики по рельефу",neg:"smeared engraving without depth, low micro-detail, flat texture"},
+  {id:"matte",l:"Матовые поверхности, soft rolloff",p:"Матовые зоны дают мягкий tonal rolloff без бликов — контраст с игрой полированных участков.",refl:"диффузное рассеивание без выраженных спекуляров",neg:"glossy plastic sheen on matte areas, hard point specular"},
+  {id:"glass",l:"Стекло с преломлением",p:"Стеклянные и прозрачные элементы дают преломления с лёгкой дисперсией по краям, внутренние отражения и тёмные зоны с точечными яркими бликами.",refl:"преломления, каустики и внутренние отражения в стекле",neg:"no refraction in glass elements, opaque flat glass, blown speculars"},
+  {id:"gemstone",l:"Камни и вставки",p:"Вставки из камней дают внутренние отражения, точечные каустики и контролируемую дисперсию на гранях огранки.",refl:"игра света на гранях огранки, точечные каустики",neg:"dull lifeless stones, plastic gem look"},
+  {id:"leather",l:"Кожа с зернистостью",p:"Кожа — матовая, с видимой натуральной зернистостью (leather grain) в освещённой зоне, без глянца.",refl:"почти без отражений, только мягкий рассеянный отклик",neg:"glossy patent leather, no grain visible, fabric texture"},
+  {id:"pristine",l:"Идеально чистые поверхности",p:"Все поверхности идеально чистые: без пыли, отпечатков, микроцарапин и производственных дефектов.",refl:"",neg:"dust, fingerprints, scratches, damaged edges, rough surfaces, cheap plastic look"}
+ ]},
+
+ grade:{n:"11",t:"Цветокоррекция",hint:"один",multi:false,o:[
+  {id:"coldsteel",l:"Cold cinematic steel",p:"cold cinematic grading. Палитра: steel blue, graphite, silver, deep navy, cool monochrome shadows. Контраст глубокий, low-key, мягкий highlight rolloff, плотные тени.",neg:"warm tones, orange shadows, sepia, teal-orange blockbuster grade"},
+  {id:"champagne",l:"Muted champagne taupe",p:"muted champagne-taupe grade — единый мягкий золотисто-бежевый колор-филд приглушённой насыщенности. Палитра: deep warm black-brown (#1A1610), champagne taupe (#A89974), soft warm highlight (#C0B088). Контраст высокий, тени тёплые и плотные.",neg:"cool blue grade, neutral white balance, desaturated to grey, oversaturated orange amber"},
+  {id:"daylight",l:"Luxury industrial daylight",p:"luxury industrial daylight grading. Палитра: cool whites, silver-gray, soft neutral tones, subtle blue accents, clean metallic highlights. Контраст мягкий, тональность bright, clean, expensive.",neg:"muddy shadows, vintage grading, aggressive HDR, teal-orange grade"},
+  {id:"neutralmono",l:"Neutral monochrome",p:"neutral monochrome grade — нейтральная серая гамма без цветовых сдвигов; повышенный локальный контраст в зонах металла для сохранения ювелирной игры бликов.",neg:"any colour cast on grey, oversaturated colours, warm amber grade"},
+  {id:"warmgold",l:"Warm cinematic gold",p:"тёплая кинематографичная цветокоррекция: янтарные и золотистые средние тона, глубокие тёплые тени, чистые светлые блики на металле.",neg:"cold blue cast, sterile neutral grade, cyan shadows"},
+  {id:"darklowkey",l:"Dark low-key near-black",p:"dark low-key grade — почти монохромная гамма с глубокими чёрными; большая часть кадра в тенях, светлые зоны сдержанные, не пересвеченные, детализация в тенях сохранена.",neg:"bright high-key exposure, washed-out shadows, flat low contrast"},
+  {id:"adaptivegrade",l:"Адаптивная под объект",p:"цветокоррекция строится от доминирующих цветов и материалов объекта; фон и рефлексы повторяют его температурную логику.",neg:"unrelated colour cast, arbitrary LUT"}
+ ]},
+
+ bg:{n:"12",t:"Фон",hint:"один",multi:false,o:[
+  {id:"seamlesswhite",l:"Бесшовный белый",p:"чистый белый бесшовный фон без деталей и текстур",neg:"visible environment, textured backdrop, coloured background, dark studio"},
+  {id:"lightgrad",l:"Светлый градиент",p:"бесшовный матовый градиент, плавно переходящий из светлого тона в нижней части кадра в более насыщенный и холодный в верхней",neg:"dark studio, colourful gradients, props, textured backdrop"},
+  {id:"darkgrad",l:"Тёмный градиент",p:"тёмный градиентный студийный фон без деталей, плавно растворяющийся в темноте",neg:"bright background, visible environment, clutter, busy backdrop"},
+  {id:"steelbands",l:"Brushed steel — полосы света",p:"тёмная студийная стена с эффектом полированной стали: горизонтальные размытые полосы света (#8890A0–#C8D0DC) на почти чёрном (#0A0C10–#1A1E24), мягкий вертикальный blur, создающий ощущение глубины и движения",neg:"flat single-tone background, sharp hard-edged bands, white or plain background, coloured background"},
+  {id:"champagneglow",l:"Champagne glow — ореол",p:"глубокий тёмный тёплый тон (#1A1610) по краям, плавно переходящий в мягкое champagne-taupe свечение (#A89974–#C0B088) в центре-горизонте за объектом — радиальный glow от контрового источника",neg:"white or grey background, cool-toned background, no glow gradient, cold blue glow"},
+  {id:"leatherbg",l:"Тёмная кожа",p:"тёмная кожаная поверхность с мелкозернистой натуральной фактурой: почти чёрный (#0A0A0C) в тенях, тёмно-серый (#2A2A2E) в освещённой части, фактура читается только на границе света",neg:"smooth glossy surface without texture, fabric or wood texture, evenly lit background"},
+  {id:"atmospheric",l:"Абстрактный размытый пейзаж",p:"размытый atmospheric landscape в цветовой гамме объекта: мягкие градиенты, туманные формы, дымчатые силуэты, отражённый свет, cinematic haze — фон работает как эмоциональное продолжение объекта",neg:"sharp scenery, realistic cityscape, visible buildings, hard horizon line, detailed nature"},
+  {id:"void",l:"Почти чёрная пустота",p:"фон полностью растворён в темноте, без градиента и деталей — объект висит в пустоте",neg:"visible background detail, bright backdrop, textured surface"},
+  {id:"neutralvoid",l:"Нейтральный серый void",p:"бесшовное студийное пространство: тёмно-серый (#2A2C30) в верхних углах, чуть светлее за объектом (#3A3D42), переход к более светлой горизонтальной плоскости пола размытый",neg:"white background, coloured background, patterned floor, hard horizon line"},
+  {id:"defocused",l:"Полностью расфокусированный",p:"фон полностью растворён в блюре — ни текстур, ни читаемых границ, только тональное пятно как атмосферный контекст",neg:"sharp focused background details, readable environment, hard edges"}
+ ]},
+
+ surface:{n:"13",t:"Поверхность и опора",hint:"один",multi:false,o:[
+  {id:"semigloss",l:"Светлая полу-глянцевая",p:"светлая матовая поверхность с мягким отражением — деликатный отклик, не зеркальная и не текстурированная",neg:"mirror floor reflection, textured surface, dirty surfaces"},
+  {id:"mirrorfloor",l:"Зеркально-глянцевый тёмный пол",p:"тёмная зеркально-глянцевая поверхность даёт чёткое отражение объекта, слегка размытое к краям",neg:"matte floor without reflection, no floor reflection"},
+  {id:"mattepodium",l:"Матовый светлый подиум",p:"матовый светло-серый подиум (#8A8D92–#B0B3B8) без зеркального отражения объекта",neg:"mirror floor reflection, glossy patent surface"},
+  {id:"leathersurf",l:"Тёмная кожа",p:"объект лежит на тёмной кожаной поверхности с читаемой зернистостью на границе света и тени",neg:"glossy patent leather, fabric or wood texture"},
+  {id:"levitation",l:"Левитация без опоры",p:"объект висит в воздухе без опоры, контакт с поверхностью отсутствует",neg:"object touching the floor, visible support or stand"},
+  {id:"nosurface",l:"Не показана (макро)",p:"поверхность в кадре не читается — фрагмент подан вне контекста опоры",neg:"visible podium, environmental context, wide framing"}
+ ]},
+
+ format:{n:"14",t:"Формат кадра",hint:"один",multi:false,o:[
+  {id:"f45",l:"4:5",note:"вертикальный"},{id:"f34",l:"3:4",note:"вертикальный"},{id:"f23",l:"2:3",note:"вертикальный"},
+  {id:"f11",l:"1:1",note:"квадрат"},{id:"f169",l:"16:9",note:"горизонтальный"},{id:"f916",l:"9:16",note:"сторис"}
+ ]},
+
+ mood:{n:"15",t:"Дополнительные акценты настроения",hint:"можно несколько",multi:true,o:[
+  {id:"m1",l:"luxury"},{id:"m2",l:"cinematic"},{id:"m3",l:"refined"},{id:"m4",l:"engineered"},
+  {id:"m5",l:"monumental"},{id:"m6",l:"mysterious"},{id:"m7",l:"timeless"},{id:"m8",l:"exclusive"},
+  {id:"m9",l:"tactile"},{id:"m10",l:"high-tech"},{id:"m11",l:"cold elegance"},{id:"m12",l:"quiet sophistication"},
+  {id:"m13",l:"status"},{id:"m14",l:"craftsmanship"},{id:"m15",l:"bold"},{id:"m16",l:"editorial"}
+ ]}
+};
+
+var PRESETS = {
+ 1:{style:"beauty",plan:"hero",lens:"l85",dof:"f4",angle:"low34",light:["sunbeam","softdirectional"],temp:"adaptive",shadow:"elongated",atmo:"clean",material:["polished","pristine"],grade:"adaptivegrade",bg:"lightgrad",surface:"semigloss",format:"f45"},
+ 2:{style:"catalog",plan:"hero",lens:"l100",dof:"f8",angle:"side",light:["flatfill"],temp:"neutral",shadow:"minimal",atmo:"sterile",material:["matte","pristine"],grade:"daylight",bg:"seamlesswhite",surface:"nosurface",format:"f11"},
+ 3:{style:"catalog",plan:"hero",lens:"l85",dof:"f8",angle:"front",light:["flatfill"],temp:"neutral",shadow:"minimal",atmo:"sterile",material:["matte","pristine"],grade:"daylight",bg:"seamlesswhite",surface:"nosurface",format:"f11"},
+ 4:{style:"campaign",plan:"hero",lens:"l70",dof:"f4",angle:"low34",light:["dramatickey","rimlowkey"],temp:"warm",shadow:"deep",atmo:"cinematic",material:["polished","micro"],grade:"warmgold",bg:"darkgrad",surface:"levitation",format:"f45"},
+ 5:{style:"campaign",plan:"hero",lens:"l70",dof:"f4",angle:"low34",light:["dramatickey","rimlowkey"],temp:"steel",shadow:"deep",atmo:"cinematic",material:["polished","brushed","glass"],grade:"coldsteel",bg:"darkgrad",surface:"levitation",format:"f45"},
+ 6:{style:"jewelry",plan:"macro",lens:"m100",dof:"f28",angle:"macroclose",light:["jewelry","softdirectional"],temp:"icy",shadow:"relief",atmo:"lab",material:["polished","micro"],grade:"coldsteel",bg:"defocused",surface:"nosurface",format:"f11"},
+ 7:{style:"jewelry",plan:"macro",lens:"m100",dof:"f28",angle:"macroclose",light:["jewelry","softdirectional"],temp:"warm",shadow:"relief",atmo:"lab",material:["polished","micro"],grade:"warmgold",bg:"defocused",surface:"nosurface",format:"f11"},
+ 8:{style:"abstraction",plan:"ultramacro",lens:"m180",dof:"f2",angle:"grazingangle",light:["grazing"],temp:"warm",shadow:"relief",atmo:"lab",material:["micro","polished","pristine"],grade:"warmgold",bg:"defocused",surface:"nosurface",format:"f11"},
+ 9:{style:"industrial_lux",plan:"macro",lens:"m100",dof:"f56",angle:"low34",light:["softday"],temp:"neutral",shadow:"elongated",atmo:"sterile",material:["polished","matte","pristine"],grade:"daylight",bg:"lightgrad",surface:"semigloss",format:"f11"},
+ 10:{style:"editorial",plan:"macro",lens:"m100",dof:"f28",angle:"macroclose",light:["softdirectional"],temp:"adaptive",shadow:"soft",atmo:"artistic",material:["polished","micro"],grade:"adaptivegrade",bg:"atmospheric",surface:"nosurface",format:"f45"},
+ 11:{style:"editorial",plan:"hero",lens:"l85",dof:"f28",angle:"eye34",light:["softdirectional"],temp:"adaptive",shadow:"soft",atmo:"artistic",material:["polished","matte"],grade:"adaptivegrade",bg:"atmospheric",surface:"levitation",format:"f45"},
+ 12:{style:"fashion",plan:"portrait",lens:"l85",dof:"f4",angle:"eye34",light:["dramatickey","rimlowkey"],temp:"warm",shadow:"deep",atmo:"cinematic",material:["polished"],grade:"warmgold",bg:"darkgrad",surface:"nosurface",format:"f45"},
+ 13:{style:"lowkey",plan:"solo",lens:"l85",dof:"f4",angle:"slightlow",light:["rimlowkey"],temp:"icy",shadow:"crushed",atmo:"cinematic",material:["brushed","polished","glass","pristine"],grade:"coldsteel",bg:"darkgrad",surface:"nosurface",format:"f45"},
+ 14:{style:"campaign",plan:"solo",lens:"l85100",dof:"f56",angle:"eye34",light:["dramatickey","steelbands","rimlowkey"],temp:"steel",shadow:"deep",atmo:"campaign",material:["polished","brushed","micro"],grade:"coldsteel",bg:"steelbands",surface:"mattepodium",format:"f34"},
+ 15:{style:"campaign",plan:"solo",lens:"l85100",dof:"f56",angle:"slightlow",light:["dramatickey","backglow"],temp:"champagne",shadow:"deep",atmo:"campaign",material:["polished","matte","micro"],grade:"champagne",bg:"champagneglow",surface:"mirrorfloor",format:"f45"},
+ 16:{style:"campaign",plan:"macro",lens:"m100150",dof:"f28",angle:"macroclose",light:["dramatickey","grazing","steelbands"],temp:"steel",shadow:"relief",atmo:"campaign",material:["polished","brushed","micro"],grade:"coldsteel",bg:"steelbands",surface:"nosurface",format:"f11"},
+ 17:{style:"campaign",plan:"macro",lens:"m100150",dof:"f28",angle:"macroclose",light:["backglow","grazing"],temp:"champagne",shadow:"relief",atmo:"campaign",material:["polished","micro"],grade:"champagne",bg:"champagneglow",surface:"nosurface",format:"f45"},
+ 18:{style:"campaign",plan:"diagonal_crop",lens:"m100",dof:"f28",angle:"over45",light:["dramatickey","grazing"],temp:"steel",shadow:"crushed",atmo:"intimate",material:["micro","leather","glass","matte"],grade:"darklowkey",bg:"leatherbg",surface:"leathersurf",format:"f45"},
+ 19:{style:"levitation",plan:"hero",lens:"l85100",dof:"f8",angle:"front",light:["jewelry","softday"],temp:"neutral",shadow:"ellipse",atmo:"weightless",material:["jewelrymetal","glass","matte","pristine"],grade:"neutralmono",bg:"neutralvoid",surface:"levitation",format:"f23"}
+};
+
+var FILTERS = [
+ {key:"plan",label:"План",vals:["Общий кадр","Макро","Ультрамакро","Портрет"]},
+ {key:"pal",label:"Палитра",vals:["Тёплая","Холодная","Нейтральная","Адаптивная"]},
+ {key:"bg",label:"Фон",vals:["Светлый","Тёмный","Атмосферный"]},
+ {key:"use",label:"Назначение",vals:["Каталог","Hero","Кампания","Editorial","Ювелирное","Beauty"]}
+];
+
+var DEFAULT_OBJECT = "";
+
+/* ================= helpers ================= */
+function $(s,r){return (r||document).querySelector(s)}
+function el(t,c,txt){var e=document.createElement(t); if(c)e.className=c; if(txt!=null)e.textContent=txt; return e}
+function uniq(a){var s={},r=[];a.forEach(function(x){x=String(x).trim();if(x&&!s[x.toLowerCase()]){s[x.toLowerCase()]=1;r.push(x)}});return r}
+function negJoin(){var a=[];for(var i=0;i<arguments.length;i++){var v=arguments[i];if(!v)continue;String(v).split(",").forEach(function(x){if(x.trim())a.push(x.trim())})}return uniq(a).join(", ")}
+
+var toastEl=$("#toast"),toastT;
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add("is-on");clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove("is-on")},2000)}
+
+function copyText(text,btn,label){
+  var done=function(){
+    toast("Промт скопирован");
+    if(btn){var old=btn.textContent;btn.textContent=label||"Скопировано";btn.classList.add("is-done");
+      setTimeout(function(){btn.textContent=old;btn.classList.remove("is-done")},1800)}
+  };
+  var fallback=function(){
+    var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");
+    ta.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(ta);
+    ta.select();ta.setSelectionRange(0,text.length);
+    var ok=false;try{ok=document.execCommand("copy")}catch(e){ok=false}
+    document.body.removeChild(ta);
+    if(ok)done();else toast("Не удалось скопировать — выделите текст вручную");
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done,fallback);
+  }else fallback();
+}
+
+/* ================= tabs ================= */
+var tabCat=$("#tabCat"),tabBuild=$("#tabBuild"),secCat=$("#secCat"),secBuild=$("#secBuild");
+function mode(which){
+  var isCat=which==="cat";
+  tabCat.setAttribute("aria-selected",isCat?"true":"false");
+  tabBuild.setAttribute("aria-selected",isCat?"false":"true");
+  secCat.hidden=!isCat; secBuild.hidden=isCat;
+}
+tabCat.addEventListener("click",function(){mode("cat")});
+tabBuild.addEventListener("click",function(){mode("build")});
+
+/* ================= catalog ================= */
+var active={},query="";
+var grid=$("#grid"),emptyEl=$("#empty"),shownEl=$("#shown");
+
+(function buildFilters(){
+  var host=$("#filterRows");
+  FILTERS.forEach(function(f){
+    active[f.key]=[];
+    var row=el("div","frow");
+    row.appendChild(el("div","frow__l",f.label));
+    var chips=el("div","chips");
+    f.vals.forEach(function(v){
+      var b=el("button","chip",v);
+      b.type="button"; b.setAttribute("aria-pressed","false");
+      b.addEventListener("click",function(){
+        var i=active[f.key].indexOf(v);
+        if(i<0){active[f.key].push(v);b.setAttribute("aria-pressed","true")}
+        else{active[f.key].splice(i,1);b.setAttribute("aria-pressed","false")}
+        render();
+      });
+      chips.appendChild(b);
+    });
+    row.appendChild(chips); host.appendChild(row);
+  });
+})();
+
+function cardNode(p){
+  var art=el("article","card");
+  var cov=el("div","card__cover");
+  var img=el("img"); img.src=p.img; img.alt="Пример кадра: "+p.title; img.loading="lazy"; img.width=1200; img.height=1200;
+  cov.appendChild(img);
+  cov.appendChild(el("span","card__num","№ "+p.num));
+  if(p.tpl) cov.appendChild(el("span","card__tpl","Универсальный"));
+  art.appendChild(cov);
+
+  var b=el("div","card__body");
+  b.appendChild(el("h3",null,p.title));
+  b.appendChild(el("p","card__en",p.en));
+  b.appendChild(el("p","card__desc",p.desc));
+  var ul=el("ul","pills");
+  [p.plan,p.pal,p.bg,p.use].forEach(function(t){ul.appendChild(el("li",null,t))});
+  b.appendChild(ul);
+
+  var act=el("div","card__actions");
+  var cp=el("button","btn btn--gold","Копировать промт"); cp.type="button";
+  cp.addEventListener("click",function(){copyText(p.prompt,cp,"Скопировано")});
+  act.appendChild(cp);
+  if(PRESETS[p.id]){
+    var pr=el("button","btn btn--ghost","В конструктор"); pr.type="button";
+    pr.addEventListener("click",function(){applyPreset(p.id);mode("build");window.scrollTo({top:secBuild.offsetTop-70,behavior:"smooth"});toast("Шаблон загружен в конструктор")});
+    act.appendChild(pr);
+  }
+  b.appendChild(act);
+
+  var d=el("details","card__more");
+  var s=el("summary",null,"Полный текст промта · "+p.words+" слов");
+  d.appendChild(s);
+  if(p.note){var nb=el("div","note",p.note.replace(/\*\*/g,""));d.appendChild(nb)}
+  d.appendChild(el("pre","prompt",p.prompt));
+  d.appendChild(el("div","src","Источник: "+p.src));
+  b.appendChild(d);
+
+  art.appendChild(b);
+  return art;
+}
+
+function render(){
+  var q=query.toLowerCase();
+  var list=PROMPTS.filter(function(p){
+    for(var i=0;i<FILTERS.length;i++){
+      var f=FILTERS[i],sel=active[f.key];
+      if(sel.length&&sel.indexOf(p[f.key])<0) return false;
+    }
+    if(q){
+      var hay=(p.title+" "+p.en+" "+p.desc+" "+p.prompt).toLowerCase();
+      if(hay.indexOf(q)<0) return false;
+    }
+    return true;
+  });
+  grid.textContent="";
+  list.forEach(function(p){grid.appendChild(cardNode(p))});
+  shownEl.textContent=list.length;
+  emptyEl.hidden=list.length>0;
+}
+
+$("#q").addEventListener("input",function(e){query=e.target.value;render()});
+$("#reset").addEventListener("click",function(){
+  query=""; $("#q").value="";
+  FILTERS.forEach(function(f){active[f.key]=[]});
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"),function(c){c.setAttribute("aria-pressed","false")});
+  render();
+});
+
+/* ================= example popover ================= */
+var EX=["style","plan","lens","dof","angle","light","temp","shadow","atmo","material","grade","bg","surface"];
+var pop=null, popT=null, popCache={};
+function popEl(){
+  if(pop) return pop;
+  pop=el("div","pop"); pop.setAttribute("aria-hidden","true");
+  document.body.appendChild(pop); return pop;
+}
+function popText(o){
+  var t=o.p||o.comp||o.lens||o.l||"";
+  t=String(t).replace(/\s+/g," ").trim();
+  var cut=t.indexOf(". ");
+  if(cut>60&&cut<200) t=t.slice(0,cut+1);
+  if(t.length>190) t=t.slice(0,188).replace(/[\s,;:—-]+$/,"")+"…";
+  return t;
+}
+function showPop(btn,key,o){
+  var p=popEl(); p.textContent="";
+  var src="assets/ex/"+key+"-"+o.id+".webp";
+  if(popCache[src]===false){
+    p.appendChild(el("div","pop__no","Пример скоро появится"));
+  }else{
+    var img=el("img","pop__img");
+    img.alt="Пример кадра: "+o.l; img.loading="lazy"; img.decoding="async";
+    img.onerror=function(){
+      popCache[src]=false;
+      if(img.parentNode) img.parentNode.replaceChild(el("div","pop__no","Пример скоро появится"),img);
+    };
+    img.onload=function(){popCache[src]=true;place(btn,p)};
+    img.src=src; p.appendChild(img);
+  }
+  p.appendChild(el("div","pop__t",o.l));
+  p.appendChild(el("div","pop__d",popText(o)));
+  place(btn,p);
+  p.classList.add("is-on");
+}
+function place(btn,p){
+  var r=btn.getBoundingClientRect(), w=p.offsetWidth||250, h=p.offsetHeight||300;
+  var vw=document.documentElement.clientWidth, vh=document.documentElement.clientHeight;
+  var left=r.right+14;
+  if(left+w>vw-12) left=r.left-w-14;
+  if(left<12) left=Math.max(12,Math.min(vw-w-12,r.left));
+  var top=r.top+r.height/2-h/2;
+  if(top<12) top=12;
+  if(top+h>vh-12) top=Math.max(12,vh-h-12);
+  p.style.left=Math.round(left)+"px"; p.style.top=Math.round(top)+"px";
+}
+function hidePop(){ if(pop) pop.classList.remove("is-on"); }
+function bindPop(btn,key,o){
+  var enter=function(){ clearTimeout(popT); popT=setTimeout(function(){showPop(btn,key,o)},120) };
+  var leave=function(){ clearTimeout(popT); hidePop() };
+  btn.addEventListener("mouseenter",enter);
+  btn.addEventListener("mouseleave",leave);
+  btn.addEventListener("focus",function(){showPop(btn,key,o)});
+  btn.addEventListener("blur",leave);
+  var lp=null;
+  btn.addEventListener("touchstart",function(){ lp=setTimeout(function(){showPop(btn,key,o)},380) },{passive:true});
+  btn.addEventListener("touchmove",function(){clearTimeout(lp)},{passive:true});
+  btn.addEventListener("touchend",function(){clearTimeout(lp);setTimeout(hidePop,1800)},{passive:true});
+}
+window.addEventListener("scroll",hidePop,{passive:true});
+window.addEventListener("resize",hidePop);
+
+/* ================= constructor ================= */
+var state={};
+var groupsHost=$("#groups");
+
+(function buildGroups(){
+  var objG=el("div","grp obj");
+  var oh=el("div","grp__head");
+  oh.appendChild(el("span","grp__n","00"));
+  oh.appendChild(el("span","grp__t","Объект съёмки"));
+  oh.appendChild(el("span","grp__hint","обязательно"));
+  objG.appendChild(oh);
+  var lab=el("label",null,"Что в кадре"); lab.setAttribute("for","objText");
+  objG.appendChild(lab);
+  var ta=el("textarea"); ta.id="objText"; ta.value=DEFAULT_OBJECT;
+  ta.placeholder="Форма, материалы, ключевые детали, силуэт — то, что отличает именно этот объект";
+  objG.appendChild(ta);
+  objG.appendChild(el("p",null,"Необязательно. Текст подставится в раздел «Общее описание»; если оставить поле пустым, в промте останется блок [Место для объекта] — как в универсальных шаблонах, и объект можно будет вписать позже. Все остальные параметры от объекта не зависят."));
+  groupsHost.appendChild(objG);
+
+  Object.keys(OPTS).forEach(function(key){
+    var g=OPTS[key];
+    state[key]=g.multi?[]:null;
+    var box=el("div","grp");
+    var h=el("div","grp__head");
+    h.appendChild(el("span","grp__n",g.n));
+    h.appendChild(el("span","grp__t",g.t));
+    h.appendChild(el("span","grp__hint",g.hint));
+    box.appendChild(h);
+
+    var seen={};
+    var chips=null;
+    g.o.forEach(function(o){
+      if(g.groups&&o.g&&!seen[o.g]){
+        seen[o.g]=1;
+        box.appendChild(el("div","sub",o.g));
+        chips=el("div","chips"); box.appendChild(chips);
+      }
+      if(!chips){chips=el("div","chips"); box.appendChild(chips)}
+      var b=el("button","opt"); b.type="button"; b.setAttribute("aria-pressed","false");
+      b.appendChild(document.createTextNode(o.l));
+      if(o.note){var sm=el("small",null,o.note); b.appendChild(sm)}
+      b.addEventListener("click",function(){
+        if(g.multi){
+          var i=state[key].indexOf(o.id);
+          if(i<0){state[key].push(o.id);b.setAttribute("aria-pressed","true")}
+          else{state[key].splice(i,1);b.setAttribute("aria-pressed","false")}
+        }else{
+          state[key]=state[key]===o.id?null:o.id;
+          Array.prototype.forEach.call(box.querySelectorAll(".opt"),function(x){x.setAttribute("aria-pressed","false")});
+          if(state[key])b.setAttribute("aria-pressed","true");
+        }
+        syncSpec();
+      });
+      b.dataset.key=key; b.dataset.id=o.id;
+      if(EX.indexOf(key)>=0){ b.classList.add("has-ex"); bindPop(b,key,o); }
+      chips.appendChild(b);
+    });
+    groupsHost.appendChild(box);
+  });
+})();
+
+function opt(key,id){
+  var g=OPTS[key]; if(!g||!id) return null;
+  for(var i=0;i<g.o.length;i++) if(g.o[i].id===id) return g.o[i];
+  return null;
+}
+function picked(key){
+  var g=OPTS[key];
+  if(g.multi) return state[key].map(function(id){return opt(key,id)}).filter(Boolean);
+  return opt(key,state[key]);
+}
+
+function applyPreset(id){
+  var p=PRESETS[id]; if(!p) return;
+  Object.keys(OPTS).forEach(function(key){
+    var g=OPTS[key], v=p[key];
+    if(g.multi) state[key]=Array.isArray(v)?v.slice():[];
+    else state[key]=v||null;
+  });
+  Array.prototype.forEach.call(groupsHost.querySelectorAll(".opt"),function(b){
+    var k=b.dataset.key,i=b.dataset.id,on;
+    on=OPTS[k].multi?state[k].indexOf(i)>=0:state[k]===i;
+    b.setAttribute("aria-pressed",on?"true":"false");
+  });
+  syncSpec();
+  $("#out").textContent="";
+  var hint=el("p","out__hint","Шаблон загружен. Поменяйте что нужно и нажмите «Сгенерировать промт».");
+  $("#out").appendChild(hint);
+}
+
+var specHost=$("#spec");
+function syncSpec(){
+  var rows=[
+    ["Оптика", picked("lens")?picked("lens").lens:"—"],
+    ["Диафрагма", picked("dof")?picked("dof").f:"—"],
+    ["ГРИП", picked("dof")?picked("dof").l+" · "+picked("dof").note:"—"],
+    ["Температура", picked("temp")?picked("temp").k:"—"],
+    ["Ракурс", picked("angle")?picked("angle").l:"—"],
+    ["Формат", picked("format")?picked("format").l:"—"]
+  ];
+  specHost.textContent="";
+  rows.forEach(function(r){specHost.appendChild(el("div",null,r[0]));specHost.appendChild(el("div",null,r[1]))});
+}
+
+function buildPrompt(){
+  var s=picked("style"),pl=picked("plan"),ln=picked("lens"),df=picked("dof"),an=picked("angle"),
+      lg=picked("light"),tp=picked("temp"),sh=picked("shadow"),at=picked("atmo"),
+      mt=picked("material"),gr=picked("grade"),bg=picked("bg"),su=picked("surface"),fm=picked("format"),
+      md=picked("mood");
+  var missing=[];
+  if(!s)missing.push("стиль");if(!pl)missing.push("тип плана");if(!ln)missing.push("оптику");
+  if(!df)missing.push("диафрагму");if(!an)missing.push("ракурс");if(!lg.length)missing.push("схему света");
+  if(!tp)missing.push("цвет света");if(!sh)missing.push("тени");if(!at)missing.push("атмосферу");
+  if(!gr)missing.push("цветокор");if(!bg)missing.push("фон");
+  if(missing.length) return {err:"Не выбрано: "+missing.join(", ")+"."};
+
+  var obj=($("#objText").value||"").trim();
+  var objLine=obj?obj:"[Место для объекта: сюда подставляется описание конкретного продукта — форма, материалы, ключевые детали, силуэт]";
+  var L=[];
+  var title=s.l+" — "+pl.l;
+  L.push(title);
+  L.push("");
+  L.push("1. Общее описание");
+  L.push(s.p);
+  L.push("Тип плана: "+pl.l.toLowerCase()+".");
+  L.push("Объект: "+objLine+".");
+  L.push("Стиль: "+s.tag+".");
+  L.push("");
+  L.push("2. Camera");
+  L.push("Lens: "+ln.lens);
+  L.push("Aperture: "+df.f);
+  L.push("Depth of field: "+df.dof);
+  L.push("Focus: "+pl.focus);
+  L.push("Falloff: "+df.falloff);
+  L.push("Lens Distortion: "+ln.dist);
+  L.push("Оптика создаёт: "+ln.p+".");
+  L.push("Negative Prompt (Camera): "+negJoin(ln.neg,df.neg,"motion blur, camera shake, oversharpening, chromatic aberration"));
+  L.push("");
+  L.push("3. Lighting");
+  lg.forEach(function(x){L.push("— "+x.p)});
+  L.push("Цветовая температура: "+tp.p+".");
+  L.push("Тени: "+sh.p+".");
+  var refl=mt.map(function(m){return m.refl}).filter(Boolean);
+  if(refl.length) L.push("Reflection Design: "+refl.join("; ")+".");
+  L.push("Negative Prompt (Lighting): "+negJoin(lg.map(function(x){return x.neg}).join(", "),tp.neg,sh.neg,"visible studio equipment, blown highlights"));
+  L.push("");
+  L.push("4. Angle & Composition");
+  L.push("Композиция: "+pl.comp+".");
+  L.push("Угол съёмки: "+an.p+".");
+  L.push("Формат кадра: "+(fm?fm.l+" ("+fm.note+")":"свободный")+".");
+  L.push("Negative Prompt (Angle & Composition): "+negJoin(an.neg,pl.neg));
+  L.push("");
+  L.push("5. Background & Surface");
+  L.push("Фон: "+bg.p+".");
+  if(su) L.push("Поверхность: "+su.p+".");
+  L.push("Negative Prompt (Background): "+negJoin(bg.neg,su?su.neg:"","architectural elements, props, clutter"));
+  L.push("");
+  L.push("6. Atmosphere");
+  L.push(at.p.charAt(0).toUpperCase()+at.p.slice(1)+".");
+  L.push("Negative Prompt (Atmosphere): "+negJoin(at.neg,"dust, grain, noise"));
+  L.push("");
+  if(mt.length){
+    L.push("7. Material Rendering");
+    mt.forEach(function(m){L.push("— "+m.p)});
+    L.push("Negative Prompt (Materials): "+negJoin(mt.map(function(m){return m.neg}).join(", ")));
+    L.push("");
+  }
+  L.push((mt.length?"8":"7")+". Color Grading");
+  L.push("Цветокоррекция: "+gr.p);
+  L.push("Negative Prompt (Color): "+negJoin(gr.neg,"oversaturated colours, orange/teal LUT, banding"));
+  L.push("");
+  var q=["ultra photorealistic","8K output","premium commercial rendering","high microcontrast","realistic shadow physics","smooth tonal gradients without banding","no noise","no compression artefacts"];
+  if(pl.id==="macro"||pl.id==="ultramacro"||pl.id==="diagonal_crop") q.splice(2,0,"extreme macro detail down to individual tool marks and engraving lines");
+  var mids=mt.map(function(m){return m.id});
+  if(mids.indexOf("jewelrymetal")>=0) q.splice(2,0,"ray-traced jewelry-grade metal reflections with environment mapping, full tonal range from specular white to deep black");
+  if(mids.indexOf("glass")>=0||mids.indexOf("gemstone")>=0) q.splice(3,0,"accurate refraction and caustics in transparent elements");
+  L.push((mt.length?"9":"8")+". Rendering Quality");
+  L.push(q.join(", ")+".");
+  L.push("");
+  var moods=[];
+  [s.mood,at.mood].forEach(function(m){if(m)moods=moods.concat(m.split(", "))});
+  lg.forEach(function(x){if(x.mood)moods=moods.concat(x.mood.split(", "))});
+  md.forEach(function(m){moods.push(m.l)});
+  L.push((mt.length?"10":"9")+". Mood Keywords");
+  L.push(uniq(moods).join(", ")+".");
+  L.push("");
+  var full=negJoin(
+    ln.neg,df.neg,an.neg,pl.neg,
+    lg.map(function(x){return x.neg}).join(", "),tp.neg,sh.neg,
+    bg.neg,su?su.neg:"",at.neg,
+    mt.map(function(m){return m.neg}).join(", "),gr.neg,s.neg,
+    "casual, playful, vintage, cozy, cheap commercial look, flat catalog style, mass-market, CGI appearance, cartoon render, HDR look, bloom overload, watermark, text, logo overlay, noise, banding, compression artefacts"
+  );
+  L.push((mt.length?"11":"10")+". Full Negative Prompt");
+  L.push(full);
+  return {text:L.join("\n")};
+}
+
+$("#gen").addEventListener("click",function(){
+  var r=buildPrompt(), out=$("#out");
+  out.textContent="";
+  if(r.err){ out.appendChild(el("p","out__hint",r.err+" Выберите недостающие параметры, чтобы собрать полный промт.")); return }
+  var bar=el("div","out__bar");
+  bar.appendChild(el("span","out__meta",r.text.split(/\s+/).length+" слов"));
+  var cp=el("button","btn btn--gold","Скопировать"); cp.type="button"; cp.style.width="auto"; cp.style.marginTop="0"; cp.style.padding="10px 20px";
+  cp.addEventListener("click",function(){copyText(r.text,cp,"Скопировано")});
+  bar.appendChild(cp);
+  out.appendChild(bar);
+  out.appendChild(el("pre",null,r.text));
+});
+
+/* ================= init ================= */
+(function init(){
+  $("#statCards").textContent=PROMPTS.length;
+  var n=0; Object.keys(OPTS).forEach(function(k){n+=OPTS[k].o.length});
+  $("#statOpts").textContent=n;
+  render();
+  applyPreset(14);
+})();
+</script>
+<!--ARTIFACT-BODY-END-->
+</body>
+</html>
